@@ -4,7 +4,7 @@
 
 $(document).ready(function() {    
     $('#example').DataTable({
-        "lengthMenu": [ [10, 25, 50,100, -1], [10, 25, 50, 100, "All"] ],
+        "lengthMenu": [ [10, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, "All"] ],
     //para cambiar el lenguaje a español
         "language": {
                 "lengthMenu": "Mostrar _MENU_ registros",
