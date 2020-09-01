@@ -160,32 +160,32 @@ $resultM = $statementM->fetchAll();
 
         </div>
         <div class="modal-body" id="bodyuno">
-                    <div class="table-bordered table-responsive text-center">
-            <table id = "example" class="table table-hover table-bordered" style="width:100%; border: 1px solid #ddd !important;">
-                
-                      <thead class="thead-dark">
-                            <tr>
-                              <th scope="col">Mes</th>
-                              <th scope="col">Clave</th>
-                              <th scope="col">Nombre del Concepto</th>
-                              <th scope="col">Deducci&oacute;n o Percepci&oacute;n</th>
-                              <th scope="col">Importe</th>
-                            </tr>
-                    </thead>
-                    <tbody id="coluno">
+            <div class="table-responsive">
+                    <table id = "example" class="table table-hover table-bordered" style="width:100%; border: 1px solid #ddd !important;">
+                        
+                              <thead class="thead-dark">
+                                    <tr>
+                                      <th scope="col">Mes</th>
+                                      <th scope="col">Clave</th>
+                                      <th scope="col">Nombre del Concepto</th>
+                                      <th scope="col">Deducci&oacute;n o Percepci&oacute;n</th>
+                                      <th scope="col">Importe</th>
+                                    </tr>
+                            </thead>
+                            <tbody id="coluno">
 
-                    </tbody>
-                    <tfoot>
-                             <tr>
-                              <th scope="col">Mes</th>
-                              <th scope="col">Clave</th>
-                              <th scope="col">Nombre del Concepto</th>
-                              <th scope="col">Deducci&oacute;n o Percepci&oacute;n</th>
-                              <th scope="col">Importe</th>
-                            </tr>
+                            </tbody>
+                            <tfoot class="thead-dark">
+                                     <tr>
+                                      <th scope="col">Mes</th>
+                                      <th scope="col">Clave</th>
+                                      <th scope="col">Nombre del Concepto</th>
+                                      <th scope="col">Deducci&oacute;n o Percepci&oacute;n</th>
+                                      <th scope="col">Importe</th>
+                                    </tr>
 
-                    </tfoot>
-            </table>
+                            </tfoot>
+                    </table>
             </div>
         </div>
         <div class="modal-footer">
