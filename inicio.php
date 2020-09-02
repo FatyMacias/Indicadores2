@@ -6,18 +6,22 @@ $query = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year 
 $queryC = "SELECT cve_cpto, concepto FROM `cat_conceptos`";
 //$query = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year DESC";
 $queryM = "SELECT mes,id_mes,nombre FROM `cat_mes` JOIN nom_mes ON cat_mes.mes = nom_mes.id_mes GROUP BY mes ORDER BY id_quin";
+$queryS = "SELECT des_subs FROM `cat_subsitema`";
 
 $statement = $connect->prepare($query);
 $statementC = $connect->prepare($queryC);
 $statementM = $connect->prepare($queryM);
+$statementS = $connect->prepare($queryS);
 
 $statement->execute();
 $statementC->execute();
 $statementM->execute();
+$statementS->execute();
 
 $result = $statement->fetchAll();
 $resultC = $statementC->fetchAll();
 $resultM = $statementM->fetchAll();
+$resultS = $statementS->fetchAll();
 
 ?>  
 
@@ -127,7 +131,7 @@ $resultM = $statementM->fetchAll();
     </div>
   </div>
 
-  <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <button type="button" id="sidebarCollapse" class="btn btn-primary">
               <i class="fa fa-bars"></i>
               <span class="sr-only">Toggle Menu</span>
             </button>
@@ -213,6 +217,19 @@ $resultM = $statementM->fetchAll();
                             ?>
                 </select>
           </div>
+          <div>
+      
+              
+                <select name="idd" class="form-control" id="idd" style="width: 300px; height: 35px;">
+                            <option value="">Selecciona un subsistema</option>
+                            <?php
+                            foreach($resultS as $row)
+                            {
+                                echo '<option value="'.$row["des_subs"].'">'.$row["des_subs"].'</option>';
+                            }
+                            ?>
+                </select>
+          </div>
             <br>
             <br>
           <div class="panel-body" >
@@ -268,6 +285,38 @@ $resultM = $statementM->fetchAll();
               
           </div>
           
+          <div class="table-responsive">
+                    <table id = "example2" class="table table-hover table-bordered" style="width:100%; border: 1px solid #ddd !important;">
+                        
+                              <thead class="thead-dark">
+                                    <tr>
+                                      <th scope="col">id</th>
+                                      <th scope="col">Clave</th>
+                                      <th scope="col">Nombre del Concepto</th>
+                                      <th scope="col">SubSis</th>
+                                      <th scope="col">NomSis</th>
+                                      <th scope="col">PerDed</th>
+                                      <th scope="col">Importe</th>
+                                    </tr>
+                            </thead>
+                            <tbody id="colsubsis">
+
+                            </tbody>
+                            <tfoot class="thead-dark">
+                                     <tr>
+                                      <th scope="col">id</th>
+                                      <th scope="col">Clave</th>
+                                      <th scope="col">Nombre del Concepto</th>
+                                      <th scope="col">SubSis</th>
+                                      <th scope="col">NomSis</th>
+                                      <th scope="col">PerDed</th>
+                                      <th scope="col">Importe</th>
+                                    </tr>
+
+                            </tfoot>
+                    </table>
+            </div>
+
           <div class="table-bordered table-responsive text-center">
 <table class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
     <tbody>
@@ -294,6 +343,7 @@ $resultM = $statementM->fetchAll();
     </tbody>
 </table>
 </div>
+
           <div class="panel-body">
             
               <div id="chart_area2" style="width: 1200px; height: 500px; visibility: hidden;"></div>
@@ -479,6 +529,82 @@ function load_modaldata(id)
         }
     });
 }
+function load_subsis(id, idd)
+{
+    //var temp_title = title + ' '+id+'';
+    $.ajax({
+        url:"bd/fetch_subsis.php",
+        method:"POST",
+        data:{id:id, idd:idd},
+        dataType:"JSON",
+        success:function(data)
+        {
+            drawSubsis(data);
+            
+        },
+        error: function(data)
+        {
+            alert("No hay Datos");
+        }
+    });
+}
+function drawSubsis(chart_data)
+{
+    var jsonData = chart_data;
+    var temp = 1;
+    //
+    var tablaData ='';
+    var tablaData2 ='';
+    var tablaData3 ='';
+    var tablaData4 ='';
+    var tablaData5 ='';
+    var tablaData6 ='';
+    //
+    
+   $('#colsubsis').empty();
+   //$('#colbut').empty();
+   //$('#col2_1').empty();
+    $.each(jsonData, function(i, jsonData){
+        var mes = temp ++;
+        var importe = jsonData.importe;
+        var clave = jsonData.clave;
+        var nombre = jsonData.nombre;
+        var deduc = jsonData.subsis;
+        var nomsis = jsonData.nomsis;
+        var perded = jsonData.perded;
+        //var importe = parseFloat($.trim(jsonData.importe));
+        /////////
+        tablaData += '<tr>';
+        tablaData += '<td>'+mes+'</td>';
+        tablaData += '<td>'+clave+'</td>';
+        tablaData += '<td>'+nombre+'</td>';
+        tablaData += '<td>'+deduc+'</td>';
+        tablaData += '<td>'+nomsis+'</td>';
+        tablaData += '<td>'+perded+'</td>';
+        tablaData += '<td>'+'$'+importe.toFixed(2)+'</td>';
+        tablaData += '</tr>';
+        
+        //tablaData += '<tr>';
+        //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
+        //tablaData += '</tr>';
+        /////////
+
+    });
+    
+    // tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Conceptos" data-toggle="modal" data-target="#myModaluno"> </td>';
+    // $("#colbut").append(tablaData6);
+    $("#colsubsis").append(tablaData);
+    $.getScript("main2.js", function() {
+
+   //alert("Script loaded but not necessarily executed.");
+    });
+   
+    
+    
+    
+   
+}
+
 function drawModaldata(chart_data)
 {
     var jsonData = chart_data;
@@ -745,6 +871,24 @@ $(document).ready(function(){
             load_conceptowise_data(id, 'Importe por cada mes, quincenas correspondientes al año:');
             load_conceptowise2_data(id, 'Importe por cada quincena, quincenas correspondientes al año:');
             load_modaldata(id);
+        }
+    });
+
+});
+
+</script>
+<script>
+    // Detectar seleccion del select option
+$(document).ready(function(){
+
+    $('#id, #idd').change(function(){
+        var id =$('#id').val();
+        var idd = $('#idd').val();
+        if(id != '' && idd != '')
+        {
+            //alert("The text has been changed.");
+            load_subsis(id, idd);
+
         }
     });
 
