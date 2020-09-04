@@ -581,7 +581,7 @@ function drawSubsis(chart_data)
         tablaData += '<td>'+deduc+'</td>';
         tablaData += '<td>'+nomsis+'</td>';
         tablaData += '<td>'+perded+'</td>';
-        tablaData += '<td>'+'$'+importe.toFixed(2)+'</td>';
+        tablaData += '<td>'+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
         tablaData += '</tr>';
         
         //tablaData += '<tr>';
@@ -634,7 +634,7 @@ function drawModaldata(chart_data)
         tablaData += '<td>'+clave+'</td>';
         tablaData += '<td>'+nombre+'</td>';
         tablaData += '<td>'+deduc+'</td>';
-        tablaData += '<td>'+'$'+importe.toFixed(2)+'</td>';
+        tablaData += '<td>'+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
         tablaData += '</tr>';
         
         //tablaData += '<tr>';
@@ -686,7 +686,7 @@ function drawMonthwiseChart(chart_data, chart_main_title)
         data.addRows([[concepto, importe, style]]);
         //tablaData += '<tr>';
         tablaData += '<td>'+jsonData.concepto+'</td>';
-        tablaData2 += '<td>'+'$'+jsonData.importe.toFixed(2)+'</td>';
+        tablaData2 += '<td>'+'$'+jsonData.importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
         //tablaData += '</tr>';
         //tablaData += '<tr>';
         //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
@@ -763,7 +763,7 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
         data.addRows([[concepto, importe, style]]);
 
         tablaData += '<td>'+jsonData.concepto+'</td>';
-        tablaData2 += '<td>'+'$'+jsonData.importe.toFixed(2)+'</td>';
+        tablaData2 += '<td>'+'$'+jsonData.importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
 
 
     });

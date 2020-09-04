@@ -253,7 +253,7 @@ function drawMonthwiseChart3(chart_data, chart_main_title)
         tablaData += '<tr>';
         tablaData += '<td>'+jsonData.concepto+'</td>';
        // tablaData += '<td>'+jsonData.importe+'</td>';
-        tablaData += '<td>'+'$'+jsonData.importe+'</td>';
+        tablaData += '<td>'+'$'+jsonData.importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
         tablaData += '</tr>';
 
 
