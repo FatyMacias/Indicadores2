@@ -88,7 +88,7 @@ $resultS = $statementS->fetchAll();
               <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Por subsitema</a>
               <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    <a href="#">Page 1</a>
+                    <a href="grafica_subsistema.php" onclick="openMenu('subsis')">Subsistemas</a>
                 </li>
                 <li>
                     <a href="#">Page 2</a>
@@ -201,6 +201,7 @@ $resultS = $statementS->fetchAll();
   </div>
 
 
+
            
         <div id="general" class="w3-container menu">
           <center><h1>INDICADORES</h1></center>
@@ -217,19 +218,7 @@ $resultS = $statementS->fetchAll();
                             ?>
                 </select>
           </div>
-          <div>
-      
-              
-                <select name="idd" class="form-control" id="idd" style="width: 300px; height: 35px;">
-                            <option value="">Selecciona un subsistema</option>
-                            <?php
-                            foreach($resultS as $row)
-                            {
-                                echo '<option value="'.$row["des_subs"].'">'.$row["des_subs"].'</option>';
-                            }
-                            ?>
-                </select>
-          </div>
+         
             <br>
             <br>
           <div class="panel-body" >
@@ -284,38 +273,16 @@ $resultS = $statementS->fetchAll();
               <div id="chart_area" style="width: 1200px; height: 500px; visibility: hidden;"></div>
               
           </div>
-          
-          <div class="table-responsive">
-                    <table id = "example2" class="table table-hover table-bordered" style="width:100%; border: 1px solid #ddd !important;">
-                        
-                              <thead class="thead-dark">
-                                    <tr>
-                                      <th scope="col">id</th>
-                                      <th scope="col">Clave</th>
-                                      <th scope="col">Nombre del Concepto</th>
-                                      <th scope="col">SubSis</th>
-                                      <th scope="col">NomSis</th>
-                                      <th scope="col">PerDed</th>
-                                      <th scope="col">Importe</th>
-                                    </tr>
-                            </thead>
-                            <tbody id="colsubsis">
-
-                            </tbody>
-                            <tfoot class="thead-dark">
-                                     <tr>
-                                      <th scope="col">id</th>
-                                      <th scope="col">Clave</th>
-                                      <th scope="col">Nombre del Concepto</th>
-                                      <th scope="col">SubSis</th>
-                                      <th scope="col">NomSis</th>
-                                      <th scope="col">PerDed</th>
-                                      <th scope="col">Importe</th>
-                                    </tr>
-
-                            </tfoot>
-                    </table>
-            </div>
+          <div class="table-bordered table-responsive text-center">
+<table class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
+    <tbody>
+      <tr id="colbuts" class="">
+        
+      </tr>
+    </tbody>
+</table>
+</div>
+         
 
           <div class="table-bordered table-responsive text-center">
 <table class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
@@ -387,6 +354,18 @@ $resultS = $statementS->fetchAll();
           <div class="panel-body">
            
               <div id="chart_area3" style="width: 1200px; height: 500px;"></div>
+            
+          </div>
+          </div>
+
+          <div id="subsis" class="w3-container menu" style="display:none">
+            <center><h1>INDICADORES POR SUBSISTEMA</h1></center>
+          <div>
+      
+          </div>
+          <div class="panel-body">
+           
+              <div style="width: 200px; height: 10px;"></div>
             
           </div>
           </div>
@@ -529,81 +508,7 @@ function load_modaldata(id)
         }
     });
 }
-function load_subsis(id, idd)
-{
-    //var temp_title = title + ' '+id+'';
-    $.ajax({
-        url:"bd/fetch_subsis.php",
-        method:"POST",
-        data:{id:id, idd:idd},
-        dataType:"JSON",
-        success:function(data)
-        {
-            drawSubsis(data);
-            
-        },
-        error: function(data)
-        {
-            alert("No hay Datos");
-        }
-    });
-}
-function drawSubsis(chart_data)
-{
-    var jsonData = chart_data;
-    var temp = 1;
-    //
-    var tablaData ='';
-    var tablaData2 ='';
-    var tablaData3 ='';
-    var tablaData4 ='';
-    var tablaData5 ='';
-    var tablaData6 ='';
-    //
-    
-   $('#colsubsis').empty();
-   //$('#colbut').empty();
-   //$('#col2_1').empty();
-    $.each(jsonData, function(i, jsonData){
-        var mes = temp ++;
-        var importe = jsonData.importe;
-        var clave = jsonData.clave;
-        var nombre = jsonData.nombre;
-        var deduc = jsonData.subsis;
-        var nomsis = jsonData.nomsis;
-        var perded = jsonData.perded;
-        //var importe = parseFloat($.trim(jsonData.importe));
-        /////////
-        tablaData += '<tr>';
-        tablaData += '<td>'+mes+'</td>';
-        tablaData += '<td>'+clave+'</td>';
-        tablaData += '<td>'+nombre+'</td>';
-        tablaData += '<td>'+deduc+'</td>';
-        tablaData += '<td>'+nomsis+'</td>';
-        tablaData += '<td>'+perded+'</td>';
-        tablaData += '<td>'+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
-        tablaData += '</tr>';
-        
-        //tablaData += '<tr>';
-        //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
-        //tablaData += '</tr>';
-        /////////
 
-    });
-    
-    // tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Conceptos" data-toggle="modal" data-target="#myModaluno"> </td>';
-    // $("#colbut").append(tablaData6);
-    $("#colsubsis").append(tablaData);
-    $.getScript("main2.js", function() {
-
-   //alert("Script loaded but not necessarily executed.");
-    });
-   
-    
-    
-    
-   
-}
 
 function drawModaldata(chart_data)
 {
@@ -877,24 +782,7 @@ $(document).ready(function(){
 });
 
 </script>
-<script>
-    // Detectar seleccion del select option
-$(document).ready(function(){
 
-    $('#id, #idd').change(function(){
-        var id =$('#id').val();
-        var idd = $('#idd').val();
-        if(id != '' && idd != '')
-        {
-            //alert("The text has been changed.");
-            load_subsis(id, idd);
-
-        }
-    });
-
-});
-
-</script>
 
 <script>
     // Detectar seleccion del select option
