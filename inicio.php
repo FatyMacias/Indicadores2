@@ -537,9 +537,39 @@ function drawModaldata(chart_data)
     tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Conceptos" data-toggle="modal" data-target="#myModaluno"> </td>';
     $("#colbut").append(tablaData6);
     $("#coluno").append(tablaData);
-    $.getScript("main.js", function() {
-   //alert("Script loaded but not necessarily executed.");
-    });
+
+    $(document).ready(function () {
+      var table = $("#example").DataTable({
+        lengthMenu: [
+          [10, 25, 50, 100, 200, -1],
+          [10, 25, 50, 100, 200, "All"],
+        ],
+        //para cambiar el lenguaje a español
+        language: {
+          lengthMenu: "Mostrar _MENU_ registros",
+          zeroRecords: "No se encontraron resultados",
+          info:
+            "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+          infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+          infoFiltered: "(filtrado de un total de _MAX_ registros)",
+          sSearch: "Buscar:",
+          oPaginate: {
+            sFirst: "Primero",
+            sLast: "Último",
+            sNext: "Siguiente",
+            sPrevious: "Anterior",
+          },
+          sProcessing: "Procesando...",
+        },
+        });
+        $('#id').change(function(){
+          table.clear().destroy();
+        });
+
+        
+
+      });
+
    
     
     
