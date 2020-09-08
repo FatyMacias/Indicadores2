@@ -161,7 +161,7 @@ $resultM = $statementM->fetchAll();
             <div style="width: 200px; height: 10px;"></div>  
           </div>
           <div class="panel-body">
-          <table class="table table-hover">
+          <table  class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">Año</th>
@@ -258,9 +258,16 @@ function drawMonthwiseChart3(chart_data, chart_main_title)
 
 
     });
-
+    var total = 0;
+    for(var i in jsonData){
+      total += parseFloat(jsonData[i].importe,10);
+      //alert(total);
+    }
+    tablaData += '<td class="table-dark text-light"><strong>Total:</strong></td>';
+    tablaData += '<td><strong>'+'$'+total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</strong></td>';
+    tablaData += '<tr>';
     tablaData += '<td> <input type="button" class="btn btn-success" value="Ocultar/Mostrar Grafica" onclick="show()"> </td>';
-    
+    tablaData += '</tr>';
     $("#col1").append(tablaData);
 
     var axis = data.getNumberOfRows();

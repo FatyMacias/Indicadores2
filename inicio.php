@@ -240,25 +240,19 @@ $resultS = $statementS->fetchAll();
 <div class="table-bordered table-responsive text-center">
 <table class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
     <tbody>
-    	<thead class="thead-dark">
-                <tr>
-                  <th scope="col">Meses</th>
-                </tr>
-        </thead>
         <tr id="col1">
         	
         </tr>
-        <thead class="thead-dark">
-                <tr>
-                  <th scope="col">Importe</th>
-                </tr>
-        </thead>
         <tr id="col2">
+            
+        </tr>
+        <tr id="col2_2">
             
         </tr>
         <tr id="col2_1">
             
         </tr>
+
      
     </tbody>
 </table>
@@ -268,8 +262,6 @@ $resultS = $statementS->fetchAll();
 
 </div>
 
-           
-           
               <div id="chart_area" style="width: 1200px; height: 500px; visibility: hidden;"></div>
               
           </div>
@@ -287,20 +279,13 @@ $resultS = $statementS->fetchAll();
           <div class="table-bordered table-responsive text-center">
 <table class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
     <tbody>
-    	<thead class="thead-dark">
-                <tr>
-                  <th scope="col">Quincenas</th>
-                </tr>
-        </thead>
         <tr id="col3">
         	
         </tr>
-        <thead class="thead-dark">
-                <tr>
-                  <th scope="col">Importe</th>
-                </tr>
-        </thead>
         <tr id="col4">
+            
+        </tr>
+        <tr id="col4_2">
             
         </tr>
         <tr id="col4_1">
@@ -570,6 +555,7 @@ function drawMonthwiseChart(chart_data, chart_main_title)
     var tablaData ='';
     var tablaData2 ='';
     var tablaData3 ='';
+    var tablaData4 ='';
     
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Quincenas');
@@ -582,7 +568,10 @@ function drawMonthwiseChart(chart_data, chart_main_title)
    $('#col1').empty();
    $('#col2').empty();
    $('#col2_1').empty();
-
+   $('#col2_2').empty();
+      tablaData +='<td class="table-dark text-light"><strong>Meses</strong></td>';
+      tablaData2 +='<td class="table-dark text-light"><strong>Importe</strong></td>';
+      tablaData4 +='<td class="table-dark text-light"><strong>Total</strong></td>';
     $.each(jsonData, function(i, jsonData){
     	
         var concepto = jsonData.concepto;
@@ -599,6 +588,12 @@ function drawMonthwiseChart(chart_data, chart_main_title)
         /////////
 
     });
+    var total = 0;
+    for(var i in jsonData){
+      total += parseFloat(jsonData[i].importe,10);
+      //alert(total);
+    }
+   tablaData4 +='<td><strong>'+'$'+total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</strong></td>';
    tablaData3 += '<td> <input type="button" class="btn btn-success" value="Ocultar/Mostrar Grafica" onclick="show()"> </td>';
    var axis = data.getNumberOfRows();
    //alert('max data table value: ' + data.getValue(0, 0));
@@ -610,6 +605,7 @@ function drawMonthwiseChart(chart_data, chart_main_title)
  $("#col1").append(tablaData);
  $("#col2").append(tablaData2);
  $("#col2_1").append(tablaData3);
+ $("#col2_2").append(tablaData4);
 
 
     var options = {
@@ -651,6 +647,7 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
     var tablaData ='';
     var tablaData2 ='';
     var tablaData3 ='';
+    var tablaData4 ='';
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Quincenas');
     data.addColumn('number', 'Importe $');
@@ -661,6 +658,10 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
     $('#col3').empty();
     $('#col4').empty();
     $('#col4_1').empty();
+    $('#col4_2').empty();
+    tablaData +='<td class="table-dark text-light"><strong>Quincenas</strong></td>';
+    tablaData2 +='<td class="table-dark text-light"><strong>Importe</strong></td>';
+    tablaData4 +='<td class="table-dark text-light"><strong>Total</strong></td>';
     $.each(jsonData, function(i, jsonData){
         var concepto = jsonData.concepto;
         var importe = parseFloat($.trim(jsonData.importe));
@@ -672,6 +673,12 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
 
 
     });
+    var total = 0;
+    for(var i in jsonData){
+      total += parseFloat(jsonData[i].importe,10);
+      //alert(total);
+    }
+     tablaData4 +='<td><strong>'+'$'+total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</strong></td>';
      tablaData3 += '<td> <input type="button" class="btn btn-success" value="Ocultar/Mostrar Grafica" onclick="show2()"> </td>';
     
     //funcion para los colores aleatorios de la gráfica
@@ -684,6 +691,7 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
     $("#col3").append(tablaData);
     $("#col4").append(tablaData2);
     $("#col4_1").append(tablaData3);
+    $("#col4_2").append(tablaData4);
     var options = {
         title:chart_main_title,
         legend: 'none',
