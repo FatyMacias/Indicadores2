@@ -172,7 +172,7 @@ $resultM = $statementM->fetchAll();
 
               </tbody>
             </table>
-            <div id="chart_area3" style="width: 1200px; height: 500px;"></div>
+            <div id="chart_area3" style="width: 1200px; height: 500px; visibility:hidden;"></div>
           </div>
           </div>
 
@@ -187,11 +187,11 @@ $resultM = $statementM->fetchAll();
             }
             function show(){
               //document.getElementById('chart_area').visibility = "visible";
-              var x = document.getElementById('chart_area');
-              if (x.style.display === 'none') {
-                  x.style.display = 'initial';
+              var x = document.getElementById('chart_area3');
+              if (x.style.visibility === 'hidden') {
+                  x.style.visibility = 'visible';
               } else {
-                  x.style.display = 'none';
+                  x.style.visibility = 'hidden';
               }
                
             }
