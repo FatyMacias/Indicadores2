@@ -141,7 +141,7 @@ $resultM = $statementM->fetchAll();
           <div>
 
           <select name="id" class="form-control" id="id"style="width: 300px; height: 35px;">
-                            <option value="">Seleccionar Year</option>
+                            <option value="">Seleccionar año</option>
                             <?php
                             foreach($resultC as $row)
                             {
@@ -151,7 +151,7 @@ $resultM = $statementM->fetchAll();
                 </select>
 
                 <select name="idd" class="form-control" id="idd" style="width: 300px; height: 35px;">
-                            <option value="">Seleccionar Mes</option>
+                            <option value="">Seleccionar subsutema</option>
                             <?php
                             foreach($resultM as $row)
                             {

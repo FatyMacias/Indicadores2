@@ -63,7 +63,7 @@ $resultM = $statementM->fetchAll();
               <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Por subsistema</a>
               <ul class="collapse list-unstyled" id="pageSubmenu2">
                 <li>
-                    <a href="#">Page 1</a>
+                    <a href="grafica_subsistema.php">Subsitema</a>
                 </li>
                 <li>
                     <a href="#">Page 2</a>
