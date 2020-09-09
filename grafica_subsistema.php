@@ -172,7 +172,7 @@ $resultM = $statementM->fetchAll();
                           
                                 <thead class="thead-dark">
                                       <tr>
-                                        <th scope="col">id</th>
+                                        <!-- <th scope="col">id</th> -->
                                         <th scope="col">Clave</th>
                                         <th scope="col">Nombre del Concepto</th>
                                         <th scope="col">SubSis</th>
@@ -186,7 +186,7 @@ $resultM = $statementM->fetchAll();
                               </tbody>
                               <tfoot class="thead-dark">
                                       <tr>
-                                        <th scope="col">id</th>
+                                        <!-- <th scope="col">id</th> -->
                                         <th scope="col">Clave</th>
                                         <th scope="col">Nombre del Concepto</th>
                                         <th scope="col">SubSis</th>
@@ -279,7 +279,7 @@ function drawSubsis(chart_data)
    $('#colbuts').empty();
    //$('#col2_1').empty();
     $.each(jsonData, function(i, jsonData){
-        var mes = temp ++;
+        //var mes = temp ++;
         var importe = jsonData.importe;
         var clave = jsonData.clave;
         var nombre = jsonData.nombre;
