@@ -169,7 +169,7 @@ $resultS = $statementS->fetchAll();
                         
                               <thead class="thead-dark">
                                     <tr>
-                                      <th scope="col">Mes</th>
+                                      <!-- <th scope="col">Mes</th> -->
                                       <th scope="col">Clave</th>
                                       <th scope="col">Nombre del Concepto</th>
                                       <th scope="col">Deducci&oacute;n o Percepci&oacute;n</th>
@@ -181,7 +181,7 @@ $resultS = $statementS->fetchAll();
                             </tbody>
                             <tfoot class="thead-dark">
                                      <tr>
-                                      <th scope="col">Mes</th>
+                                      <!-- <th scope="col">Mes</th> -->
                                       <th scope="col">Clave</th>
                                       <th scope="col">Nombre del Concepto</th>
                                       <th scope="col">Deducción o Percepción</th>
@@ -520,7 +520,7 @@ function drawModaldata(chart_data)
         //var importe = parseFloat($.trim(jsonData.importe));
         /////////
         tablaData += '<tr>';
-        tablaData += '<td>'+mes+'</td>';
+        //tablaData += '<td>'+mes+'</td>';
         tablaData += '<td>'+clave+'</td>';
         tablaData += '<td>'+nombre+'</td>';
         tablaData += '<td>'+deduc+'</td>';
