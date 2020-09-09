@@ -151,7 +151,7 @@ $resultM = $statementM->fetchAll();
                 </select>
 
                 <select name="idd" class="form-control" id="idd" style="width: 300px; height: 35px;">
-                            <option value="">Seleccionar subsutema</option>
+                            <option value="">Seleccionar subsistema</option>
                             <?php
                             foreach($resultM as $row)
                             {
