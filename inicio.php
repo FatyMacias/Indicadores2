@@ -180,7 +180,7 @@ $resultM = $statementM->fetchAll();
                                       <th scope="col">Mes</th>
                                       <th scope="col">Clave</th>
                                       <th scope="col">Nombre del Concepto</th>
-                                      <th scope="col">Deducci&oacute;n o Percepci&oacute;n</th>
+                                      <th scope="col">Deducción o Percepción</th>
                                       <th scope="col">Importe</th>
                                     </tr>
 
