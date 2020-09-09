@@ -3,7 +3,7 @@
 //$('#example').DataTable(); //Para inicializar datatables de la manera más simple
 
 $(document).ready(function () {
-  $("#example").DataTable({
+  $("#example2").DataTable({
     lengthMenu: [
       [10, 25, 50, 100, 200, -1],
       [10, 25, 50, 100, 200, "All"],

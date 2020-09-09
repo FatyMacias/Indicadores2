@@ -4,7 +4,7 @@ $clav = $cla = '';
 $hijole='';
 // array de errores
 $errores = array('clave_user'=>'','clave_pwd'=>'');
-$conexion = mysqli_connect('localhost:3306', 'root', '', 'indicadores');
+$conexion = mysqli_connect('localhost', 'root', '', 'indicadores');
 
 if(isset($_POST['submit'])){
 

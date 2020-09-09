@@ -6,18 +6,22 @@ $query = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year 
 $queryC = "SELECT cve_cpto, concepto FROM `cat_conceptos`";
 //$query = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year DESC";
 $queryM = "SELECT mes,id_mes,nombre FROM `cat_mes` JOIN nom_mes ON cat_mes.mes = nom_mes.id_mes GROUP BY mes ORDER BY id_quin";
+$queryS = "SELECT des_subs FROM `cat_subsitema`";
 
 $statement = $connect->prepare($query);
 $statementC = $connect->prepare($queryC);
 $statementM = $connect->prepare($queryM);
+$statementS = $connect->prepare($queryS);
 
 $statement->execute();
 $statementC->execute();
 $statementM->execute();
+$statementS->execute();
 
 $result = $statement->fetchAll();
 $resultC = $statementC->fetchAll();
 $resultM = $statementM->fetchAll();
+$resultS = $statementS->fetchAll();
 
 ?>  
 
@@ -84,7 +88,7 @@ $resultM = $statementM->fetchAll();
               <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Por subsitema</a>
               <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    <a href="#">Page 1</a>
+                    <a href="grafica_subsistema.php" onclick="openMenu('subsis')">Subsistemas</a>
                 </li>
                 <li>
                     <a href="#">Page 2</a>
@@ -127,7 +131,7 @@ $resultM = $statementM->fetchAll();
     </div>
   </div>
 
-  <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <button type="button" id="sidebarCollapse" class="btn btn-primary">
               <i class="fa fa-bars"></i>
               <span class="sr-only">Toggle Menu</span>
             </button>
@@ -197,6 +201,7 @@ $resultM = $statementM->fetchAll();
   </div>
 
 
+
            
         <div id="general" class="w3-container menu">
           <center><h1>INDICADORES</h1></center>
@@ -213,6 +218,7 @@ $resultM = $statementM->fetchAll();
                             ?>
                 </select>
           </div>
+         
             <br>
             <br>
           <div class="panel-body" >
@@ -234,25 +240,19 @@ $resultM = $statementM->fetchAll();
 <div class="table-bordered table-responsive text-center">
 <table class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
     <tbody>
-    	<thead class="thead-dark">
-                <tr>
-                  <th scope="col">Meses</th>
-                </tr>
-        </thead>
         <tr id="col1">
         	
         </tr>
-        <thead class="thead-dark">
-                <tr>
-                  <th scope="col">Importe</th>
-                </tr>
-        </thead>
         <tr id="col2">
+            
+        </tr>
+        <tr id="col2_2">
             
         </tr>
         <tr id="col2_1">
             
         </tr>
+
      
     </tbody>
 </table>
@@ -262,29 +262,30 @@ $resultM = $statementM->fetchAll();
 
 </div>
 
-           
-           
               <div id="chart_area" style="width: 1200px; height: 500px; visibility: hidden;"></div>
               
           </div>
-          
           <div class="table-bordered table-responsive text-center">
 <table class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
     <tbody>
-    	<thead class="thead-dark">
-                <tr>
-                  <th scope="col">Quincenas</th>
-                </tr>
-        </thead>
+      <tr id="colbuts" class="">
+        
+      </tr>
+    </tbody>
+</table>
+</div>
+         
+
+          <div class="table-bordered table-responsive text-center">
+<table class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
+    <tbody>
         <tr id="col3">
         	
         </tr>
-        <thead class="thead-dark">
-                <tr>
-                  <th scope="col">Importe</th>
-                </tr>
-        </thead>
         <tr id="col4">
+            
+        </tr>
+        <tr id="col4_2">
             
         </tr>
         <tr id="col4_1">
@@ -294,6 +295,7 @@ $resultM = $statementM->fetchAll();
     </tbody>
 </table>
 </div>
+
           <div class="panel-body">
             
               <div id="chart_area2" style="width: 1200px; height: 500px; visibility: hidden;"></div>
@@ -337,6 +339,18 @@ $resultM = $statementM->fetchAll();
           <div class="panel-body">
            
               <div id="chart_area3" style="width: 1200px; height: 500px;"></div>
+            
+          </div>
+          </div>
+
+          <div id="subsis" class="w3-container menu" style="display:none">
+            <center><h1>INDICADORES POR SUBSISTEMA</h1></center>
+          <div>
+      
+          </div>
+          <div class="panel-body">
+           
+              <div style="width: 200px; height: 10px;"></div>
             
           </div>
           </div>
@@ -479,6 +493,8 @@ function load_modaldata(id)
         }
     });
 }
+
+
 function drawModaldata(chart_data)
 {
     var jsonData = chart_data;
@@ -508,7 +524,7 @@ function drawModaldata(chart_data)
         tablaData += '<td>'+clave+'</td>';
         tablaData += '<td>'+nombre+'</td>';
         tablaData += '<td>'+deduc+'</td>';
-        tablaData += '<td>'+'$'+importe.toFixed(2)+'</td>';
+        tablaData += '<td>'+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
         tablaData += '</tr>';
         
         //tablaData += '<tr>';
@@ -521,9 +537,39 @@ function drawModaldata(chart_data)
     tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Conceptos" data-toggle="modal" data-target="#myModaluno"> </td>';
     $("#colbut").append(tablaData6);
     $("#coluno").append(tablaData);
-    $.getScript("main.js", function() {
-   //alert("Script loaded but not necessarily executed.");
-    });
+
+    $(document).ready(function () {
+      var table = $("#example").DataTable({
+        lengthMenu: [
+          [10, 25, 50, 100, 200, -1],
+          [10, 25, 50, 100, 200, "All"],
+        ],
+        //para cambiar el lenguaje a español
+        language: {
+          lengthMenu: "Mostrar _MENU_ registros",
+          zeroRecords: "No se encontraron resultados",
+          info:
+            "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+          infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+          infoFiltered: "(filtrado de un total de _MAX_ registros)",
+          sSearch: "Buscar:",
+          oPaginate: {
+            sFirst: "Primero",
+            sLast: "Último",
+            sNext: "Siguiente",
+            sPrevious: "Anterior",
+          },
+          sProcessing: "Procesando...",
+        },
+        });
+        $('#id').change(function(){
+          table.clear().destroy();
+        });
+
+        
+
+      });
+
    
     
     
@@ -539,6 +585,7 @@ function drawMonthwiseChart(chart_data, chart_main_title)
     var tablaData ='';
     var tablaData2 ='';
     var tablaData3 ='';
+    var tablaData4 ='';
     
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Quincenas');
@@ -551,7 +598,10 @@ function drawMonthwiseChart(chart_data, chart_main_title)
    $('#col1').empty();
    $('#col2').empty();
    $('#col2_1').empty();
-
+   $('#col2_2').empty();
+      tablaData +='<td class="table-dark text-light"><strong>Meses</strong></td>';
+      tablaData2 +='<td class="table-dark text-light"><strong>Importe</strong></td>';
+      tablaData4 +='<td class="table-dark text-light"><strong>Total</strong></td>';
     $.each(jsonData, function(i, jsonData){
     	
         var concepto = jsonData.concepto;
@@ -560,7 +610,7 @@ function drawMonthwiseChart(chart_data, chart_main_title)
         data.addRows([[concepto, importe, style]]);
         //tablaData += '<tr>';
         tablaData += '<td>'+jsonData.concepto+'</td>';
-        tablaData2 += '<td>'+'$'+jsonData.importe.toFixed(2)+'</td>';
+        tablaData2 += '<td>'+'$'+jsonData.importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
         //tablaData += '</tr>';
         //tablaData += '<tr>';
         //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
@@ -568,6 +618,12 @@ function drawMonthwiseChart(chart_data, chart_main_title)
         /////////
 
     });
+    var total = 0;
+    for(var i in jsonData){
+      total += parseFloat(jsonData[i].importe,10);
+      //alert(total);
+    }
+   tablaData4 +='<td><strong>'+'$'+total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</strong></td>';
    tablaData3 += '<td> <input type="button" class="btn btn-success" value="Ocultar/Mostrar Grafica" onclick="show()"> </td>';
    var axis = data.getNumberOfRows();
    //alert('max data table value: ' + data.getValue(0, 0));
@@ -579,6 +635,7 @@ function drawMonthwiseChart(chart_data, chart_main_title)
  $("#col1").append(tablaData);
  $("#col2").append(tablaData2);
  $("#col2_1").append(tablaData3);
+ $("#col2_2").append(tablaData4);
 
 
     var options = {
@@ -620,6 +677,7 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
     var tablaData ='';
     var tablaData2 ='';
     var tablaData3 ='';
+    var tablaData4 ='';
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Quincenas');
     data.addColumn('number', 'Importe $');
@@ -630,6 +688,10 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
     $('#col3').empty();
     $('#col4').empty();
     $('#col4_1').empty();
+    $('#col4_2').empty();
+    tablaData +='<td class="table-dark text-light"><strong>Quincenas</strong></td>';
+    tablaData2 +='<td class="table-dark text-light"><strong>Importe</strong></td>';
+    tablaData4 +='<td class="table-dark text-light"><strong>Total</strong></td>';
     $.each(jsonData, function(i, jsonData){
         var concepto = jsonData.concepto;
         var importe = parseFloat($.trim(jsonData.importe));
@@ -637,10 +699,16 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
         data.addRows([[concepto, importe, style]]);
 
         tablaData += '<td>'+jsonData.concepto+'</td>';
-        tablaData2 += '<td>'+'$'+jsonData.importe.toFixed(2)+'</td>';
+        tablaData2 += '<td>'+'$'+jsonData.importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
 
 
     });
+    var total = 0;
+    for(var i in jsonData){
+      total += parseFloat(jsonData[i].importe,10);
+      //alert(total);
+    }
+     tablaData4 +='<td><strong>'+'$'+total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</strong></td>';
      tablaData3 += '<td> <input type="button" class="btn btn-success" value="Ocultar/Mostrar Grafica" onclick="show2()"> </td>';
     
     //funcion para los colores aleatorios de la gráfica
@@ -653,6 +721,7 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
     $("#col3").append(tablaData);
     $("#col4").append(tablaData2);
     $("#col4_1").append(tablaData3);
+    $("#col4_2").append(tablaData4);
     var options = {
         title:chart_main_title,
         legend: 'none',
@@ -751,6 +820,7 @@ $(document).ready(function(){
 });
 
 </script>
+
 
 <script>
     // Detectar seleccion del select option
