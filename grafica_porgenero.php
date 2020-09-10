@@ -1,8 +1,8 @@
 <?php
 Include("bd/database_connection.php");
-$queryC = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year ASC";
+$queryC = "SELECT cve_cpto, concepto AS 'concepto' FROM `cat_conceptos`";
 //$query = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year DESC";
-$queryM = "SELECT des_subs FROM `cat_subsitema`";
+$queryM = "SELECT mes,id_mes,nombre FROM `cat_mes` JOIN meses ON cat_mes.mes = meses.id_mes GROUP BY mes ORDER BY id_quin";
 
 
 $statementC = $connect->prepare($queryC);
@@ -24,11 +24,7 @@ $resultM = $statementM->fetchAll();
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <!--datables CSS básico-->
-    <link rel="stylesheet" type="text/css" href="datatables/datatables.min.css"/>
-    <!--datables estilo bootstrap 4 CSS-->  
-    <link rel="stylesheet"  type="text/css" href="datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
-     <!-- de aqui para abajo no se que pdo --> 
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
 
@@ -58,9 +54,6 @@ $resultM = $statementM->fetchAll();
                     <a href="#">Por banco</a>
                 </li>
                 <li>
-                    <a href="grafica_region.php" onclick="openMenu('genero')">Por Region</a>
-                </li>
-                <li>
                     <a href="grafica_porgenero.php" onclick="openMenu('genero')">Por género</a>
                 </li>
               </ul>
@@ -70,7 +63,7 @@ $resultM = $statementM->fetchAll();
               <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Por subsistema</a>
               <ul class="collapse list-unstyled" id="pageSubmenu2">
                 <li>
-                    <a href="#">Page 1</a>
+                    <a href="grafica_subsistema.php">Subsitema</a>
                 </li>
                 <li>
                     <a href="#">Page 2</a>
@@ -136,29 +129,37 @@ $resultM = $statementM->fetchAll();
             </div>
           </div>
         </nav>
-            
-
         <div id="conceptos" class="w3-container menu" style="display">
-          <center><h1>INDICADORES POR SUBSISTEMA</h1></center>
+          <center><h1>INDICADORES POR GENERO</h1></center>
 
           <div>
 
-          <select name="id" class="form-control" id="id"style="width: 300px; height: 35px;">
-                            <option value="">Seleccionar año</option>
+          <select name="idc" class="form-control" id="idc"style="width: 300px; height: 35px;">
+                            <option value="">Seleccionar Year</option>
                             <?php
                             foreach($resultC as $row)
                             {
-                                echo '<option value="'.$row["year"].'">'.''.$row["year"] . ' ' .''.$row["concepto"].'</option>';
+                                echo '<option value="'.$row["cve_cpto"].'">'.''.$row["cve_cpto"] . ' ' .''.$row["concepto"].'</option>';
                             }
                             ?>
                 </select>
 
-                <select name="idd" class="form-control" id="idd" style="width: 300px; height: 35px;">
-                            <option value="">Seleccionar subsistema</option>
+                <select name="idm" class="form-control" id="idm" style="width: 300px; height: 35px;">
+                            <option value="">Seleccionar Quincena</option>
                             <?php
                             foreach($resultM as $row)
                             {
-                                echo '<option value="'.$row["des_subs"].'">'.$row["des_subs"].'</option>';
+                                echo '<option value="'.$row["mes"].'">'.$row["nombre"].'</option>';
+                            }
+                            ?>
+                </select>
+
+                <select name="idn" class="form-control" id="idn" style="width: 300px; height: 35px;">
+                            <option value="">Seleccionar Nivel/Region</option>
+                            <?php
+                            foreach($resultM as $row)
+                            {
+                                echo '<option value="'.$row["mes"].'">'.$row["nombre"].'</option>';
                             }
                             ?>
                 </select>
@@ -170,37 +171,18 @@ $resultM = $statementM->fetchAll();
             <div style="width: 200px; height: 10px;"></div>  
           </div>
           <div class="panel-body">
-          < <div class="table-responsive">
-                      <table id = "example2" class="table table-hover table-bordered" style="width:100%; border: 1px solid #ddd !important;">
-                          
-                                <thead class="thead-dark">
-                                      <tr>
-                                        <th scope="col">id</th>
-                                        <th scope="col">Clave</th>
-                                        <th scope="col">Nombre del Concepto</th>
-                                        <th scope="col">SubSis</th>
-                                        <th scope="col">NomSis</th>
-                                        <th scope="col">PerDed</th>
-                                        <th scope="col">Importe</th>
-                                      </tr>
-                              </thead>
-                              <tbody id="colsubsis">
+          <table  class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Año</th>
+                  <th scope="col">Importe</th>
+                </tr>
+              </thead>
+              <tbody  id="col1">
 
-                              </tbody>
-                              <tfoot class="thead-dark">
-                                      <tr>
-                                        <th scope="col">id</th>
-                                        <th scope="col">Clave</th>
-                                        <th scope="col">Nombre del Concepto</th>
-                                        <th scope="col">SubSis</th>
-                                        <th scope="col">NomSis</th>
-                                        <th scope="col">PerDed</th>
-                                        <th scope="col">Importe</th>
-                                      </tr>
-
-                              </tfoot>
-                      </table>
-              </div>
+              </tbody>
+            </table>
+            <div id="chart_area3" style="width: 1200px; height: 500px; visibility:hidden;"></div>
           </div>
           </div>
 
@@ -215,11 +197,11 @@ $resultM = $statementM->fetchAll();
             }
             function show(){
               //document.getElementById('chart_area').visibility = "visible";
-              var x = document.getElementById('example2');
-              if (x.style.visivility === 'hidden') {
-                  x.style.visivility = 'visible';
+              var x = document.getElementById('chart_area3');
+              if (x.style.visibility === 'hidden') {
+                  x.style.visibility = 'visible';
               } else {
-                  x.style.visivility = 'hidden';
+                  x.style.visibility = 'hidden';
               }
                
             }
@@ -230,8 +212,6 @@ $resultM = $statementM->fetchAll();
     <script src="js/popper.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
-          <!-- datatables JS -->
-    <script type="text/javascript" src="datatables/datatables.min.js"></script> 
   </body>
 </html>
 
@@ -245,105 +225,94 @@ google.charts.setOnLoadCallback();
 
 
 //peticion para la grafica por conceptos
-function load_subsis(id, idd)
+function load_conceptowise3_data(idc, idm, title)
 {
-    
-    //var temp_title = title + ' '+id+'';
+    var temp_title = title + ' '+idc+''+''+idm+'';
     $.ajax({
-        url:"bd/fetch_subsis.php",
+        url:"bd/fetch_concepto.php",
         method:"POST",
-        data:{id:id, idd:idd},
+        data:{idc:idc, idm:idm},
         dataType:"JSON",
         success:function(data)
         {
-            drawSubsis(data);
-            
-        },
-        error: function(data)
-        {
-            alert("No hay Datos");
+            drawMonthwiseChart3(data, temp_title);
         }
     });
 }
-function drawSubsis(chart_data)
+//dibujar grafica por conceptos
+function drawMonthwiseChart3(chart_data, chart_main_title)
 {
     var jsonData = chart_data;
-    var temp = 1;
-    //
     var tablaData ='';
-    var tablaData2 ='';
-    var tablaData3 ='';
-    var tablaData4 ='';
-    var tablaData5 ='';
-    var tablaData6 ='';
-    //
-    
-   $('#colsubsis').empty();
-   $('#colbuts').empty();
-   //$('#col2_1').empty();
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Quincenas');
+    data.addColumn('number', 'Importe $');
+    data.addColumn({
+               type: 'string',
+               role: 'style'
+           });
+          
+     $('#col1').empty();
+
     $.each(jsonData, function(i, jsonData){
-        var mes = temp ++;
-        var importe = jsonData.importe;
-        var clave = jsonData.clave;
-        var nombre = jsonData.nombre;
-        var deduc = jsonData.subsis;
-        var nomsis = jsonData.nomsis;
-        var perded = jsonData.perded;
-        //var importe = parseFloat($.trim(jsonData.importe));
-        /////////
+        var concepto = jsonData.concepto;
+        var importe = parseFloat($.trim(jsonData.importe));
+        var style = jsonData.style;
+        data.addRows([[concepto, importe, style]]);
         tablaData += '<tr>';
-        tablaData += '<td>'+mes+'</td>';
-        tablaData += '<td>'+clave+'</td>';
-        tablaData += '<td>'+nombre+'</td>';
-        tablaData += '<td>'+deduc+'</td>';
-        tablaData += '<td>'+nomsis+'</td>';
-        tablaData += '<td>'+perded+'</td>';
-        tablaData += '<td>'+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
+        tablaData += '<td>'+jsonData.concepto+'</td>';
+       // tablaData += '<td>'+jsonData.importe+'</td>';
+        tablaData += '<td>'+'$'+jsonData.importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
         tablaData += '</tr>';
-        
-        //tablaData += '<tr>';
-        //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
-        //tablaData += '</tr>';
-        /////////
+
 
     });
-    
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
-    $("#colbuts").append(tablaData6);
-    $("#colsubsis").append(tablaData);
-    
-    $(document).ready(function () {
-    var table = $("#example2").DataTable({
-    lengthMenu: [
-      [10, 25, 50, 100, 200, -1],
-      [10, 25, 50, 100, 200, "All"],
-    ],
-    //para cambiar el lenguaje a español
-    language: {
-      lengthMenu: "Mostrar _MENU_ registros",
-      zeroRecords: "No se encontraron resultados",
-      info:
-        "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-      infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
-      infoFiltered: "(filtrado de un total de _MAX_ registros)",
-      sSearch: "Buscar:",
-      oPaginate: {
-        sFirst: "Primero",
-        sLast: "Último",
-        sNext: "Siguiente",
-        sPrevious: "Anterior",
-      },
-      sProcessing: "Procesando...",
-    },
-  });
-  $('#id, #idd').change(function(){
-          table.clear().destroy();
-  });
-});
-    
-    
-    
-   
+    var total = 0;
+    for(var i in jsonData){
+      total += parseFloat(jsonData[i].importe,10);
+      //alert(total);
+    }
+    tablaData += '<td class="table-dark text-light"><strong>Total:</strong></td>';
+    tablaData += '<td><strong>'+'$'+total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</strong></td>';
+    tablaData += '<tr>';
+    tablaData += '<td> <input type="button" class="btn btn-success" value="Ocultar/Mostrar Grafica" onclick="show()"> </td>';
+    tablaData += '</tr>';
+    $("#col1").append(tablaData);
+
+    var axis = data.getNumberOfRows();
+   //alert('max data table value: ' + axis);
+   for(var x=0;x<axis;x++){
+    data.setValue(x, 2, '#'+Math.floor(Math.random()*16777215).toString(16));
+   }
+
+    var options = {
+        title:chart_main_title,
+        legend: 'none',
+        hAxis: {
+            title: "Quincenas"
+        },
+        vAxis: {
+            title: 'Importe',
+            format: 'currency'
+        }
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart_area3'));
+    chart.draw(data, options);
+    google.visualization.events.addListener(chart, 'select', selectHandler);
+    function selectHandler() {
+      var selection = chart.getSelection()[0];
+      var selectedValue = data.getValue(selection.row, 0);
+      var selectedImporte = data.getValue(selection.row, 1);
+  //  alert('Seleccionaste el Mes:' + ' ' + selectedValue + ' ' +'con un importe de:'+ ' ' + selectedImporte);
+  $("#myModal").modal();
+    $("#body").html('Fuente: <strong>U080</strong>, importe total:'+ ' ' +'$'+ selectedImporte/4+'<br>'+
+      'Fuente: <strong>Estatal</strong>, importe total:'+ ' ' +'$'+ selectedImporte/4+'<br>'+
+      'Fuente: <strong>Propios</strong>, importe total:'+ ' ' + '$'+selectedImporte/4+'<br>'+
+      'Fuente: <strong>Fone Otros</strong>, importe total:'+ ' ' +'$'+ selectedImporte/4+'<br>');
+    $("#myModal").modal();
+}
 }
 </script>
 
@@ -356,14 +325,14 @@ function drawSubsis(chart_data)
     // Detectar seleccion del select option
 $(document).ready(function(){
 
-    $('#id, #idd').change(function(){
-        var id =$('#id').val();
-        var idd = $('#idd').val();
-        if(id != '' && idd != '')
+    $('#idc, #idm').change(function(){
+        var idc = $('#idc').val();
+        var idm = $('#idm').val();
+        if(idc != '' && idm != '')
         {
-            //alert("The text has been changed.");
-            load_subsis(id, idd);
-
+           // alert("The text has been changed.");
+            
+            load_conceptowise3_data(idc, idm, 'Importe por cada año, concepto: ');
         }
     });
 

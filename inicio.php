@@ -77,7 +77,10 @@ $resultS = $statementS->fetchAll();
                     <a href="#">Por banco</a>
                 </li>
                 <li>
-                    <a href="#">Por género</a>
+                    <a href="grafica_region.php" onclick="openMenu('genero')">Por Region</a>
+                </li>
+                <li>
+                    <a href="grafica_porgenero.php" onclick="openMenu('genero')">Por género</a>
                 </li>
               </ul>
             </li>
@@ -354,6 +357,9 @@ $resultS = $statementS->fetchAll();
             
           </div>
           </div>
+
+
+          
           <script>
 
             function openMenu(menuName) {

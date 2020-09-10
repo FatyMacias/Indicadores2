@@ -1,8 +1,35 @@
 <?php
 
 //fetch.php
+/*
+SELECT 'TOTAL' AS data, SUM(cantidad) FROM personal JOIN regiones ON personal.region = regiones.id_region 
+WHERE SUBSTRING(qna,1,4) = '2020' AND SUBSTRING(qna,5,6) = '16' AND personal.region = '0' 
 
+UNION SELECT genero, SUM(cantidad) FROM personal JOIN regiones ON personal.region = regiones.id_region 
+WHERE SUBSTRING(qna,1,4) = '2020' AND SUBSTRING(qna,5,6) = '16' AND personal.region = '0' 
+GROUP BY genero 
+
+UNION SELECT plaza, SUM(cantidad) FROM personal JOIN regiones ON personal.region = regiones.id_region 
+WHERE SUBSTRING(qna,1,4) = '2020' AND SUBSTRING(qna,5,6) = '16' AND personal.region = '0' 
+GROUP BY plaza 
+
+UNION SELECT tipo, SUM(cantidad) FROM personal JOIN regiones ON personal.region = regiones.id_region 
+WHERE SUBSTRING(qna,1,4) = '2020' AND SUBSTRING(qna,5,6) = '16' AND personal.region = '0' 
+GROUP BY tipo
+
+SELECT region, 
+(SELECT SUM(cantidad) FROM personal WHERE region = p.region AND genero = 'hombres')AS 'hombres', 
+(SELECT SUM(cantidad) FROM personal WHERE region = p.region AND genero = 'mujeres')AS 'mujeres',
+(SELECT SUM(cantidad) FROM personal WHERE region = p.region AND plaza = 'docentes')AS 'docentes',
+(SELECT SUM(cantidad) FROM personal WHERE region = p.region AND plaza = 'administrativo')AS 'administrativo',
+(SELECT SUM(cantidad) FROM personal WHERE region = p.region AND tipo = 'base')AS 'base',
+(SELECT SUM(cantidad) FROM personal WHERE region = p.region AND tipo = 'interino')AS 'interino',
+(SELECT SUM(cantidad) FROM personal WHERE region = p.region AND tipo = 'contrato')AS 'contrato',
+(SELECT SUM(cantidad) FROM personal WHERE region = p.region AND tipo = 'bachille')AS 'bachilleres'
+FROM personal p GROUP BY region
+*/
 include('database_connection.php');
+
 
 if(isset($_POST["id"]))
 {

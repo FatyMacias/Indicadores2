@@ -2,17 +2,21 @@
 Include("bd/database_connection.php");
 $queryC = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year ASC";
 //$query = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year DESC";
-$queryM = "SELECT des_subs FROM `cat_subsitema`";
+$queryM = "SELECT SUBSTRING(qna_pago,5,6) AS 'year' FROM indicador GROUP BY year ASC";
+
 
 
 $statementC = $connect->prepare($queryC);
 $statementM = $connect->prepare($queryM);
 
+
 $statementC->execute();
 $statementM->execute();
 
+
 $resultC = $statementC->fetchAll();
 $resultM = $statementM->fetchAll();
+
 
 ?>
 <!DOCTYPE html>
@@ -139,7 +143,7 @@ $resultM = $statementM->fetchAll();
             
 
         <div id="conceptos" class="w3-container menu" style="display">
-          <center><h1>INDICADORES POR SUBSISTEMA</h1></center>
+          <center><h1>INDICADORES POR REGION</h1></center>
 
           <div>
 
@@ -158,10 +162,11 @@ $resultM = $statementM->fetchAll();
                             <?php
                             foreach($resultM as $row)
                             {
-                                echo '<option value="'.$row["des_subs"].'">'.$row["des_subs"].'</option>';
+                                echo '<option value="'.$row["year"].'">'.$row["year"].'</option>';
                             }
                             ?>
                 </select>
+
           </div>
           <br>
           <br>
@@ -170,37 +175,60 @@ $resultM = $statementM->fetchAll();
             <div style="width: 200px; height: 10px;"></div>  
           </div>
           <div class="panel-body">
-          < <div class="table-responsive">
-                      <table id = "example2" class="table table-hover table-bordered" style="width:100%; border: 1px solid #ddd !important;">
-                          
-                                <thead class="thead-dark">
+           <div class="table-bordered table-responsive text-center">
+                <table id = "example2" class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
+                      <thead class="thead-dark">
                                       <tr>
-                                        <th scope="col">id</th>
-                                        <th scope="col">Clave</th>
-                                        <th scope="col">Nombre del Concepto</th>
-                                        <th scope="col">SubSis</th>
-                                        <th scope="col">NomSis</th>
-                                        <th scope="col">PerDed</th>
-                                        <th scope="col">Importe</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Hombres</th>
+                                        <th scope="col">Mujeres</th>
+                                        <th scope="col">Docentes</th>
+                                        <th scope="col">Administrativo</th>
+                                        <th scope="col">Base</th>
+                                        <th scope="col">Interino</th>
+                                        <th scope="col">Contrato</th>
+                                        <th scope="col">Bachilleres</th>
                                       </tr>
                               </thead>
                               <tbody id="colsubsis">
-
+                                  
+                                    
                               </tbody>
                               <tfoot class="thead-dark">
                                       <tr>
-                                        <th scope="col">id</th>
-                                        <th scope="col">Clave</th>
-                                        <th scope="col">Nombre del Concepto</th>
-                                        <th scope="col">SubSis</th>
-                                        <th scope="col">NomSis</th>
-                                        <th scope="col">PerDed</th>
-                                        <th scope="col">Importe</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Hombres</th>
+                                        <th scope="col">Mujeres</th>
+                                        <th scope="col">Docentes</th>
+                                        <th scope="col">Administrativo</th>
+                                        <th scope="col">Base</th>
+                                        <th scope="col">Interino</th>
+                                        <th scope="col">Contrato</th>
+                                        <th scope="col">Bachilleres</th>
                                       </tr>
 
                               </tfoot>
+
+                              
+                </table>
+             </div>
+              <div style="width: 200px; height: 10px;"></div> 
+              <div class="table-bordered table-responsive text-center">
+                    <h3 id = "nom"></h3>
+                        
+                      <table id = "example2" class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
+                           
+                              <tbody>
+                                    <tr id="colsubsis1">
+                                    </tr>
+                                    <tr id="colreg1">
+                                    </tr>
+
+                              </tbody>
+                              
                       </table>
               </div>
+              
           </div>
           </div>
 
@@ -250,13 +278,33 @@ function load_subsis(id, idd)
     
     //var temp_title = title + ' '+id+'';
     $.ajax({
-        url:"bd/fetch_subsis.php",
+        url:"bd/fetch_region.php",
         method:"POST",
         data:{id:id, idd:idd},
         dataType:"JSON",
         success:function(data)
         {
             drawSubsis(data);
+            
+        },
+        error: function(data)
+        {
+            alert("No hay Datos");
+        }
+    });
+}
+function load_regtot(id, idd)
+{
+    
+    //var temp_title = title + ' '+id+'';
+    $.ajax({
+        url:"bd/fetch_regTotal.php",
+        method:"POST",
+        data:{id:id, idd:idd},
+        dataType:"JSON",
+        success:function(data)
+        {
+            drawregtot(data);
             
         },
         error: function(data)
@@ -280,26 +328,100 @@ function drawSubsis(chart_data)
     
    $('#colsubsis').empty();
    $('#colbuts').empty();
-   //$('#col2_1').empty();
+   $('#colreg').empty();
+   //tablaData +='<td class="table-dark text-light"><strong>Titulo</strong></td>';
+   //tablaData2 +='<td class="table-dark text-light"><strong>Cantidades</strong></td>';
     $.each(jsonData, function(i, jsonData){
-        var mes = temp ++;
-        var importe = jsonData.importe;
-        var clave = jsonData.clave;
-        var nombre = jsonData.nombre;
-        var deduc = jsonData.subsis;
-        var nomsis = jsonData.nomsis;
-        var perded = jsonData.perded;
-        //var importe = parseFloat($.trim(jsonData.importe));
+        //var mes = temp ++;
+        var total = jsonData.total;
+        var hombres = jsonData.hombres;
+        var mujeres = jsonData.mujeres;
+        var docentes = jsonData.docentes;
+        var administrativo = jsonData.administrativo;
+        var base = jsonData.base;
+        var interino = jsonData.interino;
+        var contrato = jsonData.contrato;
+        var bachilleres = jsonData.bachilleres;
         /////////
         tablaData += '<tr>';
-        tablaData += '<td>'+mes+'</td>';
-        tablaData += '<td>'+clave+'</td>';
-        tablaData += '<td>'+nombre+'</td>';
-        tablaData += '<td>'+deduc+'</td>';
-        tablaData += '<td>'+nomsis+'</td>';
-        tablaData += '<td>'+perded+'</td>';
-        tablaData += '<td>'+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
+        tablaData += '<td>'+total+'</td>';
+        tablaData += '<td>'+hombres+'</td>';
+        tablaData += '<td>'+mujeres+'</td>';
+        tablaData += '<td>'+docentes+'</td>';
+        tablaData += '<td>'+administrativo+'</td>';
+        tablaData += '<td>'+base+'</td>';
+        tablaData += '<td>'+interino+'</td>';
+        tablaData += '<td>'+contrato+'</td>';
+        tablaData += '<td>'+bachilleres+'</td>';
         tablaData += '</tr>';
+        
+        //tablaData += '<tr>';
+        //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
+        //tablaData += '</tr>';
+        /////////
+
+    });
+
+    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
+    $("#colbuts").append(tablaData6);
+    //$("#colreg").append(tablaData2);
+    $("#colsubsis").append(tablaData);
+    
+    
+    
+ 
+    
+    
+    
+   
+}
+function drawregtot(chart_data)
+{
+    var jsonData = chart_data;
+    var temp = 1;
+    //
+    var tablaData ='';
+    var tablaData2 ='';
+    var tablaData3 ='';
+    var tablaData4 ='';
+    var tablaData5 ='';
+    var tablaData6 ='';
+    //
+    
+   $('#colsubsis1').empty();
+   $('#colbuts1').empty();
+   $('#colreg1').empty();
+   //tablaData +='<td class="table-dark text-light"><strong>Total General</strong></td>';
+   //tablaData2 +='<td class="table-dark text-light"><strong></strong></td>';
+    $.each(jsonData, function(i, jsonData){
+        //var mes = temp ++;
+        var total = jsonData.datas;
+        var hombres = jsonData.cantidads;
+        // var mujeres = jsonData.mujeres;
+        // var docentes = jsonData.docentes;
+        // var administrativo = jsonData.administrativo;
+        // var base = jsonData.base;
+        // var interino = jsonData.interino;
+        // var contrato = jsonData.contrato;
+        // var bachilleres = jsonData.bachilleres;
+        /////////
+        tablaData2 += '<tr>';
+        //tablaData += '<td>'+mes+'</td>';
+        //tablaData += '<td>'+importe+'</td>';
+       // tablaData += '<td>'+nombre+'</td>';
+        //tablaData += '<td>'+deduc+'</td>';
+        //tablaData += '<td>'+nomsis+'</td>';
+        //tablaData += '<td>'+perded+'</td>';
+        tablaData2 += '<td class="table-dark text-light">'+total+'</td>';
+        tablaData2 += '<td class="table-dark text-light">'+hombres+'</td>';
+        // tablaData2 += '<td class="table-dark text-light">'+mujeres+'</td>';
+        // tablaData2 += '<td class="table-dark text-light">'+docentes+'</td>';
+        // tablaData2 += '<td class="table-dark text-light">'+administrativo+'</td>';
+        // tablaData2 += '<td class="table-dark text-light">'+base+'</td>';
+        // tablaData2 += '<td class="table-dark text-light">'+interino+'</td>';
+        // tablaData2 += '<td class="table-dark text-light">'+contrato+'</td>';
+        // tablaData2 += '<td class="table-dark text-light">'+bachilleres+'</td>';
+        tablaData2 += '</tr>';
         
         //tablaData += '<tr>';
         //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
@@ -309,37 +431,11 @@ function drawSubsis(chart_data)
     });
     
     tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
-    $("#colbuts").append(tablaData6);
-    $("#colsubsis").append(tablaData);
+    $("#colbuts1").append(tablaData6);
+    $("#colsubsis1").append(tablaData2);
+    //$("#colsubsis1").append(tablaData);
     
-    $(document).ready(function () {
-    var table = $("#example2").DataTable({
-    lengthMenu: [
-      [10, 25, 50, 100, 200, -1],
-      [10, 25, 50, 100, 200, "All"],
-    ],
-    //para cambiar el lenguaje a español
-    language: {
-      lengthMenu: "Mostrar _MENU_ registros",
-      zeroRecords: "No se encontraron resultados",
-      info:
-        "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-      infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
-      infoFiltered: "(filtrado de un total de _MAX_ registros)",
-      sSearch: "Buscar:",
-      oPaginate: {
-        sFirst: "Primero",
-        sLast: "Último",
-        sNext: "Siguiente",
-        sPrevious: "Anterior",
-      },
-      sProcessing: "Procesando...",
-    },
-  });
-  $('#id, #idd').change(function(){
-          table.clear().destroy();
-  });
-});
+ 
     
     
     
@@ -359,16 +455,20 @@ $(document).ready(function(){
     $('#id, #idd').change(function(){
         var id =$('#id').val();
         var idd = $('#idd').val();
+        
         if(id != '' && idd != '')
         {
-            //alert("The text has been changed.");
+            //alert(idr);
             load_subsis(id, idd);
+            load_regtot(id, idd);
 
         }
     });
 
 });
 
+
 </script>
+
 
 
