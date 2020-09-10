@@ -289,7 +289,7 @@ function drawSubsis(chart_data)
         //var importe = parseFloat($.trim(jsonData.importe));
         /////////
         tablaData += '<tr>';
-        tablaData += '<td>'+mes+'</td>';
+        //tablaData += '<td>'+mes+'</td>';
         tablaData += '<td>'+clave+'</td>';
         tablaData += '<td>'+nombre+'</td>';
         tablaData += '<td>'+deduc+'</td>';
