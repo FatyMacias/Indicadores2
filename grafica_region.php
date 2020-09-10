@@ -700,7 +700,7 @@ function drawregtot(chart_data)
     $("#colsubsis1").append(tablaData);
    
     var options = {
-        title:"Mujeres y Hombres por Region",
+        title:"Mujeres y Hombres por Nivel",
         //legend: 'none',
         hAxis: {
             title: "Niveles"
