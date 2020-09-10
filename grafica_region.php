@@ -147,7 +147,13 @@ $resultM = $statementM->fetchAll();
 
           <div>
 
-          <select name="id" class="form-control" id="id"style="width: 300px; height: 35px;">
+          
+               
+               
+                <div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+        <select name="id" class="form-control" id="id"style="width: 300px; height: 35px;">
                             <option value="">Seleccionar año</option>
                             <?php
                             foreach($resultC as $row)
@@ -166,6 +172,21 @@ $resultM = $statementM->fetchAll();
                             }
                             ?>
                 </select>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+        <select name="idr" class="form-control" id="idr" style="width: 300px; height: 35px;">
+                            <option value="">Por Nivel / Region</option>
+                            <option>Region</option>
+                            <option>Nivel</option>
+                </select>
+        </div>
+    </div>
+</div>
+               
+                
+             
 
           </div>
           <br>
@@ -263,7 +284,11 @@ $resultM = $statementM->fetchAll();
                               
                       </table>
               </div>
-              
+              <div class="panel-body">
+           
+           <div id="chart_area" style="width: 1200px; height: 500px;"></div>
+         
+         </div>
           </div>
           </div>
 
@@ -373,7 +398,7 @@ function load_total2(id, idd)
     
     //var temp_title = title + ' '+id+'';
     $.ajax({
-        url:"bd/fetch_total.php",
+        url:"bd/fetch_total2.php",
         method:"POST",
         data:{id:id, idd:idd},
         dataType:"JSON",
@@ -611,8 +636,15 @@ function drawSubsis(chart_data)
 }
 function drawregtot(chart_data)
 {
-    var jsonData = chart_data;
+  var jsonData = chart_data;
     var temp = 1;
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Regiones');
+    data.addColumn('number', 'Hombres');
+    data.addColumn('number', 'Mujeres');
+    
+   
+
     //
     var tablaData ='';
     var tablaData2 ='';
@@ -622,42 +654,38 @@ function drawregtot(chart_data)
     var tablaData6 ='';
     //
     
-   $('#colsubsis1').empty();
-   $('#colbuts1').empty();
-   $('#colreg1').empty();
-   //tablaData +='<td class="table-dark text-light"><strong>Total General</strong></td>';
-   //tablaData2 +='<td class="table-dark text-light"><strong></strong></td>';
+   $('#colsubsis').empty();
+   $('#colbuts').empty();
+   $('#colreg').empty();
+   //tablaData +='<td class="table-dark text-light"><strong>Titulo</strong></td>';
+   //tablaData2 +='<td class="table-dark text-light"><strong>Cantidades</strong></td>';
     $.each(jsonData, function(i, jsonData){
         //var mes = temp ++;
-        var name = jsonData.name;
+        var region = jsonData.name;
         var total = jsonData.total;
-        var hombres = jsonData.hombres;;
-         var mujeres = jsonData.mujeres;
-         var docentes = jsonData.docentes;
-         var administrativo = jsonData.administrativo;
-         var base = jsonData.base;
-         var interino = jsonData.interino;
-         var contrato = jsonData.contrato;
-         var bachilleres = jsonData.bachilleres;
+        var hombres = jsonData.hombres;
+        var mujeres = jsonData.mujeres;
+        var docentes = jsonData.docentes;
+        var administrativo = jsonData.administrativo;
+        var base = jsonData.base;
+        var interino = jsonData.interino;
+        var contrato = jsonData.contrato;
+        var bachilleres = jsonData.bachilleres;
+        
+        data.addRows([[region, hombres, mujeres]]);
         /////////
-        tablaData2 += '<tr>';
-        //tablaData += '<td>'+mes+'</td>';
-        //tablaData += '<td>'+importe+'</td>';
-       // tablaData += '<td>'+nombre+'</td>';
-        //tablaData += '<td>'+deduc+'</td>';
-        //tablaData += '<td>'+nomsis+'</td>';
-        //tablaData += '<td>'+perded+'</td>';
-        tablaData2 += '<td class="text-left">'+name+'</td>';
-        tablaData2 += '<td >'+total+'</td>';
-        tablaData2 += '<td >'+hombres+'</td>';
-         tablaData2 += '<td >'+mujeres+'</td>';
-         tablaData2 += '<td >'+docentes+'</td>';
-         tablaData2 += '<td >'+administrativo+'</td>';
-         tablaData2 += '<td >'+base+'</td>';
-         tablaData2 += '<td >'+interino+'</td>';
-         tablaData2 += '<td >'+contrato+'</td>';
-         tablaData2 += '<td >'+bachilleres+'</td>';
-        tablaData2 += '</tr>';
+        tablaData += '<tr>';
+        tablaData += '<td class="text-left">'+region+'</td>';
+        tablaData += '<td>'+total+'</td>';
+        tablaData += '<td>'+hombres+'</td>';
+        tablaData += '<td>'+mujeres+'</td>';
+        tablaData += '<td>'+docentes+'</td>';
+        tablaData += '<td>'+administrativo+'</td>';
+        tablaData += '<td>'+base+'</td>';
+        tablaData += '<td>'+interino+'</td>';
+        tablaData += '<td>'+contrato+'</td>';
+        tablaData += '<td>'+bachilleres+'</td>';
+        tablaData += '</tr>';
         
         //tablaData += '<tr>';
         //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
@@ -665,17 +693,28 @@ function drawregtot(chart_data)
         /////////
 
     });
-    
+
     tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
-    $("#colbuts1").append(tablaData6);
-    $("#colsubsis1").append(tablaData2);
-    //$("#colsubsis1").append(tablaData);
-    
- 
-    
-    
-    
+    $("#colbuts").append(tablaData6);
+    //$("#colreg").append(tablaData2);
+    $("#colsubsis1").append(tablaData);
    
+    var options = {
+        title:"Mujeres y Hombres por Region",
+        //legend: 'none',
+        hAxis: {
+            title: "Niveles"
+        },
+        vAxis: {
+            title: 'Cantidades',
+            //format: 'currency'
+      
+        }
+
+    };
+    
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart_area'));
+    chart.draw(data, options);
 }
 </script>
 
