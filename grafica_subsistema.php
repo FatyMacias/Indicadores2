@@ -70,7 +70,7 @@ $resultM = $statementM->fetchAll();
               <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Por subsistema</a>
               <ul class="collapse list-unstyled" id="pageSubmenu2">
                 <li>
-                    <a href="#">Page 1</a>
+                    <a href="grafica_subsistema.php">Subistema</a>
                 </li>
                 <li>
                     <a href="#">Page 2</a>
@@ -170,12 +170,12 @@ $resultM = $statementM->fetchAll();
             <div style="width: 200px; height: 10px;"></div>  
           </div>
           <div class="panel-body">
-          < <div class="table-responsive">
+           <div class="table-responsive">
                       <table id = "example2" class="table table-hover table-bordered" style="width:100%; border: 1px solid #ddd !important;">
                           
                                 <thead class="thead-dark">
                                       <tr>
-                                        <th scope="col">id</th>
+                                        <!-- <th scope="col">id</th> -->
                                         <th scope="col">Clave</th>
                                         <th scope="col">Nombre del Concepto</th>
                                         <th scope="col">SubSis</th>
@@ -189,7 +189,7 @@ $resultM = $statementM->fetchAll();
                               </tbody>
                               <tfoot class="thead-dark">
                                       <tr>
-                                        <th scope="col">id</th>
+                                        <!-- <th scope="col">id</th> -->
                                         <th scope="col">Clave</th>
                                         <th scope="col">Nombre del Concepto</th>
                                         <th scope="col">SubSis</th>
@@ -282,7 +282,7 @@ function drawSubsis(chart_data)
    $('#colbuts').empty();
    //$('#col2_1').empty();
     $.each(jsonData, function(i, jsonData){
-        var mes = temp ++;
+        //var mes = temp ++;
         var importe = jsonData.importe;
         var clave = jsonData.clave;
         var nombre = jsonData.nombre;
@@ -292,7 +292,7 @@ function drawSubsis(chart_data)
         //var importe = parseFloat($.trim(jsonData.importe));
         /////////
         tablaData += '<tr>';
-        tablaData += '<td>'+mes+'</td>';
+        //tablaData += '<td>'+mes+'</td>';
         tablaData += '<td>'+clave+'</td>';
         tablaData += '<td>'+nombre+'</td>';
         tablaData += '<td>'+deduc+'</td>';
