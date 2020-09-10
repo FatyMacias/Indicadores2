@@ -177,8 +177,10 @@ $resultM = $statementM->fetchAll();
           <div class="panel-body">
            <div class="table-bordered table-responsive text-center">
                 <table id = "example2" class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
+                <h3><strong>Reporte Por Region</strong></h3>
                       <thead class="thead-dark">
                                       <tr>
+                                        
                                         <th scope="col">Total</th>
                                         <th scope="col">Hombres</th>
                                         <th scope="col">Mujeres</th>
@@ -196,6 +198,7 @@ $resultM = $statementM->fetchAll();
                               </tbody>
                               <tfoot class="thead-dark">
                                       <tr>
+                                        
                                         <th scope="col">Total</th>
                                         <th scope="col">Hombres</th>
                                         <th scope="col">Mujeres</th>
@@ -217,14 +220,38 @@ $resultM = $statementM->fetchAll();
                     <h3 id = "nom"></h3>
                         
                       <table id = "example2" class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
-                           
-                              <tbody>
-                                    <tr id="colsubsis1">
-                                    </tr>
-                                    <tr id="colreg1">
-                                    </tr>
-
+                      <h3><strong>Reporte Por Nivel</strong></h3>
+                      <thead class="thead-dark">
+                                      <tr>
+                                      <th scope="col">Actividad</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Hombres</th>
+                                        <th scope="col">Mujeres</th>
+                                        <th scope="col">Docentes</th>
+                                        <th scope="col">Administrativo</th>
+                                        <th scope="col">Base</th>
+                                        <th scope="col">Interino</th>
+                                        <th scope="col">Contrato</th>
+                                        <th scope="col">Bachilleres</th>
+                                      </tr>
+                              </thead>
+                              <tbody id="colsubsis1">
                               </tbody>
+                              <tfoot class="thead-dark">
+                                      <tr>
+                                      <th scope="col">Actividad</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Hombres</th>
+                                        <th scope="col">Mujeres</th>
+                                        <th scope="col">Docentes</th>
+                                        <th scope="col">Administrativo</th>
+                                        <th scope="col">Base</th>
+                                        <th scope="col">Interino</th>
+                                        <th scope="col">Contrato</th>
+                                        <th scope="col">Bachilleres</th>
+                                      </tr>
+
+                              </tfoot>
                               
                       </table>
               </div>
@@ -313,6 +340,7 @@ function load_regtot(id, idd)
         }
     });
 }
+
 function drawSubsis(chart_data)
 {
     var jsonData = chart_data;
@@ -395,15 +423,16 @@ function drawregtot(chart_data)
    //tablaData2 +='<td class="table-dark text-light"><strong></strong></td>';
     $.each(jsonData, function(i, jsonData){
         //var mes = temp ++;
+        var name = jsonData.name;
         var total = jsonData.total;
         var hombres = jsonData.hombres;;
-        // var mujeres = jsonData.mujeres;
-        // var docentes = jsonData.docentes;
-        // var administrativo = jsonData.administrativo;
-        // var base = jsonData.base;
-        // var interino = jsonData.interino;
-        // var contrato = jsonData.contrato;
-        // var bachilleres = jsonData.bachilleres;
+         var mujeres = jsonData.mujeres;
+         var docentes = jsonData.docentes;
+         var administrativo = jsonData.administrativo;
+         var base = jsonData.base;
+         var interino = jsonData.interino;
+         var contrato = jsonData.contrato;
+         var bachilleres = jsonData.bachilleres;
         /////////
         tablaData2 += '<tr>';
         //tablaData += '<td>'+mes+'</td>';
@@ -412,15 +441,16 @@ function drawregtot(chart_data)
         //tablaData += '<td>'+deduc+'</td>';
         //tablaData += '<td>'+nomsis+'</td>';
         //tablaData += '<td>'+perded+'</td>';
-        tablaData2 += '<td class="table-dark text-light">'+total+'</td>';
-        tablaData2 += '<td class="table-dark text-light">'+hombres+'</td>';
-        // tablaData2 += '<td class="table-dark text-light">'+mujeres+'</td>';
-        // tablaData2 += '<td class="table-dark text-light">'+docentes+'</td>';
-        // tablaData2 += '<td class="table-dark text-light">'+administrativo+'</td>';
-        // tablaData2 += '<td class="table-dark text-light">'+base+'</td>';
-        // tablaData2 += '<td class="table-dark text-light">'+interino+'</td>';
-        // tablaData2 += '<td class="table-dark text-light">'+contrato+'</td>';
-        // tablaData2 += '<td class="table-dark text-light">'+bachilleres+'</td>';
+        tablaData2 += '<td >'+name+'</td>';
+        tablaData2 += '<td >'+total+'</td>';
+        tablaData2 += '<td >'+hombres+'</td>';
+         tablaData2 += '<td >'+mujeres+'</td>';
+         tablaData2 += '<td >'+docentes+'</td>';
+         tablaData2 += '<td >'+administrativo+'</td>';
+         tablaData2 += '<td >'+base+'</td>';
+         tablaData2 += '<td >'+interino+'</td>';
+         tablaData2 += '<td >'+contrato+'</td>';
+         tablaData2 += '<td >'+bachilleres+'</td>';
         tablaData2 += '</tr>';
         
         //tablaData += '<tr>';
