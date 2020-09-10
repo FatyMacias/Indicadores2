@@ -218,14 +218,11 @@ $resultM = $statementM->fetchAll();
                               
                 </table>
              </div>
-             <div class="table-bordered table-responsive text-center">
-                <table id = "example2" class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
-                              <tbody >
-                                  
-                                    
-                              </tbody>         
-                </table>
-             </div>
+             <div class="panel-body">
+           
+              <div id="chart_area3" style="width: 1200px; height: 500px;"></div>
+            
+            </div>
               <div style="width: 200px; height: 10px;"></div> 
               <div class="table-bordered table-responsive text-center">
                     <h3 id = "nom"></h3>
@@ -525,6 +522,14 @@ function drawSubsis(chart_data)
 {
     var jsonData = chart_data;
     var temp = 1;
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Regiones');
+    data.addColumn('number', 'Cantidad');
+    data.addColumn({
+               type: 'string',
+               role: 'style'
+           });
+
     //
     var tablaData ='';
     var tablaData2 ='';
@@ -551,6 +556,8 @@ function drawSubsis(chart_data)
         var interino = jsonData.interino;
         var contrato = jsonData.contrato;
         var bachilleres = jsonData.bachilleres;
+        var style = jsonData.style;
+        data.addRows([[region, total, style]]);
         /////////
         tablaData += '<tr>';
         tablaData += '<td class="text-left">'+region+'</td>';
@@ -576,10 +583,27 @@ function drawSubsis(chart_data)
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis").append(tablaData);
+    var axis = data.getNumberOfRows();
+   //alert('max data table value: ' + axis);
+   for(var x=0;x<axis;x++){
+    data.setValue(x, 2, '#'+Math.floor(Math.random()*16777215).toString(16));
+   }
+    var options = {
+        title:"Mujeres y Hombres por Region",
+        legend: 'none',
+        hAxis: {
+            title: "Regiones"
+        },
+        vAxis: {
+            title: 'Cantidades',
+            //format: 'currency'
+      
+        }
+
+    };
     
-    
-    
- 
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart_area3'));
+    chart.draw(data, options);
     
     
     
