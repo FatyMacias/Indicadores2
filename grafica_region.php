@@ -298,7 +298,7 @@ function load_regtot(id, idd)
     
     //var temp_title = title + ' '+id+'';
     $.ajax({
-        url:"bd/fetch_regTotal.php",
+        url:"bd/hola.php",
         method:"POST",
         data:{id:id, idd:idd},
         dataType:"JSON",
@@ -395,8 +395,8 @@ function drawregtot(chart_data)
    //tablaData2 +='<td class="table-dark text-light"><strong></strong></td>';
     $.each(jsonData, function(i, jsonData){
         //var mes = temp ++;
-        var total = jsonData.datas;
-        var hombres = jsonData.cantidads;
+        var total = jsonData.total;
+        var hombres = jsonData.hombres;;
         // var mujeres = jsonData.mujeres;
         // var docentes = jsonData.docentes;
         // var administrativo = jsonData.administrativo;
@@ -466,6 +466,7 @@ $(document).ready(function(){
     });
 
 });
+
 
 
 </script>
