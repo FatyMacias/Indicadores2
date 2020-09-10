@@ -18,15 +18,16 @@ WHERE SUBSTRING(qna,1,4) = '2020' AND SUBSTRING(qna,5,6) = '16' AND personal.reg
 GROUP BY tipo
 
 SELECT region, 
+(SELECT SUM(cantidad) FROM personal WHERE region = p.region )AS 'total',
 (SELECT SUM(cantidad) FROM personal WHERE region = p.region AND genero = 'hombres')AS 'hombres', 
 (SELECT SUM(cantidad) FROM personal WHERE region = p.region AND genero = 'mujeres')AS 'mujeres',
 (SELECT SUM(cantidad) FROM personal WHERE region = p.region AND plaza = 'docentes')AS 'docentes',
 (SELECT SUM(cantidad) FROM personal WHERE region = p.region AND plaza = 'administrativo')AS 'administrativo',
 (SELECT SUM(cantidad) FROM personal WHERE region = p.region AND tipo = 'base')AS 'base',
-(SELECT SUM(cantidad) FROM personal WHERE region = p.region AND tipo = 'interino')AS 'interino',
-(SELECT SUM(cantidad) FROM personal WHERE region = p.region AND tipo = 'contrato')AS 'contrato',
-(SELECT SUM(cantidad) FROM personal WHERE region = p.region AND tipo = 'bachille')AS 'bachilleres'
-FROM personal p GROUP BY region
+(SELECT IFNULL(SUM(cantidad),0) FROM personal WHERE region = p.region AND tipo = 'interino')AS 'interino',
+(SELECT IFNULL(SUM(cantidad),0) FROM personal WHERE region = p.region AND tipo = 'contrato')AS 'contrato',
+(SELECT IFNULL(SUM(cantidad),0) FROM personal WHERE region = p.region AND tipo = 'bachille')AS 'bachilleres'
+FROM personal p WHERE SUBSTRING(qna,1,4) = '2020' AND SUBSTRING(qna,5,6) = '16' GROUP BY region
 */
 include('database_connection.php');
 

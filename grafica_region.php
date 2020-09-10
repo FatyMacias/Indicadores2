@@ -180,7 +180,7 @@ $resultM = $statementM->fetchAll();
                 <h3><strong>Reporte Por Region</strong></h3>
                       <thead class="thead-dark">
                                       <tr>
-                                        
+                                        <th scope="col">Region</th>
                                         <th scope="col">Total</th>
                                         <th scope="col">Hombres</th>
                                         <th scope="col">Mujeres</th>
@@ -193,10 +193,10 @@ $resultM = $statementM->fetchAll();
                                       </tr>
                               </thead>
                               <tbody id="colsubsis">
-                                  
+                              
                                     
                               </tbody>
-                              <tfoot class="thead-dark">
+                              <tfoot class="table-dark text-light" id="colsubsis2">
                                       <tr>
                                         
                                         <th scope="col">Total</th>
@@ -209,10 +209,21 @@ $resultM = $statementM->fetchAll();
                                         <th scope="col">Contrato</th>
                                         <th scope="col">Bachilleres</th>
                                       </tr>
+                                      
 
                               </tfoot>
+                              
+                              
 
                               
+                </table>
+             </div>
+             <div class="table-bordered table-responsive text-center">
+                <table id = "example2" class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
+                              <tbody >
+                                  
+                                    
+                              </tbody>         
                 </table>
              </div>
               <div style="width: 200px; height: 10px;"></div> 
@@ -237,7 +248,7 @@ $resultM = $statementM->fetchAll();
                               </thead>
                               <tbody id="colsubsis1">
                               </tbody>
-                              <tfoot class="thead-dark">
+                              <tfoot class="table-dark text-light" id="colsubsis3">
                                       <tr>
                                       <th scope="col">Actividad</th>
                                         <th scope="col">Total</th>
@@ -340,6 +351,175 @@ function load_regtot(id, idd)
         }
     });
 }
+function load_total(id, idd)
+{
+    
+    //var temp_title = title + ' '+id+'';
+    $.ajax({
+        url:"bd/fetch_total.php",
+        method:"POST",
+        data:{id:id, idd:idd},
+        dataType:"JSON",
+        success:function(data)
+        {
+            drawtotal(data);
+            
+        },
+        error: function(data)
+        {
+            alert("No hay Datos");
+        }
+    });
+}
+function load_total2(id, idd)
+{
+    
+    //var temp_title = title + ' '+id+'';
+    $.ajax({
+        url:"bd/fetch_total.php",
+        method:"POST",
+        data:{id:id, idd:idd},
+        dataType:"JSON",
+        success:function(data)
+        {
+            drawtotal2(data);
+            
+        },
+        error: function(data)
+        {
+            alert("No hay Datos");
+        }
+    });
+}
+
+function drawtotal(chart_data)
+{
+    var jsonData = chart_data;
+    var temp = 1;
+    //
+    var tablaData ='';
+    var tablaData2 ='';
+    var tablaData3 ='';
+    var tablaData4 ='';
+    var tablaData5 ='';
+    var tablaData6 ='';
+    //
+    
+   $('#colsubsis2').empty();
+   $('#colbuts').empty();
+   $('#colreg').empty();
+   //tablaData +='<td class="table-dark text-light"><strong>Titulo</strong></td>';
+   //tablaData2 +='<td class="table-dark text-light"><strong>Cantidades</strong></td>';
+    $.each(jsonData, function(i, jsonData){
+        //var mes = temp ++;
+        var name = 'Total';
+        var total = jsonData.total;
+        var hombres = jsonData.hombres;
+        var mujeres = jsonData.mujeres;
+        var docentes = jsonData.docentes;
+        var administrativo = jsonData.administrativo;
+        var base = jsonData.base;
+        var interino = jsonData.interino;
+        var contrato = jsonData.contrato;
+        var bachilleres = jsonData.bachilleres;
+        /////////
+        tablaData += '<tr>';
+        tablaData += '<td>'+name+'</td>';
+        tablaData += '<td>'+total+'</td>';
+        tablaData += '<td>'+hombres+'</td>';
+        tablaData += '<td>'+mujeres+'</td>';
+        tablaData += '<td>'+docentes+'</td>';
+        tablaData += '<td>'+administrativo+'</td>';
+        tablaData += '<td>'+base+'</td>';
+        tablaData += '<td>'+interino+'</td>';
+        tablaData += '<td>'+contrato+'</td>';
+        tablaData += '<td>'+bachilleres+'</td>';
+        tablaData += '</tr>';
+        
+        //tablaData += '<tr>';
+        //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
+        //tablaData += '</tr>';
+        /////////
+
+    });
+
+    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
+    $("#colbuts").append(tablaData6);
+    //$("#colreg").append(tablaData2);
+    $("#colsubsis2").append(tablaData);
+    
+    
+    
+ 
+    
+    
+    
+   
+}
+function drawtotal2(chart_data)
+{
+    var jsonData = chart_data;
+    var temp = 1;
+    //
+    var tablaData ='';
+    var tablaData2 ='';
+    var tablaData3 ='';
+    var tablaData4 ='';
+    var tablaData5 ='';
+    var tablaData6 ='';
+    //
+    
+   $('#colsubsis3').empty();
+   $('#colbuts').empty();
+   $('#colreg').empty();
+   //tablaData +='<td class="table-dark text-light"><strong>Titulo</strong></td>';
+   //tablaData2 +='<td class="table-dark text-light"><strong>Cantidades</strong></td>';
+    $.each(jsonData, function(i, jsonData){
+        //var mes = temp ++;
+        var name = 'Total';
+        var total = jsonData.total;
+        var hombres = jsonData.hombres;
+        var mujeres = jsonData.mujeres;
+        var docentes = jsonData.docentes;
+        var administrativo = jsonData.administrativo;
+        var base = jsonData.base;
+        var interino = jsonData.interino;
+        var contrato = jsonData.contrato;
+        var bachilleres = jsonData.bachilleres;
+        /////////
+        tablaData += '<tr>';
+        tablaData += '<td>'+name+'</td>';
+        tablaData += '<td>'+total+'</td>';
+        tablaData += '<td>'+hombres+'</td>';
+        tablaData += '<td>'+mujeres+'</td>';
+        tablaData += '<td>'+docentes+'</td>';
+        tablaData += '<td>'+administrativo+'</td>';
+        tablaData += '<td>'+base+'</td>';
+        tablaData += '<td>'+interino+'</td>';
+        tablaData += '<td>'+contrato+'</td>';
+        tablaData += '<td>'+bachilleres+'</td>';
+        tablaData += '</tr>';
+        
+        //tablaData += '<tr>';
+        //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
+        //tablaData += '</tr>';
+        /////////
+
+    });
+
+    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
+    $("#colbuts").append(tablaData6);
+    //$("#colreg").append(tablaData2);
+    $("#colsubsis3").append(tablaData);
+    
+    
+    
+ 
+    
+    
+    
+   
+}
 
 function drawSubsis(chart_data)
 {
@@ -361,6 +541,7 @@ function drawSubsis(chart_data)
    //tablaData2 +='<td class="table-dark text-light"><strong>Cantidades</strong></td>';
     $.each(jsonData, function(i, jsonData){
         //var mes = temp ++;
+        var region = jsonData.region;
         var total = jsonData.total;
         var hombres = jsonData.hombres;
         var mujeres = jsonData.mujeres;
@@ -372,6 +553,7 @@ function drawSubsis(chart_data)
         var bachilleres = jsonData.bachilleres;
         /////////
         tablaData += '<tr>';
+        tablaData += '<td class="text-left">'+region+'</td>';
         tablaData += '<td>'+total+'</td>';
         tablaData += '<td>'+hombres+'</td>';
         tablaData += '<td>'+mujeres+'</td>';
@@ -441,7 +623,7 @@ function drawregtot(chart_data)
         //tablaData += '<td>'+deduc+'</td>';
         //tablaData += '<td>'+nomsis+'</td>';
         //tablaData += '<td>'+perded+'</td>';
-        tablaData2 += '<td >'+name+'</td>';
+        tablaData2 += '<td class="text-left">'+name+'</td>';
         tablaData2 += '<td >'+total+'</td>';
         tablaData2 += '<td >'+hombres+'</td>';
          tablaData2 += '<td >'+mujeres+'</td>';
@@ -491,6 +673,8 @@ $(document).ready(function(){
             //alert(idr);
             load_subsis(id, idd);
             load_regtot(id, idd);
+            load_total(id, idd);
+            load_total2(id, idd);
 
         }
     });

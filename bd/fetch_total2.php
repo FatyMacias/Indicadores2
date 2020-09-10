@@ -11,17 +11,16 @@ include('database_connection.php');
 if(isset($_POST["id"]) && isset($_POST["idd"]) )
 {
  $query = "
- SELECT CONCAT(p.region,': ' ,regiones.region) AS region,
- (SELECT SUM(cantidad) FROM personal WHERE region = p.region )AS 'total',
- (SELECT SUM(cantidad) FROM personal WHERE region = p.region AND genero = 'hombres')AS 'hombres', 
- (SELECT SUM(cantidad) FROM personal WHERE region = p.region AND genero = 'mujeres')AS 'mujeres',
- (SELECT SUM(cantidad) FROM personal WHERE region = p.region AND plaza = 'docentes')AS 'docentes',
- (SELECT SUM(cantidad) FROM personal WHERE region = p.region AND plaza = 'administrativo')AS 'administrativo',
- (SELECT SUM(cantidad) FROM personal WHERE region = p.region AND tipo = 'base')AS 'base',
- (SELECT IFNULL(SUM(cantidad),0) FROM personal WHERE region = p.region AND tipo = 'interino')AS 'interino',
- (SELECT IFNULL(SUM(cantidad),0) FROM personal WHERE region = p.region AND tipo = 'contrato')AS 'contrato',
- (SELECT IFNULL(SUM(cantidad),0) FROM personal WHERE region = p.region AND tipo = 'bachille')AS 'bachille'
-  FROM personal p JOIN regiones ON p.region = regiones.id_region WHERE SUBSTRING(qna,1,4) = '".$_POST["id"]."' AND SUBSTRING(qna,5,6) = '".$_POST["idd"]."' GROUP BY p.region
+ SELECT 'Total' AS activ,
+ (SELECT SUM(cantidad) FROM personal WHERE actividad = personal.actividad) AS 'total',
+ (SELECT SUM(cantidad) FROM personal WHERE actividad = personal.actividad AND genero = 'hombres') AS 'hombres',
+ (SELECT IF (SUM(cantidad) IS null, 0, SUM(cantidad)) FROM personal WHERE actividad = personal.actividad AND genero = 'mujeres') AS 'mujeres',
+ (SELECT IF (SUM(cantidad) IS null, 0, SUM(cantidad)) FROM personal WHERE actividad = personal.actividad AND plaza = 'docentes') AS 'docentes',
+ (SELECT IF (SUM(cantidad) IS null, 0, SUM(cantidad)) FROM personal WHERE actividad = personal.actividad AND plaza = 'administrativo') AS 'administrativo',
+ (SELECT IF (SUM(cantidad) IS null, 0, SUM(cantidad)) FROM personal WHERE actividad = personal.actividad AND tipo = 'base') AS 'base',
+ (SELECT IF (SUM(cantidad) IS null, 0, SUM(cantidad)) FROM personal WHERE actividad = personal.actividad AND tipo = 'interino') AS 'interino',(SELECT IF (SUM(cantidad) IS null, 0, SUM(cantidad)) FROM personal WHERE actividad = personal.actividad AND tipo = 'contrato') AS 'contrato',
+ (SELECT IF (SUM(cantidad) IS null, 0, SUM(cantidad)) FROM personal WHERE actividad = personal.actividad AND tipo = 'bachille') AS  'bachille' 
+ FROM personal GROUP BY actividad LIMIT 1
  ";
  $statement = $connect->prepare($query);
  $statement->execute();
@@ -31,7 +30,7 @@ if(isset($_POST["id"]) && isset($_POST["idd"]) )
  foreach($result as $row)
  {
   $output[] = array(
-   'region'  => $row["region"],
+   'name'   => $row["activ"],
    'total'   => floatval($row["total"]),
    'hombres'   => floatval($row["hombres"]),
    'mujeres'   => floatval($row["mujeres"]),
