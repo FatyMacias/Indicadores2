@@ -195,7 +195,7 @@ $resultM = $statementM->fetchAll();
   <div style="width: 200px; height: 10px;"></div>
 </div>
 <div class="panel-body menu" style="display:">
-  <div class="table-bordered table-responsive text-center" id="Region">
+  <div class="table-bordered text-center" id="Region">
     <h3><strong>Reporte Por Region</strong></h3>
     <table id="example2" class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
       <thead class="thead-dark">
@@ -226,12 +226,18 @@ $resultM = $statementM->fetchAll();
           <th scope="col">Bachilleres</th>
         </tr>
       </tfoot>
+
+    </table>
+    <table>
+      <tr id = "colbuts">
+
+      </tr>
     </table>
     <div class="panel-body">
-      <div id="chart_area3" style="width: 1200px; height: 500px;"></div>
+      <div id="chart_area3" style="width: 1200px; height: 500px; visibility: hidden;"></div>
     </div>
     <div class="panel-body">
-      <div id="chart_area2" style="width: 1200px; height: 500px;"></div>
+      <div id="chart_area2" style="width: 1200px; height: 500px; visibility: hidden;"></div>
     </div>
   </div>
   <div style="width: 200px; height: 10px;"></div>
@@ -259,11 +265,14 @@ $resultM = $statementM->fetchAll();
             }
             function show(){
               //document.getElementById('chart_area').visibility = "visible";
-              var x = document.getElementById('example2');
-              if (x.style.visivility === 'hidden') {
-                  x.style.visivility = 'visible';
+              var x = document.getElementById('chart_area3');
+              var y = document.getElementById('chart_area2');
+              if (x.style.visibility === 'hidden' && y.style.visibility === 'hidden') {
+                  x.style.visibility = 'visible';
+                  y.style.visibility = 'visible';
               } else {
-                  x.style.visivility = 'hidden';
+                  x.style.visibility = 'hidden';
+                  y.style.visibility = 'hidden';
               }
                
             }
@@ -424,7 +433,7 @@ function drawtotal(chart_data)
 
     });
 
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Mostrar Graficas" onclick="show()> </td>';
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis2").append(tablaData);
@@ -556,8 +565,7 @@ function drawSubsis(chart_data)
         /////////
 
     });
-
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Mostrar/Ocultar Graficas" onclick="show()"> </td>';
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis").append(tablaData);

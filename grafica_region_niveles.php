@@ -228,8 +228,13 @@ $resultM = $statementM->fetchAll();
         </tr>
       </tfoot>
     </table>
+    <table>
+      <tr id = "colbuts">
+
+      </tr>
+    </table>
     <div class="panel-body">
-      <div id="chart_area" style="width: 1200px; height: 500px;"></div>
+      <div id="chart_area" style="width: 1200px; height: 500px; visibility: hidden;"></div>
     </div>
   </div>
 </div>
@@ -256,11 +261,14 @@ $resultM = $statementM->fetchAll();
             }
             function show(){
               //document.getElementById('chart_area').visibility = "visible";
-              var x = document.getElementById('example2');
-              if (x.style.visivility === 'hidden') {
-                  x.style.visivility = 'visible';
+              var x = document.getElementById('chart_area');
+
+              if (x.style.visibility === 'hidden') {
+                  x.style.visibility = 'visible';
+
               } else {
-                  x.style.visivility = 'hidden';
+                  x.style.visibility = 'hidden';
+
               }
                
             }
@@ -554,7 +562,7 @@ function drawSubsis(chart_data)
 
     });
 
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Mostrar/Ocultar Graficas" onclick="show()"> </td>';
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis").append(tablaData);
