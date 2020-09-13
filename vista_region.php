@@ -62,7 +62,7 @@ $resultM = $statementM->fetchAll();
                     <a href="#">Por banco</a>
                 </li>
                 <li>
-                    <a href="vista_region.php" onclick="openMenu('genero')">Por Region</a>
+                    <a href="grafica_region.php" onclick="openMenu('genero')">Por Region</a>
                 </li>
                 <li>
                     <a href="grafica_porgenero.php" onclick="openMenu('genero')">Por género</a>
@@ -150,38 +150,21 @@ $resultM = $statementM->fetchAll();
           
                
                
-                <div class="row">
+        <div class="row">
     <div class="col-sm-6">
         <div class="form-group">
-        <select name="id" class="form-control" id="id"style="width: 300px; height: 35px;">
-                            <option value="">Seleccionar año</option>
-                            <?php
-                            foreach($resultC as $row)
-                            {
-                                echo '<option value="'.$row["year"].'">'.''.$row["year"] . ' ' .''.$row["concepto"].'</option>';
-                            }
-                            ?>
-                </select>
-
-                <select name="idd" class="form-control" id="idd" style="width: 300px; height: 35px;">
-                            <option value="">Seleccionar subsistema</option>
-                            <?php
-                            foreach($resultM as $row)
-                            {
-                                echo '<option value="'.$row["year"].'">'.$row["year"].'</option>';
-                            }
-                            ?>
-                </select>
-        </div>
-    </div>
-    <div class="col-sm-6">
-        <div class="form-group">
+        <h3>Seleccionar Vista</h3>
         <select name="idr" class="form-control" id="idr" style="width: 300px; height: 35px;">
                             <option value="">Por Nivel / Region</option>
                             <option>Region</option>
                             <option>Nivel</option>
                 </select>
         </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+
     </div>
 </div>
                
@@ -194,48 +177,7 @@ $resultM = $statementM->fetchAll();
           <div class="panel-body">
   <div style="width: 200px; height: 10px;"></div>
 </div>
-<div class="panel-body menu" style="display:">
-  <div class="table-bordered table-responsive text-center" id="Region">
-    <h3><strong>Reporte Por Region</strong></h3>
-    <table id="example2" class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">Region</th>
-          <th scope="col">Total</th>
-          <th scope="col">Hombres</th>
-          <th scope="col">Mujeres</th>
-          <th scope="col">Docentes</th>
-          <th scope="col">Administrativo</th>
-          <th scope="col">Base</th>
-          <th scope="col">Interino</th>
-          <th scope="col">Contrato</th>
-          <th scope="col">Bachilleres</th>
-        </tr>
-      </thead>
-      <tbody id="colsubsis"></tbody>
-      <tfoot class="table-dark text-light" id="colsubsis2">
-        <tr>
-          <th scope="col">Total</th>
-          <th scope="col">Hombres</th>
-          <th scope="col">Mujeres</th>
-          <th scope="col">Docentes</th>
-          <th scope="col">Administrativo</th>
-          <th scope="col">Base</th>
-          <th scope="col">Interino</th>
-          <th scope="col">Contrato</th>
-          <th scope="col">Bachilleres</th>
-        </tr>
-      </tfoot>
-    </table>
-    <div class="panel-body">
-      <div id="chart_area3" style="width: 1200px; height: 500px;"></div>
-    </div>
-    <div class="panel-body">
-      <div id="chart_area2" style="width: 1200px; height: 500px;"></div>
-    </div>
-  </div>
-  <div style="width: 200px; height: 10px;"></div>
-</div>
+
 
           <script>
             function myfunction(name){
@@ -799,6 +741,12 @@ $('#idr').change(function(){
     {
       //myfunction(idr)
       window.location.replace("grafica_region_niveles.php");
+      //alert(idr);
+    }
+    if(idr != '' && idr == "Region")
+    {
+      //myfunction(idr)
+      window.location.replace("grafica_region.php");
       //alert(idr);
     }
 });

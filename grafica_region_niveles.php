@@ -195,12 +195,12 @@ $resultM = $statementM->fetchAll();
   <div style="width: 200px; height: 10px;"></div>
 </div>
 <div class="panel-body menu" style="display:">
-  <div class="table-bordered table-responsive text-center" id="Region">
-    <h3><strong>Reporte Por Region</strong></h3>
+<div class="table-bordered table-responsive text-center" id="Nivel" style="display:">
+    <h3><strong>Reporte Por Nivel</strong></h3>
     <table id="example2" class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">Region</th>
+          <th scope="col">Actividad</th>
           <th scope="col">Total</th>
           <th scope="col">Hombres</th>
           <th scope="col">Mujeres</th>
@@ -212,9 +212,10 @@ $resultM = $statementM->fetchAll();
           <th scope="col">Bachilleres</th>
         </tr>
       </thead>
-      <tbody id="colsubsis"></tbody>
-      <tfoot class="table-dark text-light" id="colsubsis2">
+      <tbody id="colsubsis1"></tbody>
+      <tfoot class="table-dark text-light" id="colsubsis3">
         <tr>
+          <th scope="col">Actividad</th>
           <th scope="col">Total</th>
           <th scope="col">Hombres</th>
           <th scope="col">Mujeres</th>
@@ -228,13 +229,9 @@ $resultM = $statementM->fetchAll();
       </tfoot>
     </table>
     <div class="panel-body">
-      <div id="chart_area3" style="width: 1200px; height: 500px;"></div>
-    </div>
-    <div class="panel-body">
-      <div id="chart_area2" style="width: 1200px; height: 500px;"></div>
+      <div id="chart_area" style="width: 1200px; height: 500px;"></div>
     </div>
   </div>
-  <div style="width: 200px; height: 10px;"></div>
 </div>
 
           <script>
@@ -795,10 +792,10 @@ $(document).ready(function(){
 
 $('#idr').change(function(){
     var idr =$('#idr').val();
-    if(idr != '' && idr == "Nivel")
+    if(idr != '' && idr == "Region")
     {
       //myfunction(idr)
-      window.location.replace("grafica_region_niveles.php");
+      window.location.replace("grafica_region.php");
       //alert(idr);
     }
 });
@@ -806,6 +803,3 @@ $('#idr').change(function(){
 });
 
 </script>
-
-
-
