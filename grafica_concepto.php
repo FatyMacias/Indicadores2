@@ -229,6 +229,10 @@ function load_conceptowise3_data(idc, idm, title)
         success:function(data)
         {
             drawMonthwiseChart3(data, temp_title);
+        },
+        error: function(data)
+        {
+            alert("No hay Datos");
         }
     });
 }
