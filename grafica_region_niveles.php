@@ -194,8 +194,8 @@ $resultM = $statementM->fetchAll();
           <div class="panel-body">
   <div style="width: 200px; height: 10px;"></div>
 </div>
-<div class="panel-body menu" style="display:">
-<div class="table-bordered table-responsive text-center" id="Nivel" style="display:">
+<div class="panel-body" style="display:">
+<div class="table-bordered table-responsive text-center menu" id="Nivel" style="display:">
     <h3><strong>Reporte Por Nivel</strong></h3>
     <table id="example2" class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
       <thead class="thead-dark">

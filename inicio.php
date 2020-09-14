@@ -77,7 +77,7 @@ $resultS = $statementS->fetchAll();
                     <a href="#">Por banco</a>
                 </li>
                 <li>
-                    <a href="vista_region.php" onclick="openMenu('genero')">Por Region</a>
+                    <a href="grafica_region.php" onclick="openMenu('genero')">Por Region</a>
                 </li>
                 <li>
                     <a href="grafica_porgenero.php" onclick="openMenu('genero')">Por género</a>

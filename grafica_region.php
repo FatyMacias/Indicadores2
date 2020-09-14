@@ -62,7 +62,7 @@ $resultM = $statementM->fetchAll();
                     <a href="#">Por banco</a>
                 </li>
                 <li>
-                    <a href="vista_region.php" onclick="openMenu('genero')">Por Region</a>
+                    <a href="grafica_region.php" onclick="openMenu('genero')">Por Region</a>
                 </li>
                 <li>
                     <a href="grafica_porgenero.php" onclick="openMenu('genero')">Por género</a>
@@ -195,7 +195,7 @@ $resultM = $statementM->fetchAll();
   <div style="width: 200px; height: 10px;"></div>
 </div>
 <div class="panel-body menu" style="display:">
-  <div class="table-bordered text-center" id="Region">
+  <div class="table-bordered text-center" id="Region" style= "display:">
     <h3><strong>Reporte Por Region</strong></h3>
     <table id="example2" class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
       <thead class="thead-dark">
@@ -242,6 +242,50 @@ $resultM = $statementM->fetchAll();
   </div>
   <div style="width: 200px; height: 10px;"></div>
 </div>
+<div class="panel-body" style="display:none">
+<div class="table-bordered text-center" id="Nivel" style="display:">
+    <h3><strong>Reporte Por Nivel</strong></h3>
+    <table id="example2" class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Actividad</th>
+          <th scope="col">Total</th>
+          <th scope="col">Hombres</th>
+          <th scope="col">Mujeres</th>
+          <th scope="col">Docentes</th>
+          <th scope="col">Administrativo</th>
+          <th scope="col">Base</th>
+          <th scope="col">Interino</th>
+          <th scope="col">Contrato</th>
+          <th scope="col">Bachilleres</th>
+        </tr>
+      </thead>
+      <tbody id="colsubsis1"></tbody>
+      <tfoot class="table-dark text-light" id="colsubsis3">
+        <tr>
+          <th scope="col">Actividad</th>
+          <th scope="col">Total</th>
+          <th scope="col">Hombres</th>
+          <th scope="col">Mujeres</th>
+          <th scope="col">Docentes</th>
+          <th scope="col">Administrativo</th>
+          <th scope="col">Base</th>
+          <th scope="col">Interino</th>
+          <th scope="col">Contrato</th>
+          <th scope="col">Bachilleres</th>
+        </tr>
+      </tfoot>
+    </table>
+    <table>
+      <tr id = "colbuts1">
+
+      </tr>
+    </table>
+    <div class="panel-body">
+      <div id="chart_area" style="width: 1200px; height: 500px; visibility: hidden;"></div>
+    </div>
+  </div>
+</div>
 
           <script>
             function myfunction(name){
@@ -275,6 +319,20 @@ $resultM = $statementM->fetchAll();
                   y.style.visibility = 'hidden';
               }
                
+            }
+            function show2(){
+              //document.getElementById('chart_area').visibility = "visible";
+              var x = document.getElementById('chart_area');
+              if (x.style.visibility === 'hidden') {
+                  x.style.visibility = 'visible';
+              } else {
+                  x.style.visibility = 'hidden';
+              }
+               
+            }
+            function toggle(target, source) {
+              this[target].parentNode.style.display = 'none'
+              this[source].parentNode.style.display = 'block'
             }
           </script>
           
@@ -688,12 +746,12 @@ function drawSubsis2(chart_data)
 }
 }
 
-
+let data, options, chart;
 function drawregtot(chart_data)
 {
   var jsonData = chart_data;
     var temp = 1;
-    var data = new google.visualization.DataTable();
+    data = new google.visualization.DataTable();
     data.addColumn('string', 'Regiones');
     data.addColumn('number', 'Hombres');
     data.addColumn('number', 'Mujeres');
@@ -749,13 +807,14 @@ function drawregtot(chart_data)
 
     });
 
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
-    $("#colbuts").append(tablaData6);
+    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Mostrar/Ocultar Graficas" onclick="show2()"> </td>';
+    $("#colbuts1").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis1").append(tablaData);
    
-    var options = {
+     options = {
         title:"Mujeres y Hombres por Nivel",
+        width: '100%',
         //legend: 'none',
         hAxis: {
             title: "Niveles"
@@ -767,10 +826,15 @@ function drawregtot(chart_data)
         }
 
     };
-    
-    var chart = new google.visualization.ColumnChart(document.getElementById('chart_area'));
+    chart = new google.visualization.ColumnChart(document.getElementById('chart_area'));
     chart.draw(data, options);
+
 }
+
+function test() {
+  document.getElementById("chart_area").style.display = "block";
+  chart.draw(data, options);
+  }
 </script>
 
 
@@ -806,8 +870,17 @@ $('#idr').change(function(){
     if(idr != '' && idr == "Nivel")
     {
       //myfunction(idr)
-      window.location.replace("grafica_region_niveles.php");
+      //window.location.replace("grafica_region_niveles.php");
       //alert(idr);
+      toggle("Region", idr);
+      test();
+    }
+    if(idr != '' && idr == "Region")
+    {
+      //myfunction(idr)
+      //window.location.replace("grafica_region_niveles.php");
+      //alert(idr);
+      toggle("Nivel", idr);
     }
 });
 
