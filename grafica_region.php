@@ -368,7 +368,7 @@ function load_subsis(id, idd)
         success:function(data)
         {
             drawSubsis(data);
-            drawSubsis2(data); 
+            //drawSubsis2(data); 
         },
         error: function(data)
         {
@@ -376,6 +376,7 @@ function load_subsis(id, idd)
         }
     });
 }
+
 function load_regtot(id, idd)
 {
     
@@ -614,8 +615,8 @@ function drawSubsis(chart_data)
         //tablaData += '<tr>';
 
         // if(i == 0){
-        tablaData2 += '<td>Hombres: '+jsonData.hombres+' Mujeres: '+mujeres+'</td>';
-        tablaData2 += '<br>';
+        // tablaData2 += '<td>Hombres: '+jsonData.hombres+' Mujeres: '+mujeres+'</td>';
+        // tablaData2 += '<br>';
         // }
         //selectHandler(i);
         
