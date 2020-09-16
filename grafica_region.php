@@ -368,8 +368,7 @@ function load_subsis(id, idd)
         success:function(data)
         {
             drawSubsis(data);
-            drawSubsis2(data);
-            
+            drawSubsis2(data); 
         },
         error: function(data)
         {
@@ -388,8 +387,7 @@ function load_regtot(id, idd)
         dataType:"JSON",
         success:function(data)
         {
-            drawregtot(data);
-            
+            drawregtot(data);   
         },
         error: function(data)
         {
@@ -409,9 +407,6 @@ function load_total(id, idd)
         success:function(data)
         {
             drawtotal(data);
-
-
-            
         },
         error: function(data)
         {
@@ -430,8 +425,7 @@ function load_total2(id, idd)
         dataType:"JSON",
         success:function(data)
         {
-            drawtotal2(data);
-            
+            drawtotal2(data);  
         },
         error: function(data)
         {
@@ -618,11 +612,20 @@ function drawSubsis(chart_data)
         tablaData += '<td>'+bachilleres+'</td>';
         tablaData += '</tr>';
         //tablaData += '<tr>';
-        //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
+
+        // if(i == 0){
+        tablaData2 += '<td>Hombres: '+jsonData.hombres+' Mujeres: '+mujeres+'</td>';
+        tablaData2 += '<br>';
+        // }
+        //selectHandler(i);
+        
+
+         
         //tablaData += '</tr>';
         /////////
 
     });
+    
     tablaData6 += '<td> <input type="button" class="btn btn-info" value="Mostrar/Ocultar Graficas" onclick="show()"> </td>';
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
@@ -632,6 +635,10 @@ function drawSubsis(chart_data)
    for(var x=0;x<axis;x++){
     data.setValue(x, 2, '#'+Math.floor(Math.random()*16777215).toString(16));
    }
+
+
+
+  
     var options = {
         title:"Mujeres y Hombres por Region",
         legend: 'none',
@@ -650,8 +657,167 @@ function drawSubsis(chart_data)
     
     var chart = new google.visualization.ColumnChart(document.getElementById('chart_area3'));
     chart.draw(data, options);
-
-    
+    google.visualization.events.addListener(chart, 'select', selectHandler);
+    // function selectHandler() {
+    //   var selection = chart.getSelection();
+    //   for (var i =0; i<selection.length;i++){
+    //     var item = selection[i];
+    //     var str = data.getValue(item.row, item.column);
+    //     var num = data.getNumberOfRows()
+    //     // for(var x=0;x<num;x++){
+    //     //   alert(x);
+    //     // }
+    //     $("#body").empty();
+    //     $.each(jsonData, function(i, jsonData){
+    //       var hombres = jsonData.hombres;
+    //       var mujeres = jsonData.mujeres;
+    //       tablaData2 += '<td>Hombres: '+jsonData.hombres+' Mujeres: '+mujeres+'</td>';
+    //       tablaData2 += '<br>';
+    //       //i = 0;      
+    //       if(str){
+    //             $("#myModal").modal();
+    //             $("#body").html('<br>'+tablaData2+'<br>');
+    //             $("#myModal").modal();          
+    //         }
+    //       });
+    //   }
+    // }
+    function selectHandler() {
+      var selection = chart.getSelection();
+      for (var i =0; i<selection.length;i++){
+        var item = selection[i];
+        var str = data.getValue(item.row, 0);
+        var res = str.slice(0, 1);
+        var stn = data.getRowProperties(item.row);
+        // var num = data.getDistinctValues(item.column);
+        // if (num.indexOf(173) >=0 ) // check if the item exists on the array
+        //     {
+        //         alert('Match');
+        //     } else {
+        //         alert('No match found.');
+        //     }
+      $.each(jsonData, function(i, jsonData){
+           var hombres = jsonData.hombres;
+           var mujeres = jsonData.mujeres;
+           if(str){
+             alert(res);
+           }
+          // if(str == 173){
+          //     if(i == 0){
+          //       $("#myModal").modal();
+          //       $("#body").html(
+          //         '<br>'+hombres+' '+mujeres+'<br>');
+          //       $("#myModal").modal();
+          //     } 
+          //   }
+          // if(str == 1240){
+          //     if(i == 1){
+          //       $("#myModal").modal();
+          //       $("#body").html(
+          //         '<br>'+hombres+' '+mujeres+'<br>');
+          //       $("#myModal").modal();
+          //     } 
+          //   }
+          // if(str == 660){
+          //     if(i == 2){
+          //       $("#myModal").modal();
+          //       $("#body").html(
+          //         '<br>'+hombres+' '+mujeres+'<br>');
+          //       $("#myModal").modal();
+          //     } 
+          //   }
+          //   if(str == 351){
+          //     if(i == 3){
+          //       $("#myModal").modal();
+          //       $("#body").html(
+          //         '<br>'+hombres+' '+mujeres+'<br>');
+          //       $("#myModal").modal();
+          //     } 
+          //   }
+          //   if(str == 296){
+          //     if(i == 4){
+          //       $("#myModal").modal();
+          //       $("#body").html(
+          //         '<br>'+hombres+' '+mujeres+'<br>');
+          //       $("#myModal").modal();
+          //     } 
+          //   }
+          //   if(str == 366){
+          //     if(i == 5){
+          //       $("#myModal").modal();
+          //       $("#body").html(
+          //         '<br>'+hombres+' '+mujeres+'<br>');
+          //       $("#myModal").modal();
+          //     } 
+          //   }
+          //   if(str == 193){
+          //     if(i == 6){
+          //       $("#myModal").modal();
+          //       $("#body").html(
+          //         '<br>'+hombres+' '+mujeres+'<br>');
+          //       $("#myModal").modal();
+          //     } 
+          //   }
+          //   if(str == 358){
+          //     if(i == 7){
+          //       $("#myModal").modal();
+          //       $("#body").html(
+          //         '<br>'+hombres+' '+mujeres+'<br>');
+          //       $("#myModal").modal();
+          //     } 
+          //   }
+          //   if(str == 511){
+          //     if(i == 8){
+          //       $("#myModal").modal();
+          //       $("#body").html(
+          //         '<br>'+hombres+' '+mujeres+'<br>');
+          //       $("#myModal").modal();
+          //     } 
+          //   }
+          //   if(str == 310){
+          //     if(i == 9){
+          //       $("#myModal").modal();
+          //       $("#body").html(
+          //         '<br>'+hombres+' '+mujeres+'<br>');
+          //       $("#myModal").modal();
+          //     } 
+          //   }
+          //   if(str == 797){
+          //     if(i == 10){
+          //       $("#myModal").modal();
+          //       $("#body").html(
+          //         '<br>'+hombres+' '+mujeres+'<br>');
+          //       $("#myModal").modal();
+          //     } 
+          //   }
+          //   if(str == 331){
+          //     if(i == 11){
+          //       $("#myModal").modal();
+          //       $("#body").html(
+          //         '<br>'+hombres+' '+mujeres+'<br>');
+          //       $("#myModal").modal();
+          //     } 
+          //   }
+          //   if(str == 229){
+          //     if(i == 12){
+          //       $("#myModal").modal();
+          //       $("#body").html(
+          //         '<br>'+hombres+' '+mujeres+'<br>');
+          //       $("#myModal").modal();
+          //     } 
+          //   }
+          //   if(str == 133){
+          //     if(i == 13){
+          //       $("#myModal").modal();
+          //       $("#body").html(
+          //         '<br>'+hombres+' '+mujeres+'<br>');
+          //       $("#myModal").modal();
+          //     } 
+          //   }
+        });
+      }
+   
+}
     
    
 }
@@ -725,12 +891,12 @@ function drawSubsis2(chart_data)
             if(str == '2,588'){
               $("#myModal").modal();
               $("#body").html(
-                '<h5>'+tableData+'<h5>');
+                '<br>'+tableData+'<br>');
               $("#myModal").modal();
             }else{
               $("#myModal").modal();
               $("#body").html(
-                '<h5>'+tableData2+'<h5>');
+                '<br>'+tableData2+'<br>');
               $("#myModal").modal();
             }
             //alert(totale);

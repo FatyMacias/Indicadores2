@@ -299,17 +299,21 @@ function drawMonthwiseChart3(chart_data, chart_main_title)
     chart.draw(data, options);
     google.visualization.events.addListener(chart, 'select', selectHandler);
     function selectHandler() {
-      var selection = chart.getSelection()[0];
-      var selectedValue = data.getValue(selection.row, 0);
-      var selectedImporte = data.getValue(selection.row, 1);
-  //  alert('Seleccionaste el Mes:' + ' ' + selectedValue + ' ' +'con un importe de:'+ ' ' + selectedImporte);
-  $("#myModal").modal();
-    $("#body").html('Fuente: <strong>U080</strong>, importe total:'+ ' ' +'$'+ selectedImporte/4+'<br>'+
-      'Fuente: <strong>Estatal</strong>, importe total:'+ ' ' +'$'+ selectedImporte/4+'<br>'+
-      'Fuente: <strong>Propios</strong>, importe total:'+ ' ' + '$'+selectedImporte/4+'<br>'+
-      'Fuente: <strong>Fone Otros</strong>, importe total:'+ ' ' +'$'+ selectedImporte/4+'<br>');
-    $("#myModal").modal();
-}
+      var selection = chart.getSelection();
+      for (var i =0; i<selection.length;i++){
+        var item = selection[i];
+        var str = data.getValue(item.row, item.column);
+        var strf = str/4;
+        $("#myModal").modal();
+        $("#body").html('Fuente: <strong>U080</strong>, importe total:'+ ' ' +'$'+ strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>'+
+          'Fuente: <strong>Estatal</strong>, importe total:'+ ' ' +'$'+ strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>'+
+          'Fuente: <strong>Propios</strong>, importe total:'+ ' ' + '$'+strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>'+
+          'Fuente: <strong>Fone Otros</strong>, importe total:'+ ' ' +'$'+ strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>');
+        $("#myModal").modal();
+            //alert(totale);
+      }
+
+    }
 }
 </script>
 
