@@ -700,120 +700,15 @@ function drawSubsis(chart_data)
            var hombres = jsonData.hombres;
            var mujeres = jsonData.mujeres;
            if(str){
-             alert(res);
+             if(i == res){
+               //alert(i + res);
+                $("#myModal").modal();
+                $("#body").html(
+                  '<br><strong>'+str+'</strong><br>'+
+                  '<br>Cantidad de Hombres: '+hombres+' Cantidad de Mujeres: '+mujeres+'<br>');
+                $("#myModal").modal();
+             }
            }
-          // if(str == 173){
-          //     if(i == 0){
-          //       $("#myModal").modal();
-          //       $("#body").html(
-          //         '<br>'+hombres+' '+mujeres+'<br>');
-          //       $("#myModal").modal();
-          //     } 
-          //   }
-          // if(str == 1240){
-          //     if(i == 1){
-          //       $("#myModal").modal();
-          //       $("#body").html(
-          //         '<br>'+hombres+' '+mujeres+'<br>');
-          //       $("#myModal").modal();
-          //     } 
-          //   }
-          // if(str == 660){
-          //     if(i == 2){
-          //       $("#myModal").modal();
-          //       $("#body").html(
-          //         '<br>'+hombres+' '+mujeres+'<br>');
-          //       $("#myModal").modal();
-          //     } 
-          //   }
-          //   if(str == 351){
-          //     if(i == 3){
-          //       $("#myModal").modal();
-          //       $("#body").html(
-          //         '<br>'+hombres+' '+mujeres+'<br>');
-          //       $("#myModal").modal();
-          //     } 
-          //   }
-          //   if(str == 296){
-          //     if(i == 4){
-          //       $("#myModal").modal();
-          //       $("#body").html(
-          //         '<br>'+hombres+' '+mujeres+'<br>');
-          //       $("#myModal").modal();
-          //     } 
-          //   }
-          //   if(str == 366){
-          //     if(i == 5){
-          //       $("#myModal").modal();
-          //       $("#body").html(
-          //         '<br>'+hombres+' '+mujeres+'<br>');
-          //       $("#myModal").modal();
-          //     } 
-          //   }
-          //   if(str == 193){
-          //     if(i == 6){
-          //       $("#myModal").modal();
-          //       $("#body").html(
-          //         '<br>'+hombres+' '+mujeres+'<br>');
-          //       $("#myModal").modal();
-          //     } 
-          //   }
-          //   if(str == 358){
-          //     if(i == 7){
-          //       $("#myModal").modal();
-          //       $("#body").html(
-          //         '<br>'+hombres+' '+mujeres+'<br>');
-          //       $("#myModal").modal();
-          //     } 
-          //   }
-          //   if(str == 511){
-          //     if(i == 8){
-          //       $("#myModal").modal();
-          //       $("#body").html(
-          //         '<br>'+hombres+' '+mujeres+'<br>');
-          //       $("#myModal").modal();
-          //     } 
-          //   }
-          //   if(str == 310){
-          //     if(i == 9){
-          //       $("#myModal").modal();
-          //       $("#body").html(
-          //         '<br>'+hombres+' '+mujeres+'<br>');
-          //       $("#myModal").modal();
-          //     } 
-          //   }
-          //   if(str == 797){
-          //     if(i == 10){
-          //       $("#myModal").modal();
-          //       $("#body").html(
-          //         '<br>'+hombres+' '+mujeres+'<br>');
-          //       $("#myModal").modal();
-          //     } 
-          //   }
-          //   if(str == 331){
-          //     if(i == 11){
-          //       $("#myModal").modal();
-          //       $("#body").html(
-          //         '<br>'+hombres+' '+mujeres+'<br>');
-          //       $("#myModal").modal();
-          //     } 
-          //   }
-          //   if(str == 229){
-          //     if(i == 12){
-          //       $("#myModal").modal();
-          //       $("#body").html(
-          //         '<br>'+hombres+' '+mujeres+'<br>');
-          //       $("#myModal").modal();
-          //     } 
-          //   }
-          //   if(str == 133){
-          //     if(i == 13){
-          //       $("#myModal").modal();
-          //       $("#body").html(
-          //         '<br>'+hombres+' '+mujeres+'<br>');
-          //       $("#myModal").modal();
-          //     } 
-          //   }
         });
       }
    
