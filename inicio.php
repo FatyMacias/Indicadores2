@@ -541,7 +541,7 @@ function drawModaldata(chart_data)
 
     });
     
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Conceptos" data-toggle="modal" data-target="#myModaluno"> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Por Conceptos" data-toggle="modal" data-target="#myModaluno"> </td>';
     $("#colbut").append(tablaData6);
     $("#coluno").append(tablaData);
 
