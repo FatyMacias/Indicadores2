@@ -156,8 +156,8 @@ $resultM = $statementM->fetchAll();
     <div class="col-sm-6">
         <div class="form-group">
         <select name="idr" class="form-control" id="idr" style="width: 300px; height: 35px;">
-                            <option value="">Por Nivel / Region</option>
-                            <option>Region</option>
+                            <option value="">Por Nivel / Región</option>
+                            <option>Región</option>
                             <option>Nivel</option>
                 </select>
 
@@ -200,7 +200,7 @@ $resultM = $statementM->fetchAll();
 </div>
 <div class="panel-body menu" style="display:">
   <div class="table-bordered text-center" id="Region" style= "display:">
-    <h3><strong>Reporte Por Region</strong></h3>
+    <h3><strong>Reporte Por Región</strong></h3>
     <table id="example2" class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
       <thead class="thead-dark">
         <tr>
@@ -633,7 +633,7 @@ function drawSubsis(chart_data)
 
     });
     
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Mostrar/Ocultar Graficas" onclick="show()"> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Mostrar/Ocultar Graficas" onclick="show()"> </td>';
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis").append(tablaData);
