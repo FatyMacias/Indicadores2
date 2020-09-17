@@ -180,9 +180,9 @@ $resultM = $statementM->fetchAll();
                                         <!-- <th scope="col">id</th> -->
                                         <th scope="col">Clave</th>
                                         <th scope="col">Nombre del Concepto</th>
-                                        <th scope="col">SubSis</th>
-                                        <th scope="col">NomSis</th>
-                                        <th scope="col">PerDed</th>
+                                        <th scope="col">Clave Subsistema</th>
+                                        <th scope="col">Nombre Subsistema</th>
+                                        <th scope="col">Percepción / Deducción </th>
                                         <th scope="col">Importe</th>
                                       </tr>
                               </thead>
@@ -194,9 +194,9 @@ $resultM = $statementM->fetchAll();
                                         <!-- <th scope="col">id</th> -->
                                         <th scope="col">Clave</th>
                                         <th scope="col">Nombre del Concepto</th>
-                                        <th scope="col">SubSis</th>
-                                        <th scope="col">NomSis</th>
-                                        <th scope="col">PerDed</th>
+                                        <th scope="col">Clave Subsistema</th>
+                                        <th scope="col">Nombre Subsistema</th>
+                                        <th scope="col">Percepción / Deducción </th>
                                         <th scope="col">Importe</th>
                                       </tr>
 
