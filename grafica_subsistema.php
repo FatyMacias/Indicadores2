@@ -170,7 +170,7 @@ $resultM = $statementM->fetchAll();
             <div style="width: 200px; height: 10px;"></div>  
           </div>
           <div class="panel-body">
-           <div class="table-responsive">
+          < <div class="table-responsive">
                       <table id = "example2" class="table table-hover table-bordered" style="width:100%; border: 1px solid #ddd !important;">
                           
                                 <thead class="thead-dark">
@@ -282,7 +282,7 @@ function drawSubsis(chart_data)
    $('#colbuts').empty();
    //$('#col2_1').empty();
     $.each(jsonData, function(i, jsonData){
-        //var mes = temp ++;
+       // var mes = temp ++;
         var importe = jsonData.importe;
         var clave = jsonData.clave;
         var nombre = jsonData.nombre;
