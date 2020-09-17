@@ -432,7 +432,7 @@ function drawtotal(chart_data)
 
     });
 
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis2").append(tablaData);
@@ -490,7 +490,7 @@ function drawtotal2(chart_data)
 
     });
 
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis3").append(tablaData);
@@ -749,7 +749,7 @@ function drawregtot(chart_data)
 
     });
 
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis1").append(tablaData);
