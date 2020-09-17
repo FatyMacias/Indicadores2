@@ -52,7 +52,7 @@ $resultM = $statementM->fetchAll();
           <li class="active">
           <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">INFORMACIÓN FINANCIERA</a>
               <ul class="collapse list-unstyled" id="homeSubmenu">
-                <li>
+              <li>
                     <a href="inicio.php" onclick="openMenu('general')">Gráfica Global</a>
                 </li>
                 <li>
@@ -64,17 +64,12 @@ $resultM = $statementM->fetchAll();
                 <li>
                     <a href="grafica_subsistema.php" onclick="openMenu('genero')">Subsistemas</a>
                 </li>
-                <!-- <li>
-                    <a href="grafica_porgenero.php" onclick="openMenu('genero')">Por género</a>
-                </li> -->
               </ul>
             </li>
-
-
-           
+            
             <li>
-              <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">INFORMACIÓN DE PERSONAL</a>
-              <ul class="collapse list-unstyled" id="pageSubmenu">
+            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">INFORMACIÓN DE PERSONAL</a>
+            <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
                     <a href="grafica_genero.php" onclick="openMenu('subsis')">Gráfica Por Género</a>
                 </li>
@@ -85,9 +80,10 @@ $resultM = $statementM->fetchAll();
                     <a href="#">Page 3</a>
                 </li> -->
               </ul>
-            </li>
+            </li> 
           </ul>
-       </div>
+
+         </div>
       </nav>
       
 
@@ -144,7 +140,7 @@ $resultM = $statementM->fetchAll();
             
 
         <div id="conceptos" >
-          <center><h1>INDICADORES DE GÉNERO</h1></center>
+          <center><h1>INDICADORES POR GENERO</h1></center>
 
           <div>
 
@@ -153,13 +149,12 @@ $resultM = $statementM->fetchAll();
                
                 <div class="row">
     <div class="col-sm-6">
-
-    <select name="idr" class="form-control" id="idr" style="width: 300px; height: 35px;">
+        <div class="form-group">
+        <select name="idr" class="form-control" id="idr" style="width: 300px; height: 35px;">
                             <option value="">Por Nivel / Region</option>
                             <option>Region</option>
                             <option>Nivel</option>
                 </select>
-        <div class="form-group">
         <select name="id" class="form-control" id="id"style="width: 300px; height: 35px;">
                             <option value="">Seleccionar año</option>
                             <?php
@@ -183,7 +178,7 @@ $resultM = $statementM->fetchAll();
     </div>
     <div class="col-sm-6">
         <div class="form-group">
-      
+
         </div>
     </div>
 </div>
@@ -197,8 +192,56 @@ $resultM = $statementM->fetchAll();
           <div class="panel-body">
   <div style="width: 200px; height: 10px;"></div>
 </div>
-<div class="panel-body" style="display:">
-<div class="table-bordered table-responsive text-center menu" id="Nivel" style="display:">
+<div class="panel-body menu" style="display:">
+  <div class="table-bordered text-center" id="Region" style= "display:">
+    <h3><strong>Reporte Por Region</strong></h3>
+    <table id="example2" class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Region</th>
+          <th scope="col">Total</th>
+          <th scope="col">Hombres</th>
+          <th scope="col">Mujeres</th>
+          <th scope="col">Docentes</th>
+          <th scope="col">Administrativo</th>
+          <th scope="col">Base</th>
+          <th scope="col">Interino</th>
+          <th scope="col">Contrato</th>
+          <th scope="col">Bachilleres</th>
+        </tr>
+      </thead>
+      <tbody id="colsubsis"></tbody>
+      <tfoot class="table-dark text-light" id="colsubsis2">
+        <tr>
+          <th scope="col">Total</th>
+          <th scope="col">Hombres</th>
+          <th scope="col">Mujeres</th>
+          <th scope="col">Docentes</th>
+          <th scope="col">Administrativo</th>
+          <th scope="col">Base</th>
+          <th scope="col">Interino</th>
+          <th scope="col">Contrato</th>
+          <th scope="col">Bachilleres</th>
+        </tr>
+      </tfoot>
+
+    </table>
+    <table>
+      <tr id = "colbuts">
+
+      </tr>
+    </table>
+    <div class="panel-body">
+      <div id="chart_area3" style="width: 1200px; height: 500px; visibility: hidden;"></div>
+    </div>
+    <div class="panel-body">
+      <div id="chart_area2" style="width: 1200px; height: 500px; visibility: hidden;"></div>
+    </div>
+  </div>
+  <div style="width: 200px; height: 10px;"></div>
+</div>
+<div class="panel-body" style="display:none">
+<div class="table-bordered text-center" id="Nivel" style="display:">
     <h3><strong>Reporte Por Nivel</strong></h3>
     <table id="example2" class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
       <thead class="thead-dark">
@@ -232,7 +275,7 @@ $resultM = $statementM->fetchAll();
       </tfoot>
     </table>
     <table>
-      <tr id = "colbuts">
+      <tr id = "colbuts1">
 
       </tr>
     </table>
@@ -264,16 +307,30 @@ $resultM = $statementM->fetchAll();
             }
             function show(){
               //document.getElementById('chart_area').visibility = "visible";
-              var x = document.getElementById('chart_area');
-
-              if (x.style.visibility === 'hidden') {
+              var x = document.getElementById('chart_area3');
+              var y = document.getElementById('chart_area2');
+              if (x.style.visibility === 'hidden' && y.style.visibility === 'hidden') {
                   x.style.visibility = 'visible';
-
+                  y.style.visibility = 'visible';
               } else {
                   x.style.visibility = 'hidden';
-
+                  y.style.visibility = 'hidden';
               }
                
+            }
+            function show2(){
+              //document.getElementById('chart_area').visibility = "visible";
+              var x = document.getElementById('chart_area');
+              if (x.style.visibility === 'hidden') {
+                  x.style.visibility = 'visible';
+              } else {
+                  x.style.visibility = 'hidden';
+              }
+               
+            }
+            function toggle(target, source) {
+              this[target].parentNode.style.display = 'none'
+              this[source].parentNode.style.display = 'block'
             }
           </script>
           
@@ -291,7 +348,7 @@ $resultM = $statementM->fetchAll();
 <script type="text/javascript" src="./charts/loader.js"></script>
 <script type="text/javascript">
 google.charts.load('current', {packages: ['corechart', 'bar']});
-google.charts.load('current', {'packages':['table']});
+
 
 google.charts.setOnLoadCallback();
 
@@ -309,8 +366,7 @@ function load_subsis(id, idd)
         success:function(data)
         {
             drawSubsis(data);
-            drawSubsis2(data);
-            
+            drawSubsis2(data); 
         },
         error: function(data)
         {
@@ -318,6 +374,7 @@ function load_subsis(id, idd)
         }
     });
 }
+
 function load_regtot(id, idd)
 {
     
@@ -329,8 +386,7 @@ function load_regtot(id, idd)
         dataType:"JSON",
         success:function(data)
         {
-            drawregtot(data);
-            
+            drawregtot(data);   
         },
         error: function(data)
         {
@@ -350,9 +406,6 @@ function load_total(id, idd)
         success:function(data)
         {
             drawtotal(data);
-
-
-            
         },
         error: function(data)
         {
@@ -371,8 +424,7 @@ function load_total2(id, idd)
         dataType:"JSON",
         success:function(data)
         {
-            drawtotal2(data);
-            
+            drawtotal2(data);  
         },
         error: function(data)
         {
@@ -432,7 +484,7 @@ function drawtotal(chart_data)
 
     });
 
-    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Mostrar Graficas" onclick="show()> </td>';
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis2").append(tablaData);
@@ -490,7 +542,7 @@ function drawtotal2(chart_data)
 
     });
 
-    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis3").append(tablaData);
@@ -559,13 +611,21 @@ function drawSubsis(chart_data)
         tablaData += '<td>'+bachilleres+'</td>';
         tablaData += '</tr>';
         //tablaData += '<tr>';
-        //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
+
+        // if(i == 0){
+        // tablaData2 += '<td>Hombres: '+jsonData.hombres+' Mujeres: '+mujeres+'</td>';
+        // tablaData2 += '<br>';
+        // }
+        //selectHandler(i);
+        
+
+         
         //tablaData += '</tr>';
         /////////
 
     });
-
-    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Mostrar/Ocultar Graficas" onclick="show()"> </td>';
+    
+    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Mostrar/Ocultar Graficas" onclick="show()"> </td>';
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis").append(tablaData);
@@ -574,6 +634,10 @@ function drawSubsis(chart_data)
    for(var x=0;x<axis;x++){
     data.setValue(x, 2, '#'+Math.floor(Math.random()*16777215).toString(16));
    }
+
+
+
+  
     var options = {
         title:"Mujeres y Hombres por Region",
         legend: 'none',
@@ -592,8 +656,62 @@ function drawSubsis(chart_data)
     
     var chart = new google.visualization.ColumnChart(document.getElementById('chart_area3'));
     chart.draw(data, options);
-
-    
+    google.visualization.events.addListener(chart, 'select', selectHandler);
+    // function selectHandler() {
+    //   var selection = chart.getSelection();
+    //   for (var i =0; i<selection.length;i++){
+    //     var item = selection[i];
+    //     var str = data.getValue(item.row, item.column);
+    //     var num = data.getNumberOfRows()
+    //     // for(var x=0;x<num;x++){
+    //     //   alert(x);
+    //     // }
+    //     $("#body").empty();
+    //     $.each(jsonData, function(i, jsonData){
+    //       var hombres = jsonData.hombres;
+    //       var mujeres = jsonData.mujeres;
+    //       tablaData2 += '<td>Hombres: '+jsonData.hombres+' Mujeres: '+mujeres+'</td>';
+    //       tablaData2 += '<br>';
+    //       //i = 0;      
+    //       if(str){
+    //             $("#myModal").modal();
+    //             $("#body").html('<br>'+tablaData2+'<br>');
+    //             $("#myModal").modal();          
+    //         }
+    //       });
+    //   }
+    // }
+    function selectHandler() {
+      var selection = chart.getSelection();
+      for (var i =0; i<selection.length;i++){
+        var item = selection[i];
+        var str = data.getValue(item.row, 0);
+        var res = str.slice(0, 1);
+        var stn = data.getRowProperties(item.row);
+        // var num = data.getDistinctValues(item.column);
+        // if (num.indexOf(173) >=0 ) // check if the item exists on the array
+        //     {
+        //         alert('Match');
+        //     } else {
+        //         alert('No match found.');
+        //     }
+      $.each(jsonData, function(i, jsonData){
+           var hombres = jsonData.hombres;
+           var mujeres = jsonData.mujeres;
+           if(str){
+             if(i == res){
+               //alert(i + res);
+                $("#myModal").modal();
+                $("#body").html(
+                  '<br><strong>'+str+'</strong><br>'+
+                  '<br>Cantidad de Hombres: '+hombres+' Cantidad de Mujeres: '+mujeres+'<br>');
+                $("#myModal").modal();
+             }
+           }
+        });
+      }
+   
+}
     
    
 }
@@ -667,12 +785,12 @@ function drawSubsis2(chart_data)
             if(str == '2,588'){
               $("#myModal").modal();
               $("#body").html(
-                '<h5>'+tableData+'<h5>');
+                '<br>'+tableData+'<br>');
               $("#myModal").modal();
             }else{
               $("#myModal").modal();
               $("#body").html(
-                '<h5>'+tableData2+'<h5>');
+                '<br>'+tableData2+'<br>');
               $("#myModal").modal();
             }
             //alert(totale);
@@ -688,12 +806,12 @@ function drawSubsis2(chart_data)
 }
 }
 
-
+let data, options, chart;
 function drawregtot(chart_data)
 {
   var jsonData = chart_data;
     var temp = 1;
-    var data = new google.visualization.DataTable();
+    data = new google.visualization.DataTable();
     data.addColumn('string', 'Regiones');
     data.addColumn('number', 'Hombres');
     data.addColumn('number', 'Mujeres');
@@ -749,13 +867,14 @@ function drawregtot(chart_data)
 
     });
 
-    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
-    $("#colbuts").append(tablaData6);
+    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Mostrar/Ocultar Graficas" onclick="show2()"> </td>';
+    $("#colbuts1").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis1").append(tablaData);
    
-    var options = {
+     options = {
         title:"Mujeres y Hombres por Nivel",
+        width: '100%',
         //legend: 'none',
         hAxis: {
             title: "Niveles"
@@ -767,10 +886,15 @@ function drawregtot(chart_data)
         }
 
     };
-    
-    var chart = new google.visualization.ColumnChart(document.getElementById('chart_area'));
+    chart = new google.visualization.ColumnChart(document.getElementById('chart_area'));
     chart.draw(data, options);
+
 }
+
+function test() {
+  document.getElementById("chart_area").style.display = "block";
+  chart.draw(data, options);
+  }
 </script>
 
 
@@ -803,14 +927,26 @@ $(document).ready(function(){
 
 $('#idr').change(function(){
     var idr =$('#idr').val();
+    if(idr != '' && idr == "Nivel")
+    {
+      //myfunction(idr)
+      //window.location.replace("grafica_region_niveles.php");
+      //alert(idr);
+      toggle("Region", idr);
+      test();
+    }
     if(idr != '' && idr == "Region")
     {
       //myfunction(idr)
-      window.location.replace("grafica_region.php");
+      //window.location.replace("grafica_region_niveles.php");
       //alert(idr);
+      toggle("Nivel", idr);
     }
 });
 
 });
 
 </script>
+
+
+
