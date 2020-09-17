@@ -350,7 +350,7 @@ $resultM = $statementM->fetchAll();
 <script type="text/javascript" src="./charts/loader.js"></script>
 <script type="text/javascript">
 google.charts.load('current', {packages: ['corechart', 'bar']});
-google.charts.load('current', {'packages':['table']});
+
 
 google.charts.setOnLoadCallback();
 
@@ -368,7 +368,7 @@ function load_subsis(id, idd)
         success:function(data)
         {
             drawSubsis(data);
-            //drawSubsis2(data); 
+            drawSubsis2(data); 
         },
         error: function(data)
         {
