@@ -565,7 +565,7 @@ function drawSubsis(chart_data)
 
     });
 
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Mostrar/Ocultar Graficas" onclick="show()"> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Mostrar/Ocultar Graficas" onclick="show()"> </td>';
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis").append(tablaData);

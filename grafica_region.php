@@ -172,7 +172,7 @@ $resultM = $statementM->fetchAll();
                 </select>
 
                 <select name="idd" class="form-control" id="idd" style="width: 300px; height: 35px;">
-                            <option value="">Seleccionar subsistema</option>
+                            <option value="">Seleccionar quincena</option>
                             <?php
                             foreach($resultM as $row)
                             {
@@ -219,6 +219,8 @@ $resultM = $statementM->fetchAll();
       <tbody id="colsubsis"></tbody>
       <tfoot class="table-dark text-light" id="colsubsis2">
         <tr>
+        <th scope="col">Region</th>
+
           <th scope="col">Total</th>
           <th scope="col">Hombres</th>
           <th scope="col">Mujeres</th>
@@ -490,7 +492,7 @@ function drawtotal(chart_data)
 
     });
 
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Mostrar Graficas" onclick="show()> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Mostrar Graficas" onclick="show()> </td>';
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis2").append(tablaData);
