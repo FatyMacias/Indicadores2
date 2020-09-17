@@ -633,7 +633,7 @@ function drawSubsis(chart_data)
 
     });
     
-    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Mostrar/Ocultar Graficas" onclick="show()"> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Mostrar/Ocultar Graficas" onclick="show()"> </td>';
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis").append(tablaData);
@@ -776,6 +776,10 @@ function drawSubsis2(chart_data)
             title: "Regiones"
         },
         vAxis: {
+          viewWindow:{
+            min: 100,
+            max: 10000
+          },
             title: 'Cantidades',
             //format: 'currency'
         }
