@@ -50,44 +50,46 @@ $resultM = $statementM->fetchAll();
           <br>
           <ul class="list-unstyled components mb-5">
           <li class="active">
-              <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Ver gráficas</a>
+          <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">INFORMACIÓN FINANCIERA</a>
               <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
-                    <a href="inicio.php" >Global</a>
+                    <a href="inicio.php" onclick="openMenu('general')">Gráfica Global</a>
                 </li>
                 <li>
-                    <a href="grafica_concepto.php">Por concepto</a>
+                    <a href="grafica_concepto.php" onclick="openMenu('conceptos')">Gráfica Por Concepto</a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="#">Por banco</a>
-                </li>
+                </li> -->
                 <li>
-                    <a href="grafica_region.php" onclick="openMenu('genero')">Por Region</a>
+                    <a href="grafica_subsistema.php" onclick="openMenu('genero')">Subsistemas</a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="grafica_porgenero.php" onclick="openMenu('genero')">Por género</a>
-                </li>
+                </li> -->
               </ul>
             </li>
-            
+
+
+           
             <li>
-              <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Por subsistema</a>
-              <ul class="collapse list-unstyled" id="pageSubmenu2">
+              <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">INFORMACIÓN DE PERSONAL</a>
+              <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    <a href="#">Page 1</a>
+                    <a href="grafica_genero.php" onclick="openMenu('subsis')">Gráfica Por Género</a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="#">Page 2</a>
                 </li>
                 <li>
                     <a href="#">Page 3</a>
-                </li>
+                </li> -->
               </ul>
-            </li> 
+            </li>
           </ul>
-
-         </div>
+       </div>
       </nav>
+      
       
 
       
@@ -143,7 +145,7 @@ $resultM = $statementM->fetchAll();
             
 
         <div id="conceptos" >
-          <center><h1>INDICADORES POR REGION</h1></center>
+          <center><h1>INDICADORES DE GÉNERO</h1></center>
 
           <div>
 
@@ -153,6 +155,12 @@ $resultM = $statementM->fetchAll();
                 <div class="row">
     <div class="col-sm-6">
         <div class="form-group">
+        <select name="idr" class="form-control" id="idr" style="width: 300px; height: 35px;">
+                            <option value="">Por Nivel / Region</option>
+                            <option>Region</option>
+                            <option>Nivel</option>
+                </select>
+
         <select name="id" class="form-control" id="id"style="width: 300px; height: 35px;">
                             <option value="">Seleccionar año</option>
                             <?php
@@ -176,11 +184,7 @@ $resultM = $statementM->fetchAll();
     </div>
     <div class="col-sm-6">
         <div class="form-group">
-        <select name="idr" class="form-control" id="idr" style="width: 300px; height: 35px;">
-                            <option value="">Por Nivel / Region</option>
-                            <option>Region</option>
-                            <option>Nivel</option>
-                </select>
+       
         </div>
     </div>
 </div>
