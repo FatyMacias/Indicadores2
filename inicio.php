@@ -163,7 +163,13 @@ $resultS = $statementS->fetchAll();
       <!-- Modal content POR CONCEPTOS-->
       <div class="modal-content">
         <div class="modal-header">
-          
+        <button type="button" class="btn close" 
+                            data-dismiss="modal" aria-label="Close"> 
+                            <span class="float-right" aria-hidden="true">×</span>
+                        </button> 
+        <!-- <button type="button" class="close" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button> -->
         <h4 class="modal-title w-100 text-center" class="modal-title">CONCEPTOS POR AÑO</h4>
 
         </div>
@@ -196,13 +202,19 @@ $resultS = $statementS->fetchAll();
                     </table>
             </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <div class="modal-body" id="body">
         </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+        </div> 
+</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+          </button>
+        </div>
+          </div>  
     </div>
-      
-    </div>
-  </div>
+
 
 
 
@@ -212,7 +224,7 @@ $resultS = $statementS->fetchAll();
           <div>
       
               
-                <select name="id" class="form-control" id="id" style="width: 300px; height: 35px;">
+                <select name="id" class="form-control" id="id"  style="width: 300px; height: 35px;">
                             <option value="">Selecciona un año</option>
                             <?php
                             foreach($result as $row)
