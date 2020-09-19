@@ -555,15 +555,15 @@ function drawtotal2(chart_data)
     
    
 }
-
+var data3, options3, chart3;
 function drawSubsis(chart_data)
 {
     var jsonData = chart_data;
     var temp = 1;
-    var data = new google.visualization.DataTable();
-    data.addColumn('string', 'Regiones');
-    data.addColumn('number', 'Cantidad');
-    data.addColumn({
+    data3 = new google.visualization.DataTable();
+    data3.addColumn('string', 'Regiones');
+    data3.addColumn('number', 'Cantidad');
+    data3.addColumn({
                type: 'string',
                role: 'style'
            });
@@ -596,7 +596,7 @@ function drawSubsis(chart_data)
         var contrato = jsonData.contrato;
         var bachilleres = jsonData.bachilleres;
         var style = jsonData.style;
-        data.addRows([[region, total, style]]);
+        data3.addRows([[region, total, style]]);
         /////////
         tablaData += '<tr>';
         tablaData += '<td class="text-left">'+region+'</td>';
@@ -632,13 +632,13 @@ function drawSubsis(chart_data)
     var axis = data.getNumberOfRows();
    //alert('max data table value: ' + axis);
    for(var x=0;x<axis;x++){
-    data.setValue(x, 2, '#'+Math.floor(Math.random()*16777215).toString(16));
+    data3.setValue(x, 2, '#'+Math.floor(Math.random()*16777215).toString(16));
    }
 
 
 
   
-    var options = {
+    options3 = {
         title:"Mujeres y Hombres por Region",
         legend: 'none',
         hAxis: {
@@ -654,9 +654,9 @@ function drawSubsis(chart_data)
 
 
     
-    var chart = new google.visualization.ColumnChart(document.getElementById('chart_area3'));
-    chart.draw(data, options);
-    google.visualization.events.addListener(chart, 'select', selectHandler);
+    chart3 = new google.visualization.ColumnChart(document.getElementById('chart_area3'));
+    chart3.draw(data3, options3);
+    google.visualization.events.addListener(chart3, 'select', selectHandler);
     // function selectHandler() {
     //   var selection = chart.getSelection();
     //   for (var i =0; i<selection.length;i++){
@@ -682,12 +682,12 @@ function drawSubsis(chart_data)
     //   }
     // }
     function selectHandler() {
-      var selection = chart.getSelection();
+      var selection = chart3.getSelection();
       for (var i =0; i<selection.length;i++){
         var item = selection[i];
-        var str = data.getValue(item.row, 0);
+        var str = data3.getValue(item.row, 0);
         var res = str.slice(0, 1);
-        var stn = data.getRowProperties(item.row);
+        var stn = data3.getRowProperties(item.row);
         // var num = data.getDistinctValues(item.column);
         // if (num.indexOf(173) >=0 ) // check if the item exists on the array
         //     {
@@ -711,19 +711,22 @@ function drawSubsis(chart_data)
         });
       }
    
+} 
 }
-    
-   
-}
+  function test3() {
+  document.getElementById("chart_area3").style.display = "block";
+  chart3.draw(data3, options3);
+  }
 
+var data2, options2, chart2;
 function drawSubsis2(chart_data)
 {
     var jsonData = chart_data;
     var temp = 1;
-    var data = new google.visualization.DataTable();
-    data.addColumn('string', 'Regiones');
-    data.addColumn('number', 'Hombres');
-    data.addColumn('number', 'Mujeres');
+    data2 = new google.visualization.DataTable();
+    data2.addColumn('string', 'Regiones');
+    data2.addColumn('number', 'Hombres');
+    data2.addColumn('number', 'Mujeres');
     
     //
     var tableData ='';
@@ -758,11 +761,12 @@ function drawSubsis2(chart_data)
       total2 += parseFloat(jsonData[i].mujeres,10);
       //alert(totale);
     }
-    data.addRows([
+    data2.addRows([
       ['Genero', total, total2]
     ]);
-    var options = {
+    options2 = {
         title:"Mujeres y Hombres por Region",
+        width: '100%',
         //legend: 'none',
         hAxis: {
             title: "Regiones"
@@ -772,16 +776,16 @@ function drawSubsis2(chart_data)
             //format: 'currency'
         }
     };
-    var chart = new google.visualization.ColumnChart(document.getElementById('chart_area2'));
-    chart.draw(data, options); 
+    chart2 = new google.visualization.ColumnChart(document.getElementById('chart_area2'));
+    chart2.draw(data2, options2); 
 
 
-    google.visualization.events.addListener(chart, 'select', selectHandler);
+    google.visualization.events.addListener(chart2, 'select', selectHandler);
     function selectHandler() {
       var selection = chart.getSelection();
       for (var i =0; i<selection.length;i++){
         var item = selection[i];
-        var str = data.getFormattedValue(item.row, item.column);
+        var str = data2.getFormattedValue(item.row, item.column);
             if(str == '2,588'){
               $("#myModal").modal();
               $("#body").html(
@@ -805,8 +809,13 @@ function drawSubsis2(chart_data)
 
 }
 }
+function test2() {
+  document.getElementById("chart_area2").style.display = "block";
+  chart2.draw(data2, options2);
+  }
 
-let data, options, chart;
+
+var data, options, chart;
 function drawregtot(chart_data)
 {
   var jsonData = chart_data;
@@ -895,6 +904,8 @@ function test() {
   document.getElementById("chart_area").style.display = "block";
   chart.draw(data, options);
   }
+
+  
 </script>
 
 
@@ -902,8 +913,9 @@ function test() {
 
 
 
+
 <script>
-    // Detectar seleccion del select option
+// Detectar seleccion del select option
 $(document).ready(function(){
 
     $('#id, #idd').change(function(){
@@ -941,6 +953,9 @@ $('#idr').change(function(){
       //window.location.replace("grafica_region_niveles.php");
       //alert(idr);
       toggle("Nivel", idr);
+      test2();
+      test3();
+
     }
 });
 
