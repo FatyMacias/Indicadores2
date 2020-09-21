@@ -165,7 +165,7 @@ $resultS = $statementS->fetchAll();
         <div class="modal-header">
         <button type="button" class="btn close" 
                             data-dismiss="modal" aria-label="Close"> 
-                            <span class="row align-items-center" style="position: absolute; right:0;" aria-hidden="true">×</span>
+                            <span class="row align-items-center" style="position: absolute;" aria-hidden="true">×</span>
                         </button> 
         <!-- <button type="button" class="close" aria-label="Close">
   <span aria-hidden="true">&times;</span>
