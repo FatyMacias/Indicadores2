@@ -165,7 +165,7 @@ $resultS = $statementS->fetchAll();
         <div class="modal-header">
         <button type="button" class="btn close" 
                             data-dismiss="modal" aria-label="Close"> 
-                            <span class="float-right" aria-hidden="true">×</span>
+                            <span class="row align-items-center" style="position: absolute; right:0;" aria-hidden="true">×</span>
                         </button> 
         <!-- <button type="button" class="close" aria-label="Close">
   <span aria-hidden="true">&times;</span>
@@ -681,7 +681,8 @@ function drawMonthwiseChart(chart_data, chart_main_title)
         var str = data.getValue(item.row, item.column);
         var strf = str/4;
         $("#myModal").modal();
-        $("#body").html('Fuente: <strong>U080</strong>, importe total:'+ ' ' +'$'+ strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>'+
+        $("#body").html(
+          '<h5>Fuente: <strong>U080</strong>, importe total:'+ ' ' +'$'+ strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<h5><br>'+
           'Fuente: <strong>Estatal</strong>, importe total:'+ ' ' +'$'+ strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>'+
           'Fuente: <strong>Propios</strong>, importe total:'+ ' ' + '$'+strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>'+
           'Fuente: <strong>Fone Otros</strong>, importe total:'+ ' ' +'$'+ strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>');

@@ -711,8 +711,9 @@ function drawSubsis(chart_data)
                //alert(i + res);
                 $("#myModal").modal();
                 $("#body").html(
-                  '<br><strong>'+str+'</strong><br>'+
-                  '<br>Cantidad de Hombres: '+hombres+' Cantidad de Mujeres: '+mujeres+'<br>');
+                  '<br><h5><strong>'+str+'</strong><h5><br>'+
+                  '<br><h5>Cantidad de Hombres: '+hombres+'<br>'+
+                  '<br> Cantidad de Mujeres: '+mujeres+'<h5><br>');
                 $("#myModal").modal();
              }
            }
@@ -778,7 +779,7 @@ function drawSubsis2(chart_data)
         vAxis: {
           viewWindow:{
             min: 100,
-            max: 10000
+            max: 5000
           },
             title: 'Cantidades',
             //format: 'currency'

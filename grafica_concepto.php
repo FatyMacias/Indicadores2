@@ -232,7 +232,7 @@ function load_conceptowise3_data(idc, idm, title)
         },
         error: function(data)
         {
-            alert("No hay Datos");
+            alert("No hay Datos :c");
         }
     });
 }
