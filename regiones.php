@@ -1,3 +1,19 @@
+<?php
+Include("bd/database_connection.php");
+$queryC = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year ASC";
+//$query = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year DESC";
+$queryM = "SELECT SUBSTRING(qna_ini,5,6) AS quincena FROM `cat_quincenas` LIMIT 24";
+$statementC = $connect->prepare($queryC);
+$statementM = $connect->prepare($queryM);
+
+$statementC->execute();
+$statementM->execute();
+
+$resultC = $statementC->fetchAll();
+$resultM = $statementM->fetchAll();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -25,6 +41,7 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
+    <link href="css/toastr.min.css" rel="stylesheet"/>
   </head>
   
   <body>
@@ -138,45 +155,60 @@
 
 
         <div id="conceptos" class="w3-container menu" style="display">
-          <center><h1>INDICADORES POR REGIONES</h1></center>
+  <center>
+    <h1>INDICADORES POR REGIONES</h1>
+  </center>
+  <div>
+        <select name="id" class="form-control" id="id"style="width: 300px; height: 35px;">
+                  <option value="">Seleccionar año</option>
+                  <?php
+                    foreach($resultC as $row)
+                    {
+                        echo '<option value="'.$row["year"].'">'.''.$row["year"] . ' ' .''.$row["concepto"].'</option>';
+                    }
+                  ?>
+        </select>
 
-          <div>
-
-            <br>
-            <br>
-
-        <div class="panel-body">
-           <div class="table-responsive">
-                      <table id = "example2" class="table table-hover table-bordered" style="width:100%; border: 1px solid #ddd !important;">
-                          
-                                <thead class="thead-dark">
-                                      <tr>
-                                        <!-- <th scope="col">id</th> -->
-                                        <th scope="col">Regiones</th>
-                                        <th scope="col">Importe Total</th>
-                                        <th scope="col">Importe Docentes</th>
-                                        <th scope="col">Importe Administrativos</th>
-                                        
-                                      </tr>
-                              </thead>
-                              <tbody id="colsubsis">
-
-                              </tbody>
-                              <tfoot class="thead-dark">
-                                      <tr>
-                                        <!-- <th scope="col">id</th> -->
-                                        <th scope="col">Regiones</th>
-                                        <th scope="col">Importe Total</th>
-                                        <th scope="col">Importe Docentes</th>
-                                        <th scope="col">Importe Administrativos</th>
-                                        
-                                      </tr>
-
-                              </tfoot>
-                      </table>
-              </div>
-          </div>
-          </div>
+        <select name="idd" class="form-control" id="idd" style="width: 300px; height: 35px;">
+                  <option value="">Seleccionar quincena</option>
+                  <?php
+                    foreach($resultM as $row)
+                    {
+                        echo '<option value="'.$row["quincena"].'">'.$row["quincena"].'</option>';
+                    }
+                  ?>
+        </select>
+    </div>
+  <div>
+    <br>
+    <br>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table id="example2" class="table table-hover table-bordered" style="width:100%; border: 1px solid #ddd !important;">
+          <thead class="thead-dark">
+            <tr>
+              <!-- <th scope="col">id</th> -->
+              <th scope="col">Region</th>
+              <th scope="col">Importe Total</th>
+              <th scope="col">Importe/Docentes</th>
+              <th scope="col">Importe/Administrativos</th>
+            </tr>
+          </thead>
+          <tbody id="colsubsis"></tbody>
+          <tfoot class="thead-dark">
+          <tr>
+              <!-- <th scope="col">id</th> -->
+              <th scope="col">Importe/Docentes</th>
+              <th scope="col">Importe Total</th>
+              <th scope="col">Region</th>
+              <th scope="col">Importe/Administrativos</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
                 
 
@@ -187,7 +219,7 @@
     <script src="bootstrap/js/bootstrap.min.js"></script>
         <!-- datatables JS -->
     <script type="text/javascript" src="datatables/datatables.min.js"></script>    
-     
+    <script src="js/toastr.min.js"></script>
     <!--<script type="text/javascript" src="main.js"></script>-->
     
   </body>
@@ -197,3 +229,137 @@
 <!-- libreria de google sin internet-->
 <script type="text/javascript" src="./charts/loader.js"></script>
 <script type="text/javascript">
+google.charts.load('current', {packages: ['corechart', 'bar']});
+// google.charts.load('current', {'packages':['table']});
+
+google.charts.setOnLoadCallback();
+
+
+//peticion para la grafica por conceptos
+function load_subsis(id, idd)
+{
+ 
+
+    //var temp_title = title + ' '+id+'';
+    $.ajax({
+        url:"bd/fetch_reg.php",
+        method:"POST",
+        data:{id:id, idd:idd},
+        dataType:"JSON",
+        success: function (data) {
+                drawSubsis(data);
+                toastr.success('Datos cargados', '', {timeOut: 2000});
+            },
+        error: function (data) {
+                data = 0;
+                drawSubsis(data);
+                toastr.error('No se encontraron datos', 'Error', {timeOut: 2000});
+            }
+        });
+    }
+
+function drawSubsis(chart_data,success)
+{
+    var jsonData = chart_data;
+    //alert(jsonData.length);
+    var temp = 1;
+    //
+    var tablaData ='';
+    var tablaData2 ='';
+    var tablaData3 ='';
+    var tablaData4 ='';
+    var tablaData5 ='';
+    var tablaData6 ='';
+    //
+    
+   $('#colsubsis').empty();
+   $('#colbuts').empty();
+   //$('#col2_1').empty();
+    $.each(jsonData, function(i, jsonData){
+       // var mes = temp ++;
+        var region = jsonData.region;
+        var total = jsonData.total;
+        var docente = jsonData.docente;
+        var admvos = jsonData.admvos;
+        //var importe = parseFloat($.trim(jsonData.importe));
+        /////////
+        tablaData += '<tr>';
+        //tablaData += '<td>'+mes+'</td>';
+        tablaData += '<td>'+region+'</td>';
+        tablaData += '<td>'+'$'+total+'</td>';
+        tablaData += '<td>'+'$'+docente+'</td>';
+        tablaData += '<td>'+'$'+admvos+'</td>';
+        tablaData += '</tr>';
+        
+        //tablaData += '<tr>';
+        //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
+        //tablaData += '</tr>';
+        /////////
+
+    });
+    
+    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
+    $("#colbuts").append(tablaData6);
+    $("#colsubsis").append(tablaData);
+    
+    $(document).ready(function () {
+    var table = $("#example2").DataTable({
+    lengthMenu: [
+      [10, 25, 50, 100, 200, -1],
+      [10, 25, 50, 100, 200, "All"],
+    ],
+    //para cambiar el lenguaje a español
+    language: {
+      lengthMenu: "Mostrar _MENU_ registros",
+      zeroRecords: "No se encontraron resultados",
+      info:
+        "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+      infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+      infoFiltered: "(filtrado de un total de _MAX_ registros)",
+      sSearch: "Buscar:",
+      oPaginate: {
+        sFirst: "Primero",
+        sLast: "Último",
+        sNext: "Siguiente",
+        sPrevious: "Anterior",
+      },
+      sProcessing: "Procesando...",
+    },
+  });
+
+  $('#id, #idd').change(function(){
+          table.clear().destroy();
+
+          
+  });
+});
+    
+    
+    
+   
+}
+</script>
+
+
+
+
+
+
+<script>
+    // Detectar seleccion del select option
+$(document).ready(function(){
+
+    $('#id, #idd').change(function(){
+        var id =$('#id').val();
+        var idd = $('#idd').val();
+        if(id != '' && idd != '')
+        {
+            //alert("The text has been changed.");
+            load_subsis(id, idd);
+
+        }
+    });
+
+});
+
+</script>
