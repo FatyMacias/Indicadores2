@@ -396,7 +396,6 @@ function load_regtot(id, idd)
 }
 function load_total(id, idd)
 {
-    
     //var temp_title = title + ' '+id+'';
     $.ajax({
         url:"bd/fetch_total.php",
