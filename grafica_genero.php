@@ -37,7 +37,7 @@ $resultM = $statementM->fetchAll();
     <link rel="stylesheet" href="css/style.css">
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
-    
+    <link href="css/toastr.min.css" rel="stylesheet"/>
   </head>
   <body>
     
@@ -341,6 +341,7 @@ $resultM = $statementM->fetchAll();
     <script src="js/main.js"></script>
           <!-- datatables JS -->
     <script type="text/javascript" src="datatables/datatables.min.js"></script> 
+    <script src="js/toastr.min.js"></script>
   </body>
 </html>
 
@@ -367,10 +368,11 @@ function load_subsis(id, idd)
         {
             drawSubsis(data);
             drawSubsis2(data); 
+            toastr.success('Datos cargados', '', {timeOut: 2000});
         },
         error: function(data)
         {
-            alert("No hay Datos");
+            toastr.error('No se encontraron datos', 'Error', {timeOut: 2000});
         }
     });
 }
@@ -390,7 +392,7 @@ function load_regtot(id, idd)
         },
         error: function(data)
         {
-            alert("No hay Datos");
+            //alert("No hay Datos");
         }
     });
 }
@@ -408,7 +410,7 @@ function load_total(id, idd)
         },
         error: function(data)
         {
-            alert("No hay Datos");
+            //alert("No hay Datos");
         }
     });
 }
@@ -427,7 +429,7 @@ function load_total2(id, idd)
         },
         error: function(data)
         {
-            alert("No hay Datos");
+            //alert("No hay Datos");
         }
     });
 }
