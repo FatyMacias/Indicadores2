@@ -58,6 +58,11 @@
                 <!-- <li>
                     <a href="grafica_porgenero.php" onclick="openMenu('genero')">Por género</a>
                 </li> -->
+
+                <li>
+                    <a href="regiones.php">Regiones</a>
+                </li> 
+
               </ul>
             </li>
 
