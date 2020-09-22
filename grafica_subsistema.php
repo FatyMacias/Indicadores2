@@ -263,12 +263,9 @@ function load_subsis(id, idd)
         dataType:"JSON",
         success: function (data) {
                 drawSubsis(data);
-                if (data == null)
-                    toastr.error('Hubo un problema', 'Error', {timeOut: 2000});
-                else
-                    toastr.success('Datos cargados', '', {timeOut: 2000});
+                toastr.success('Datos cargados', '', {timeOut: 2000});
             },
-            error: function (data) {
+        error: function (data) {
                 toastr.error('No se encontraron datos', 'Error', {timeOut: 2000});
             }
         });
