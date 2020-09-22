@@ -3,8 +3,6 @@ Include("bd/database_connection.php");
 $queryC = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year ASC";
 //$query = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year DESC";
 $queryM = "SELECT des_subs FROM `cat_subsitema`";
-
-
 $statementC = $connect->prepare($queryC);
 $statementM = $connect->prepare($queryM);
 
@@ -32,7 +30,11 @@ $resultM = $statementM->fetchAll();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
 
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
+     
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+     <!-- importacion css para el toast-->
+     <link href="css/toastr.min.css" rel="stylesheet"/>
+
     
   </head>
   <body>
@@ -234,6 +236,8 @@ $resultM = $statementM->fetchAll();
     <script src="js/main.js"></script>
           <!-- datatables JS -->
     <script type="text/javascript" src="datatables/datatables.min.js"></script> 
+    <script src="js/toastr.min.js"></script>
+
   </body>
 </html>
 
@@ -249,24 +253,27 @@ google.charts.setOnLoadCallback();
 //peticion para la grafica por conceptos
 function load_subsis(id, idd)
 {
-    
+ 
+
     //var temp_title = title + ' '+id+'';
     $.ajax({
         url:"bd/fetch_subsis.php",
         method:"POST",
         data:{id:id, idd:idd},
         dataType:"JSON",
-        success:function(data)
-        {
-            drawSubsis(data);
-            
-        },
-        error: function(data)
-        {
-            alert("No hay Datos");
-        }
-    });
-}
+        success: function (data) {
+                drawSubsis(data);
+                if (data == null)
+                    toastr.error('Hubo un problema', 'Error', {timeOut: 2000});
+                else
+                    toastr.success('Datos cargados', '', {timeOut: 2000});
+            },
+            error: function (data) {
+                toastr.error('No se encontraron datos', 'Error', {timeOut: 2000});
+            }
+        });
+    }
+
 function drawSubsis(chart_data)
 {
     var jsonData = chart_data;
