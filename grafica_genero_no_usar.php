@@ -372,8 +372,14 @@ function load_subsis(id, idd)
         dataType:"JSON",
        success: function (data) {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 drawSubsis(data);
                 drawtotal(data); 
+=======
+          
+                drawSubsis(data);
+                drawSubsis2(data); 
+>>>>>>> parent of cd89b40... ya quite eso
 =======
           
                 drawSubsis(data);
@@ -571,7 +577,11 @@ function drawSubsis(chart_data)
 {
     var jsonData = chart_data;
 <<<<<<< HEAD
+<<<<<<< HEAD
     
+=======
+    var temp = 1;
+>>>>>>> parent of cd89b40... ya quite eso
 =======
     var temp = 1;
 >>>>>>> parent of cd89b40... ya quite eso
@@ -596,14 +606,20 @@ function drawSubsis(chart_data)
    $('#colsubsis').empty();
    $('#colbuts').empty();
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     $.each(jsonData, function(i, jsonData){
 =======
+=======
+>>>>>>> parent of cd89b40... ya quite eso
    $('#colreg').empty();
    //tablaData +='<td class="table-dark text-light"><strong>Titulo</strong></td>';
    //tablaData2 +='<td class="table-dark text-light"><strong>Cantidades</strong></td>';
     $.each(jsonData, function(i, jsonData){
         //var mes = temp ++;
+<<<<<<< HEAD
+>>>>>>> parent of cd89b40... ya quite eso
+=======
 >>>>>>> parent of cd89b40... ya quite eso
         var region = jsonData.region;
         var total = jsonData.total;
@@ -631,6 +647,7 @@ function drawSubsis(chart_data)
         tablaData += '<td>'+bachilleres+'</td>';
         tablaData += '</tr>';
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
     });
@@ -639,6 +656,8 @@ function drawSubsis(chart_data)
     $("#colbuts").append(tablaData6);
     var axis = data.getNumberOfRows();
 =======
+=======
+>>>>>>> parent of cd89b40... ya quite eso
         //tablaData += '<tr>';
 
         // if(i == 0){
@@ -660,6 +679,9 @@ function drawSubsis(chart_data)
     $("#colsubsis").append(tablaData);
     var axis = data.getNumberOfRows();
    //alert('max data table value: ' + axis);
+<<<<<<< HEAD
+>>>>>>> parent of cd89b40... ya quite eso
+=======
 >>>>>>> parent of cd89b40... ya quite eso
    for(var x=0;x<axis;x++){
     data3.setValue(x, 2, '#'+Math.floor(Math.random()*16777215).toString(16));
@@ -678,6 +700,10 @@ function drawSubsis(chart_data)
           
             title: 'Cantidades',
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+            //format: 'currency'
+>>>>>>> parent of cd89b40... ya quite eso
 =======
             //format: 'currency'
 >>>>>>> parent of cd89b40... ya quite eso
@@ -692,7 +718,10 @@ function drawSubsis(chart_data)
     chart3.draw(data3, options3);
     google.visualization.events.addListener(chart3, 'select', selectHandler);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of cd89b40... ya quite eso
     // function selectHandler() {
     //   var selection = chart.getSelection();
     //   for (var i =0; i<selection.length;i++){
@@ -717,6 +746,9 @@ function drawSubsis(chart_data)
     //       });
     //   }
     // }
+<<<<<<< HEAD
+>>>>>>> parent of cd89b40... ya quite eso
+=======
 >>>>>>> parent of cd89b40... ya quite eso
     function selectHandler() {
       var selection = chart3.getSelection();
@@ -726,7 +758,10 @@ function drawSubsis(chart_data)
         var res = str.slice(0, 1);
         var stn = data3.getRowProperties(item.row);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of cd89b40... ya quite eso
         // var num = data.getDistinctValues(item.column);
         // if (num.indexOf(173) >=0 ) // check if the item exists on the array
         //     {
@@ -734,6 +769,9 @@ function drawSubsis(chart_data)
         //     } else {
         //         alert('No match found.');
         //     }
+<<<<<<< HEAD
+>>>>>>> parent of cd89b40... ya quite eso
+=======
 >>>>>>> parent of cd89b40... ya quite eso
       $.each(jsonData, function(i, jsonData){
            var hombres = jsonData.hombres;
@@ -741,6 +779,10 @@ function drawSubsis(chart_data)
            if(str){
              if(i == res){
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+               //alert(i + res);
+>>>>>>> parent of cd89b40... ya quite eso
 =======
                //alert(i + res);
 >>>>>>> parent of cd89b40... ya quite eso
@@ -763,7 +805,11 @@ function drawSubsis(chart_data)
 
 var data2, options2, chart2;
 <<<<<<< HEAD
+<<<<<<< HEAD
 function drawtotal(chart_data)
+=======
+function drawSubsis2(chart_data)
+>>>>>>> parent of cd89b40... ya quite eso
 =======
 function drawSubsis2(chart_data)
 >>>>>>> parent of cd89b40... ya quite eso
@@ -890,7 +936,11 @@ function drawregtot(chart_data)
    $('#colsubsis').empty();
    $('#colbuts').empty();
 <<<<<<< HEAD
+<<<<<<< HEAD
    //$('#colreg').empty();
+=======
+   $('#colreg').empty();
+>>>>>>> parent of cd89b40... ya quite eso
 =======
    $('#colreg').empty();
 >>>>>>> parent of cd89b40... ya quite eso
