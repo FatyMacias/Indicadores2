@@ -64,6 +64,9 @@ $resultM = $statementM->fetchAll();
                 <li>
                     <a href="grafica_subsistema.php" onclick="openMenu('genero')">Subsistemas</a>
                 </li>
+                 <li>
+                    <a href="regiones.php">Regiones</a>
+                </li> 
               </ul>
             </li>
             
