@@ -14,14 +14,14 @@ if(isset($_POST["id"]) && isset($_POST["idd"]))
  SUM(IMPO_DOCENTE+IMPO_ADMVOS) AS total, SUM(IMPO_DOCENTE) AS docente, SUM(IMPO_ADMVOS) AS admvos
  FROM `cifras_region` 
  JOIN regiones ON cifras_region.REGION = regiones.id_region
- WHERE SUBSTRING(QNA,1,4) = '2020' AND SUBSTRING(QNA,5,6) = '16'
+ WHERE SUBSTRING(qna,1,4) = '".$_POST["id"]."' AND SUBSTRING(qna,5,6) = '".$_POST["idd"]."'
  GROUP BY regiones.region
  UNION
  SELECT 'Total' AS total, SUM(IMPO_DOCENTE+IMPO_ADMVOS) AS Total, 
  SUM(IMPO_DOCENTE) AS docente, SUM(IMPO_ADMVOS) AS admvos
  FROM `cifras_region` 
  JOIN regiones ON cifras_region.REGION = regiones.id_region
- WHERE SUBSTRING(QNA,1,4) = '2020' AND SUBSTRING(QNA,5,6) = '16'
+ WHERE SUBSTRING(qna,1,4) = '".$_POST["id"]."' AND SUBSTRING(qna,5,6) = '".$_POST["idd"]."'
  GROUP BY QNA  
  ORDER BY `region`
  ";
