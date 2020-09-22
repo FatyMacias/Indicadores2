@@ -64,6 +64,9 @@ $resultM = $statementM->fetchAll();
                 <li>
                     <a href="grafica_subsistema.php" onclick="openMenu('genero')">Subsistemas</a>
                 </li>
+                <li>
+                    <a href="regiones.php" onclick="">Regiones</a>
+                </li>
                 <!-- <li>
                     <a href="grafica_porgenero.php" onclick="openMenu('genero')">Por género</a>
                 </li> -->
@@ -76,7 +79,7 @@ $resultM = $statementM->fetchAll();
               <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">INFORMACIÓN DE PERSONAL</a>
               <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    <a href="grafica_genero.php" onclick="openMenu('subsis')">Gráfica Por Género</a>
+                    <a href="grafica_region.php" onclick="openMenu('subsis')">Gráfica Por Género</a>
                 </li>
                 <!-- <li>
                     <a href="#">Page 2</a>
