@@ -50,6 +50,9 @@ $resultS = $statementS->fetchAll();
     <link rel="stylesheet" href="cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="css/style.css">
 
+       <!-- importacion css para el toast-->
+       <link href="css/toastr.min.css" rel="stylesheet"/>
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
   </head>
@@ -419,6 +422,10 @@ $resultS = $statementS->fetchAll();
      
     <!--<script type="text/javascript" src="main.js"></script>-->
     
+
+    <script src="js/toastr.min.js"></script>
+
+
   </body>
 </html>
 
@@ -442,16 +449,14 @@ function load_conceptowise_data(id, title)
         method:"POST",
         data:{id:id},
         dataType:"JSON",
-        success:function(data)
-        {
-            drawMonthwiseChart(data, temp_title);
-            
-        },
-        error: function(data)
-        {
-            alert("No hay Datos");
-        }
-    });
+        success: function (data) {
+          drawMonthwiseChart(data);
+                toastr.success('Datos cargados', '', {timeOut: 2000});
+            },
+        error: function (data) {
+                toastr.error('No se encontraron datos', 'Error', {timeOut: 2000});
+            }
+        });
 }
 // peticion a la base de datos para la grafica por quincenas
 function load_conceptowise2_data(id, title)
