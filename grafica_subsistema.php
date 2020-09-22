@@ -266,14 +266,17 @@ function load_subsis(id, idd)
                 toastr.success('Datos cargados', '', {timeOut: 2000});
             },
         error: function (data) {
+                data = 0;
+                drawSubsis(data);
                 toastr.error('No se encontraron datos', 'Error', {timeOut: 2000});
             }
         });
     }
 
-function drawSubsis(chart_data)
+function drawSubsis(chart_data,success)
 {
     var jsonData = chart_data;
+    //alert(jsonData.length);
     var temp = 1;
     //
     var tablaData ='';
@@ -342,8 +345,11 @@ function drawSubsis(chart_data)
       sProcessing: "Procesando...",
     },
   });
+
   $('#id, #idd').change(function(){
           table.clear().destroy();
+
+          
   });
 });
     
