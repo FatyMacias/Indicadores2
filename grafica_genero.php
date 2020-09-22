@@ -812,6 +812,10 @@ function drawSubsis2(chart_data)
             title: "Regiones"
         },
         vAxis: {
+          viewWindow:{
+            min: 100,
+            max: 5000
+          },
             title: 'Cantidades',
             //format: 'currency'
         }
