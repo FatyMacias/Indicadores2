@@ -195,7 +195,7 @@ $resultM = $statementM->fetchAll();
 <div class="panel-body menu" style="display:">
   <div class="table-bordered text-center" id="Region" style= "display:">
     <h3><strong>Reporte Por Region</strong></h3>
-    <table id="example2" class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
+    <table id = "example2" class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
       <thead class="thead-dark">
         <tr>
           <th scope="col">Region</th>
@@ -213,6 +213,7 @@ $resultM = $statementM->fetchAll();
       <tbody id="colsubsis"></tbody>
       <tfoot class="table-dark text-light" id="colsubsis2">
         <tr>
+          <th scope="col">Region</th>
           <th scope="col">Total</th>
           <th scope="col">Hombres</th>
           <th scope="col">Mujeres</th>
@@ -243,7 +244,7 @@ $resultM = $statementM->fetchAll();
 <div class="panel-body" style="display:none">
 <div class="table-bordered text-center" id="Nivel" style="display:">
     <h3><strong>Reporte Por Nivel</strong></h3>
-    <table id="example2" class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
+    <table id="example" class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
       <thead class="thead-dark">
         <tr>
           <th scope="col">Actividad</th>
@@ -372,6 +373,8 @@ function load_subsis(id, idd)
         },
         error: function(data)
         {
+            data = 0;
+            drawSubsis(data);
             toastr.error('No se encontraron datos', 'Error', {timeOut: 2000});
         }
     });
@@ -630,7 +633,7 @@ function drawSubsis(chart_data)
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis").append(tablaData);
-    var axis = data.getNumberOfRows();
+    var axis = data3.getNumberOfRows();
    //alert('max data table value: ' + axis);
    for(var x=0;x<axis;x++){
     data3.setValue(x, 2, '#'+Math.floor(Math.random()*16777215).toString(16));
@@ -658,6 +661,37 @@ function drawSubsis(chart_data)
     chart3 = new google.visualization.ColumnChart(document.getElementById('chart_area3'));
     chart3.draw(data3, options3);
     google.visualization.events.addListener(chart3, 'select', selectHandler);
+    $(document).ready(function () {
+          var table = $("#example2").DataTable({
+          lengthMenu: [
+            [10, 25, 50, 100, 200, -1],
+            [10, 25, 50, 100, 200, "All"],
+          ],
+          //para cambiar el lenguaje a español
+          language: {
+            lengthMenu: "Mostrar _MENU_ registros",
+            zeroRecords: "No se encontraron resultados",
+            info:
+              "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+            sSearch: "Buscar:",
+            oPaginate: {
+              sFirst: "Primero",
+              sLast: "Último",
+              sNext: "Siguiente",
+              sPrevious: "Anterior",
+            },
+            sProcessing: "Procesando...",
+          },
+        });
+
+        $('#id, #idd').change(function(){
+                table.clear().destroy();
+
+                
+        });
+});
     // function selectHandler() {
     //   var selection = chart.getSelection();
     //   for (var i =0; i<selection.length;i++){
@@ -711,6 +745,8 @@ function drawSubsis(chart_data)
            }
         });
       }
+      /////datatabla
+
    
 } 
 }
