@@ -215,6 +215,7 @@ $resultM = $statementM->fetchAll();
       <tbody id="colsubsis"></tbody>
       <tfoot class="table-dark text-light" id="colsubsis2">
         <tr>
+          <th scope="col">Region</th>
           <th scope="col">Total</th>
           <th scope="col">Hombres</th>
           <th scope="col">Mujeres</th>
@@ -396,8 +397,8 @@ function load_regtot(id, idd)
         },
         error: function(data)
         {
-            alert("No hay Datos");
-        }
+        //     alert();
+         }
     });
 }
 function load_total(id, idd)
@@ -414,9 +415,9 @@ function load_total(id, idd)
             drawtotal(data);
         },
         error: function(data)
-        {
-            alert("No hay Datos");
-        }
+       {
+        //     alert("No hay Datos");
+         }
     });
 }
 function load_total2(id, idd)
@@ -433,9 +434,9 @@ function load_total2(id, idd)
             drawtotal2(data);  
         },
         error: function(data)
-        {
-            alert("No hay Datos");
-        }
+         {
+        //     alert("No hay Datos");
+         }
     });
 }
 
