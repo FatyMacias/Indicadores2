@@ -450,7 +450,7 @@ function load_conceptowise_data(id, title)
         data:{id:id},
         dataType:"JSON",
         success: function (data) {
-          drawMonthwiseChart(data);
+                drawMonthwiseChart(data);
                 toastr.success('Datos cargados', '', {timeOut: 2000});
             },
         error: function (data) {
