@@ -793,7 +793,7 @@ function drawSubsis2(chart_data)
 
     google.visualization.events.addListener(chart2, 'select', selectHandler);
     function selectHandler() {
-      var selection = chart.getSelection();
+      var selection = chart2.getSelection();
       for (var i =0; i<selection.length;i++){
         var item = selection[i];
         var str = data2.getFormattedValue(item.row, item.column);
