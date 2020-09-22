@@ -37,6 +37,8 @@ $resultM = $statementM->fetchAll();
     <link rel="stylesheet" href="css/style.css">
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
+     <!-- importacion css para el toast-->
+     <link href="css/toastr.min.css" rel="stylesheet"/>
     
   </head>
   <body>
@@ -213,6 +215,7 @@ $resultM = $statementM->fetchAll();
       <tbody id="colsubsis"></tbody>
       <tfoot class="table-dark text-light" id="colsubsis2">
         <tr>
+          <th scope="col">Region</th>
           <th scope="col">Total</th>
           <th scope="col">Hombres</th>
           <th scope="col">Mujeres</th>
@@ -341,6 +344,10 @@ $resultM = $statementM->fetchAll();
     <script src="js/main.js"></script>
           <!-- datatables JS -->
     <script type="text/javascript" src="datatables/datatables.min.js"></script> 
+
+
+    <script src="js/toastr.min.js"></script>
+
   </body>
 </html>
 
@@ -363,16 +370,16 @@ function load_subsis(id, idd)
         method:"POST",
         data:{id:id, idd:idd},
         dataType:"JSON",
-        success:function(data)
-        {
-            drawSubsis(data);
-            drawSubsis2(data); 
-        },
-        error: function(data)
-        {
-            alert("No hay Datos");
-        }
-    });
+       success: function (data) {
+          
+                drawSubsis(data);
+                drawSubsis2(data); 
+                toastr.success('Datos cargados', '', {timeOut: 2000});
+            },
+        error: function (data) {
+                toastr.error('No se encontraron datos', 'Error', {timeOut: 2000});
+            }
+        });
 }
 
 function load_regtot(id, idd)
@@ -390,8 +397,8 @@ function load_regtot(id, idd)
         },
         error: function(data)
         {
-            alert("No hay Datos");
-        }
+        //     alert();
+         }
     });
 }
 function load_total(id, idd)
@@ -407,9 +414,9 @@ function load_total(id, idd)
             drawtotal(data);
         },
         error: function(data)
-        {
-            alert("No hay Datos");
-        }
+       {
+        //     alert("No hay Datos");
+         }
     });
 }
 function load_total2(id, idd)
@@ -426,9 +433,9 @@ function load_total2(id, idd)
             drawtotal2(data);  
         },
         error: function(data)
-        {
-            alert("No hay Datos");
-        }
+         {
+        //     alert("No hay Datos");
+         }
     });
 }
 
@@ -644,6 +651,7 @@ function drawSubsis(chart_data)
             title: "Regiones"
         },
         vAxis: {
+          
             title: 'Cantidades',
             //format: 'currency'
       
@@ -771,6 +779,10 @@ function drawSubsis2(chart_data)
             title: "Regiones"
         },
         vAxis: {
+          viewWindow:{
+            min: 100,
+            max: 5000
+          },
             title: 'Cantidades',
             //format: 'currency'
         }

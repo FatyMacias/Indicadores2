@@ -29,7 +29,8 @@ $resultM = $statementM->fetchAll();
     <link rel="stylesheet" href="css/style.css">
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
-    
+     <!-- importacion css para el toast-->
+       <link href="css/toastr.min.css" rel="stylesheet"/>
   </head>
   <body>
     
@@ -205,6 +206,7 @@ $resultM = $statementM->fetchAll();
     <script src="js/popper.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/toastr.min.js"></script>
   </body>
 </html>
 
@@ -226,15 +228,14 @@ function load_conceptowise3_data(idc, idm, title)
         method:"POST",
         data:{idc:idc, idm:idm},
         dataType:"JSON",
-        success:function(data)
-        {
-            drawMonthwiseChart3(data, temp_title);
-        },
-        error: function(data)
-        {
-            alert("No hay Datos :c");
-        }
-    });
+        success: function (data) {
+                drawMonthwiseChart3(data);
+                toastr.success('Datos cargados', '', {timeOut: 2000});
+            },
+        error: function (data) {
+                toastr.error('No se encontraron datos', 'Error', {timeOut: 2000});
+            }
+        });
 }
 //dibujar grafica por conceptos
 function drawMonthwiseChart3(chart_data, chart_main_title)
