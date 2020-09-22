@@ -37,7 +37,8 @@ $resultM = $statementM->fetchAll();
     <link rel="stylesheet" href="css/style.css">
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
-    
+      <!-- importacion css para el toast-->
+      <link href="css/toastr.min.css" rel="stylesheet"/>
   </head>
   <body>
     
@@ -64,6 +65,9 @@ $resultM = $statementM->fetchAll();
                 <li>
                     <a href="grafica_subsistema.php" onclick="openMenu('genero')">Subsistemas</a>
                 </li>
+                <li>
+                    <a href="regiones.php" onclick="">Regiones</a>
+                </li>
                 <!-- <li>
                     <a href="grafica_porgenero.php" onclick="openMenu('genero')">Por género</a>
                 </li> -->
@@ -76,7 +80,7 @@ $resultM = $statementM->fetchAll();
               <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">INFORMACIÓN DE PERSONAL</a>
               <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    <a href="grafica_genero.php" onclick="openMenu('subsis')">Gráfica Por Género</a>
+                    <a href="grafica_region.php" onclick="openMenu('subsis')">Gráfica Por Género</a>
                 </li>
                 <!-- <li>
                     <a href="#">Page 2</a>
@@ -349,6 +353,8 @@ $resultM = $statementM->fetchAll();
     <script src="js/main.js"></script>
           <!-- datatables JS -->
     <script type="text/javascript" src="datatables/datatables.min.js"></script> 
+    <script src="js/toastr.min.js"></script>
+
   </body>
 </html>
 
@@ -371,16 +377,16 @@ function load_subsis(id, idd)
         method:"POST",
         data:{id:id, idd:idd},
         dataType:"JSON",
-        success:function(data)
-        {
-            drawSubsis(data);
-            drawSubsis2(data); 
-        },
-        error: function(data)
-        {
-            alert("No hay Datos");
-        }
-    });
+        success: function (data) {
+          
+          drawSubsis(data);
+          drawSubsis2(data); 
+          toastr.success('Datos cargados', '', {timeOut: 2000});
+      },
+  error: function (data) {
+          toastr.error('No se encontraron datos', 'Error', {timeOut: 2000});
+      }
+  });
 }
 
 function load_regtot(id, idd)
@@ -398,7 +404,7 @@ function load_regtot(id, idd)
         },
         error: function(data)
         {
-            alert("No hay Datos");
+            //alert("No hay Datos");
         }
     });
 }
@@ -417,7 +423,7 @@ function load_total(id, idd)
         },
         error: function(data)
         {
-            alert("No hay Datos");
+           // alert("No hay Datos");
         }
     });
 }
@@ -436,7 +442,7 @@ function load_total2(id, idd)
         },
         error: function(data)
         {
-            alert("No hay Datos");
+//alert("No hay Datos");
         }
     });
 }

@@ -37,6 +37,8 @@ $resultM = $statementM->fetchAll();
     <link rel="stylesheet" href="css/style.css">
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
+     <!-- importacion css para el toast-->
+     <link href="css/toastr.min.css" rel="stylesheet"/>
     
   </head>
   <body>
@@ -213,6 +215,7 @@ $resultM = $statementM->fetchAll();
       <tbody id="colsubsis"></tbody>
       <tfoot class="table-dark text-light" id="colsubsis2">
         <tr>
+          <th scope="col">Region</th>
           <th scope="col">Total</th>
           <th scope="col">Hombres</th>
           <th scope="col">Mujeres</th>
@@ -341,6 +344,10 @@ $resultM = $statementM->fetchAll();
     <script src="js/main.js"></script>
           <!-- datatables JS -->
     <script type="text/javascript" src="datatables/datatables.min.js"></script> 
+
+
+    <script src="js/toastr.min.js"></script>
+
   </body>
 </html>
 
@@ -363,16 +370,15 @@ function load_subsis(id, idd)
         method:"POST",
         data:{id:id, idd:idd},
         dataType:"JSON",
-        success:function(data)
-        {
-            drawSubsis(data);
-            drawSubsis2(data); 
-        },
-        error: function(data)
-        {
-            alert("No hay Datos");
-        }
-    });
+       success: function (data) {
+                drawSubsis(data);
+                drawtotal(data); 
+                toastr.success('Datos cargados', '', {timeOut: 2000});
+            },
+        error: function (data) {
+                toastr.error('No se encontraron datos', 'Error', {timeOut: 2000});
+            }
+        });
 }
 
 function load_regtot(id, idd)
@@ -390,8 +396,8 @@ function load_regtot(id, idd)
         },
         error: function(data)
         {
-            alert("No hay Datos");
-        }
+        //     alert();
+         }
     });
 }
 function load_total(id, idd)
@@ -407,9 +413,9 @@ function load_total(id, idd)
             drawtotal(data);
         },
         error: function(data)
-        {
-            alert("No hay Datos");
-        }
+       {
+        //     alert("No hay Datos");
+         }
     });
 }
 function load_total2(id, idd)
@@ -426,9 +432,9 @@ function load_total2(id, idd)
             drawtotal2(data);  
         },
         error: function(data)
-        {
-            alert("No hay Datos");
-        }
+         {
+        //     alert("No hay Datos");
+         }
     });
 }
 
@@ -541,7 +547,7 @@ function drawtotal2(chart_data)
 
     });
 
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis3").append(tablaData);
@@ -558,7 +564,7 @@ var data3, options3, chart3;
 function drawSubsis(chart_data)
 {
     var jsonData = chart_data;
-    var temp = 1;
+    
     data3 = new google.visualization.DataTable();
     data3.addColumn('string', 'Regiones');
     data3.addColumn('number', 'Cantidad');
@@ -579,11 +585,8 @@ function drawSubsis(chart_data)
     
    $('#colsubsis').empty();
    $('#colbuts').empty();
-   $('#colreg').empty();
-   //tablaData +='<td class="table-dark text-light"><strong>Titulo</strong></td>';
-   //tablaData2 +='<td class="table-dark text-light"><strong>Cantidades</strong></td>';
+
     $.each(jsonData, function(i, jsonData){
-        //var mes = temp ++;
         var region = jsonData.region;
         var total = jsonData.total;
         var hombres = jsonData.hombres;
@@ -609,27 +612,13 @@ function drawSubsis(chart_data)
         tablaData += '<td>'+contrato+'</td>';
         tablaData += '<td>'+bachilleres+'</td>';
         tablaData += '</tr>';
-        //tablaData += '<tr>';
 
-        // if(i == 0){
-        // tablaData2 += '<td>Hombres: '+jsonData.hombres+' Mujeres: '+mujeres+'</td>';
-        // tablaData2 += '<br>';
-        // }
-        //selectHandler(i);
-        
-
-         
-        //tablaData += '</tr>';
-        /////////
 
     });
-    
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Mostrar/Ocultar Graficas" onclick="show()"> </td>';
-    $("#colbuts").append(tablaData6);
-    //$("#colreg").append(tablaData2);
+    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Mostrar/Ocultar Graficas" onclick="show()"> </td>';
     $("#colsubsis").append(tablaData);
+    $("#colbuts").append(tablaData6);
     var axis = data.getNumberOfRows();
-   //alert('max data table value: ' + axis);
    for(var x=0;x<axis;x++){
     data3.setValue(x, 2, '#'+Math.floor(Math.random()*16777215).toString(16));
    }
@@ -644,8 +633,8 @@ function drawSubsis(chart_data)
             title: "Regiones"
         },
         vAxis: {
+          
             title: 'Cantidades',
-            //format: 'currency'
       
         }
 
@@ -656,30 +645,6 @@ function drawSubsis(chart_data)
     chart3 = new google.visualization.ColumnChart(document.getElementById('chart_area3'));
     chart3.draw(data3, options3);
     google.visualization.events.addListener(chart3, 'select', selectHandler);
-    // function selectHandler() {
-    //   var selection = chart.getSelection();
-    //   for (var i =0; i<selection.length;i++){
-    //     var item = selection[i];
-    //     var str = data.getValue(item.row, item.column);
-    //     var num = data.getNumberOfRows()
-    //     // for(var x=0;x<num;x++){
-    //     //   alert(x);
-    //     // }
-    //     $("#body").empty();
-    //     $.each(jsonData, function(i, jsonData){
-    //       var hombres = jsonData.hombres;
-    //       var mujeres = jsonData.mujeres;
-    //       tablaData2 += '<td>Hombres: '+jsonData.hombres+' Mujeres: '+mujeres+'</td>';
-    //       tablaData2 += '<br>';
-    //       //i = 0;      
-    //       if(str){
-    //             $("#myModal").modal();
-    //             $("#body").html('<br>'+tablaData2+'<br>');
-    //             $("#myModal").modal();          
-    //         }
-    //       });
-    //   }
-    // }
     function selectHandler() {
       var selection = chart3.getSelection();
       for (var i =0; i<selection.length;i++){
@@ -687,19 +652,11 @@ function drawSubsis(chart_data)
         var str = data3.getValue(item.row, 0);
         var res = str.slice(0, 1);
         var stn = data3.getRowProperties(item.row);
-        // var num = data.getDistinctValues(item.column);
-        // if (num.indexOf(173) >=0 ) // check if the item exists on the array
-        //     {
-        //         alert('Match');
-        //     } else {
-        //         alert('No match found.');
-        //     }
       $.each(jsonData, function(i, jsonData){
            var hombres = jsonData.hombres;
            var mujeres = jsonData.mujeres;
            if(str){
              if(i == res){
-               //alert(i + res);
                 $("#myModal").modal();
                 $("#body").html(
                   '<br><strong>'+str+'</strong><br>'+
@@ -718,7 +675,7 @@ function drawSubsis(chart_data)
   }
 
 var data2, options2, chart2;
-function drawSubsis2(chart_data)
+function drawtotal(chart_data)
 {
     var jsonData = chart_data;
     var temp = 1;
@@ -771,6 +728,10 @@ function drawSubsis2(chart_data)
             title: "Regiones"
         },
         vAxis: {
+          viewWindow:{
+            min: 100,
+            max: 5000
+          },
             title: 'Cantidades',
             //format: 'currency'
         }
@@ -781,7 +742,7 @@ function drawSubsis2(chart_data)
 
     google.visualization.events.addListener(chart2, 'select', selectHandler);
     function selectHandler() {
-      var selection = chart.getSelection();
+      var selection = chart2.getSelection();
       for (var i =0; i<selection.length;i++){
         var item = selection[i];
         var str = data2.getFormattedValue(item.row, item.column);
@@ -837,7 +798,7 @@ function drawregtot(chart_data)
     
    $('#colsubsis').empty();
    $('#colbuts').empty();
-   $('#colreg').empty();
+   //$('#colreg').empty();
    //tablaData +='<td class="table-dark text-light"><strong>Titulo</strong></td>';
    //tablaData2 +='<td class="table-dark text-light"><strong>Cantidades</strong></td>';
     $.each(jsonData, function(i, jsonData){
@@ -875,7 +836,7 @@ function drawregtot(chart_data)
 
     });
 
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Mostrar/Ocultar Graficas" onclick="show2()"> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Mostrar/Ocultar Graficas" onclick="show2()"> </td>';
     $("#colbuts1").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis1").append(tablaData);
@@ -961,3 +922,6 @@ $('#idr').change(function(){
 });
 
 </script>
+
+
+
