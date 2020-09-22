@@ -371,8 +371,14 @@ function load_subsis(id, idd)
         data:{id:id, idd:idd},
         dataType:"JSON",
        success: function (data) {
+<<<<<<< HEAD
                 drawSubsis(data);
                 drawtotal(data); 
+=======
+          
+                drawSubsis(data);
+                drawSubsis2(data); 
+>>>>>>> parent of cd89b40... ya quite eso
                 toastr.success('Datos cargados', '', {timeOut: 2000});
             },
         error: function (data) {
@@ -564,7 +570,11 @@ var data3, options3, chart3;
 function drawSubsis(chart_data)
 {
     var jsonData = chart_data;
+<<<<<<< HEAD
     
+=======
+    var temp = 1;
+>>>>>>> parent of cd89b40... ya quite eso
     data3 = new google.visualization.DataTable();
     data3.addColumn('string', 'Regiones');
     data3.addColumn('number', 'Cantidad');
@@ -585,8 +595,16 @@ function drawSubsis(chart_data)
     
    $('#colsubsis').empty();
    $('#colbuts').empty();
+<<<<<<< HEAD
 
     $.each(jsonData, function(i, jsonData){
+=======
+   $('#colreg').empty();
+   //tablaData +='<td class="table-dark text-light"><strong>Titulo</strong></td>';
+   //tablaData2 +='<td class="table-dark text-light"><strong>Cantidades</strong></td>';
+    $.each(jsonData, function(i, jsonData){
+        //var mes = temp ++;
+>>>>>>> parent of cd89b40... ya quite eso
         var region = jsonData.region;
         var total = jsonData.total;
         var hombres = jsonData.hombres;
@@ -612,6 +630,7 @@ function drawSubsis(chart_data)
         tablaData += '<td>'+contrato+'</td>';
         tablaData += '<td>'+bachilleres+'</td>';
         tablaData += '</tr>';
+<<<<<<< HEAD
 
 
     });
@@ -619,6 +638,29 @@ function drawSubsis(chart_data)
     $("#colsubsis").append(tablaData);
     $("#colbuts").append(tablaData6);
     var axis = data.getNumberOfRows();
+=======
+        //tablaData += '<tr>';
+
+        // if(i == 0){
+        // tablaData2 += '<td>Hombres: '+jsonData.hombres+' Mujeres: '+mujeres+'</td>';
+        // tablaData2 += '<br>';
+        // }
+        //selectHandler(i);
+        
+
+         
+        //tablaData += '</tr>';
+        /////////
+
+    });
+    
+    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Mostrar/Ocultar Graficas" onclick="show()"> </td>';
+    $("#colbuts").append(tablaData6);
+    //$("#colreg").append(tablaData2);
+    $("#colsubsis").append(tablaData);
+    var axis = data.getNumberOfRows();
+   //alert('max data table value: ' + axis);
+>>>>>>> parent of cd89b40... ya quite eso
    for(var x=0;x<axis;x++){
     data3.setValue(x, 2, '#'+Math.floor(Math.random()*16777215).toString(16));
    }
@@ -635,6 +677,10 @@ function drawSubsis(chart_data)
         vAxis: {
           
             title: 'Cantidades',
+<<<<<<< HEAD
+=======
+            //format: 'currency'
+>>>>>>> parent of cd89b40... ya quite eso
       
         }
 
@@ -645,6 +691,33 @@ function drawSubsis(chart_data)
     chart3 = new google.visualization.ColumnChart(document.getElementById('chart_area3'));
     chart3.draw(data3, options3);
     google.visualization.events.addListener(chart3, 'select', selectHandler);
+<<<<<<< HEAD
+=======
+    // function selectHandler() {
+    //   var selection = chart.getSelection();
+    //   for (var i =0; i<selection.length;i++){
+    //     var item = selection[i];
+    //     var str = data.getValue(item.row, item.column);
+    //     var num = data.getNumberOfRows()
+    //     // for(var x=0;x<num;x++){
+    //     //   alert(x);
+    //     // }
+    //     $("#body").empty();
+    //     $.each(jsonData, function(i, jsonData){
+    //       var hombres = jsonData.hombres;
+    //       var mujeres = jsonData.mujeres;
+    //       tablaData2 += '<td>Hombres: '+jsonData.hombres+' Mujeres: '+mujeres+'</td>';
+    //       tablaData2 += '<br>';
+    //       //i = 0;      
+    //       if(str){
+    //             $("#myModal").modal();
+    //             $("#body").html('<br>'+tablaData2+'<br>');
+    //             $("#myModal").modal();          
+    //         }
+    //       });
+    //   }
+    // }
+>>>>>>> parent of cd89b40... ya quite eso
     function selectHandler() {
       var selection = chart3.getSelection();
       for (var i =0; i<selection.length;i++){
@@ -652,11 +725,25 @@ function drawSubsis(chart_data)
         var str = data3.getValue(item.row, 0);
         var res = str.slice(0, 1);
         var stn = data3.getRowProperties(item.row);
+<<<<<<< HEAD
+=======
+        // var num = data.getDistinctValues(item.column);
+        // if (num.indexOf(173) >=0 ) // check if the item exists on the array
+        //     {
+        //         alert('Match');
+        //     } else {
+        //         alert('No match found.');
+        //     }
+>>>>>>> parent of cd89b40... ya quite eso
       $.each(jsonData, function(i, jsonData){
            var hombres = jsonData.hombres;
            var mujeres = jsonData.mujeres;
            if(str){
              if(i == res){
+<<<<<<< HEAD
+=======
+               //alert(i + res);
+>>>>>>> parent of cd89b40... ya quite eso
                 $("#myModal").modal();
                 $("#body").html(
                   '<br><strong>'+str+'</strong><br>'+
@@ -675,7 +762,11 @@ function drawSubsis(chart_data)
   }
 
 var data2, options2, chart2;
+<<<<<<< HEAD
 function drawtotal(chart_data)
+=======
+function drawSubsis2(chart_data)
+>>>>>>> parent of cd89b40... ya quite eso
 {
     var jsonData = chart_data;
     var temp = 1;
@@ -798,7 +889,11 @@ function drawregtot(chart_data)
     
    $('#colsubsis').empty();
    $('#colbuts').empty();
+<<<<<<< HEAD
    //$('#colreg').empty();
+=======
+   $('#colreg').empty();
+>>>>>>> parent of cd89b40... ya quite eso
    //tablaData +='<td class="table-dark text-light"><strong>Titulo</strong></td>';
    //tablaData2 +='<td class="table-dark text-light"><strong>Cantidades</strong></td>';
     $.each(jsonData, function(i, jsonData){
