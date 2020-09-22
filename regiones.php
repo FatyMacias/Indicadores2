@@ -148,9 +148,9 @@
                                       <tr>
                                         <!-- <th scope="col">id</th> -->
                                         <th scope="col">Regiones</th>
-                                        <th scope="col">Total</th>
-                                        <th scope="col">Docentes</th>
-                                        <th scope="col">Administrativos</th>
+                                        <th scope="col">Importe Total</th>
+                                        <th scope="col">Importe Docentes</th>
+                                        <th scope="col">Importe Administrativos</th>
                                         
                                       </tr>
                               </thead>
@@ -161,9 +161,9 @@
                                       <tr>
                                         <!-- <th scope="col">id</th> -->
                                         <th scope="col">Regiones</th>
-                                        <th scope="col">Total</th>
-                                        <th scope="col">Docentes</th>
-                                        <th scope="col">Administrativos</th>
+                                        <th scope="col">Importe Total</th>
+                                        <th scope="col">Importe Docentes</th>
+                                        <th scope="col">Importe Administrativos</th>
                                         
                                       </tr>
 
