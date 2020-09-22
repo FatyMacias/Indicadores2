@@ -483,7 +483,7 @@ function drawtotal(chart_data)
 
     });
 
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Mostrar Graficas" onclick="show()> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Mostrar Graficas" onclick="show()> </td>';
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis2").append(tablaData);
@@ -541,7 +541,7 @@ function drawtotal2(chart_data)
 
     });
 
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis3").append(tablaData);
@@ -624,7 +624,7 @@ function drawSubsis(chart_data)
 
     });
     
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Mostrar/Ocultar Graficas" onclick="show()"> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Mostrar/Ocultar Graficas" onclick="show()"> </td>';
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis").append(tablaData);
@@ -781,7 +781,7 @@ function drawSubsis2(chart_data)
 
     google.visualization.events.addListener(chart2, 'select', selectHandler);
     function selectHandler() {
-      var selection = chart.getSelection();
+      var selection = chart2.getSelection();
       for (var i =0; i<selection.length;i++){
         var item = selection[i];
         var str = data2.getFormattedValue(item.row, item.column);
@@ -875,7 +875,7 @@ function drawregtot(chart_data)
 
     });
 
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Mostrar/Ocultar Graficas" onclick="show2()"> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Mostrar/Ocultar Graficas" onclick="show2()"> </td>';
     $("#colbuts1").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis1").append(tablaData);
