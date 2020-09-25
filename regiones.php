@@ -286,9 +286,9 @@ function drawSubsis(chart_data,success)
         tablaData += '<tr>';
         //tablaData += '<td>'+mes+'</td>';
         tablaData += '<td>'+region+'</td>';
-        tablaData += '<td>'+'$'+total+'</td>';
-        tablaData += '<td>'+'$'+docente+'</td>';
-        tablaData += '<td>'+'$'+admvos+'</td>';
+        tablaData += '<td>'+'$'+total.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
+        tablaData += '<td>'+'$'+docente.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
+        tablaData += '<td>'+'$'+admvos.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
         tablaData += '</tr>';
         
         //tablaData += '<tr>';

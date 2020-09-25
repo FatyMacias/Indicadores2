@@ -18,38 +18,43 @@
 // JOIN regiones ON cifras_region.REGION = regiones.id_region
 // GROUP BY QNA  
 // ORDER BY region + 0
-
+// SELECT CONCAT(regiones.id_region,': ',regiones.region) AS region,
+// (SELECT SUM(IMPO_DOCENTE + IMPO_ADMVOS) FROM cifras_region WHERE region = cr.region)AS importeT,
+// (SELECT SUM(IMPO_DOCENTE) FROM cifras_region WHERE region = cr.region)AS importeD,
+// (SELECT SUM(IMPO_ADMVOS) FROM cifras_region WHERE region = cr.region)AS importeA
+//  FROM cifras_region cr 
+//  JOIN regiones ON cr.region = regiones.id_region
+//  GROUP BY cr.region
+//  UNION
+//  SELECT '14 Total' as tot, SUM(IMPO_DOCENTE + IMPO_ADMVOS), SUM(IMPO_DOCENTE), SUM(IMPO_ADMVOS)
+//  FROM cifras_region cr
+//  JOIN regiones ON cr.region = regiones.id_region
+//  ORDER BY CAST(region AS UNSIGNED) , region
 include('database_connection.php');
 
 if(isset($_POST["id"]) && isset($_POST["idd"]))
 {
  $query = "
- SELECT CONCAT(regiones.id_region,': ',regiones.region) AS region,
- (SELECT SUM(IMPO_DOCENTE + IMPO_ADMVOS) FROM cifras_region WHERE region = cr.region)AS importeT,
- (SELECT SUM(IMPO_DOCENTE) FROM cifras_region WHERE region = cr.region)AS importeD,
- (SELECT SUM(IMPO_ADMVOS) FROM cifras_region WHERE region = cr.region)AS importeA
-  FROM cifras_region cr 
-  JOIN regiones ON cr.region = regiones.id_region
-  GROUP BY cr.region
-  UNION
-  SELECT '14 Total' as tot, SUM(IMPO_DOCENTE + IMPO_ADMVOS), SUM(IMPO_DOCENTE), SUM(IMPO_ADMVOS)
-  FROM cifras_region cr
-  JOIN regiones ON cr.region = regiones.id_region
-  ORDER BY CAST(region AS UNSIGNED) , region
+  SELECT CONCAT(regiones.id_region,': ',regiones.region) AS region, 
+  TRUNCATE(SUM(IMPO_DOCENTE+IMPO_ADMVOS),2) AS total, TRUNCATE(SUM(IMPO_DOCENTE),2) AS docente, TRUNCATE(SUM(IMPO_ADMVOS),2) AS admvos
+  FROM `cifras_region` 
+  JOIN regiones ON cifras_region.REGION = regiones.id_region
+  GROUP BY region
+  ORDER BY CAST(regiones.id_region AS UNSIGNED) , regiones.id_region
  ";
  $statement = $connect->prepare($query);
  $statement->execute();
  $result = $statement->fetchAll();
 
  
- foreach($result as $row)
+ foreach($result as $row) 
  {
   $output[] = array(
    
     'region'  => $row["region"],
-    'total'  => $row["importeT"],
-    'docente'  => $row["importeD"],
-    'admvos'  => $row["importeA"],
+    'total'  => $row["total"],
+    'docente'  => $row["docente"],
+    'admvos'  => $row["admvos"],
   );
  }
  echo json_encode($output);
