@@ -492,15 +492,15 @@ function drawSubsis(chart_data)
       
     }
     tablaData+='<td>'+'Total:'+'</td>';
-    tablaData+='<td>'+'$'+total+'</td>';
-    tablaData+='<td>'+'$'+total2+'</td>';
-    tablaData+='<td>'+'$'+total3+'</td>';
-    tablaData+='<td>'+'$'+total4+'</td>';
-    tablaData+='<td>'+'$'+total5+'</td>';
-    tablaData+='<td>'+'$'+total6+'</td>';
-    tablaData+='<td>'+'$'+total7+'</td>';
-    tablaData+='<td>'+'$'+total8+'</td>';
-    tablaData+='<td>'+'$'+total9+'</td>';
+    tablaData+='<td>'+total+'</td>';
+    tablaData+='<td>'+total2+'</td>';
+    tablaData+='<td>'+total3+'</td>';
+    tablaData+='<td>'+total4+'</td>';
+    tablaData+='<td>'+total5+'</td>';
+    tablaData+='<td>'+total6+'</td>';
+    tablaData+='<td>'+total7+'</td>';
+    tablaData+='<td>'+total8+'</td>';
+    tablaData+='<td>'+total9+'</td>';
     
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
@@ -534,30 +534,6 @@ function drawSubsis(chart_data)
     chart3.draw(data3, options3);
     google.visualization.events.addListener(chart3, 'select', selectHandler);
 
-    // function selectHandler() {
-    //   var selection = chart.getSelection();
-    //   for (var i =0; i<selection.length;i++){
-    //     var item = selection[i];
-    //     var str = data.getValue(item.row, item.column);
-    //     var num = data.getNumberOfRows()
-    //     // for(var x=0;x<num;x++){
-    //     //   alert(x);
-    //     // }
-    //     $("#body").empty();
-    //     $.each(jsonData, function(i, jsonData){
-    //       var hombres = jsonData.hombres;
-    //       var mujeres = jsonData.mujeres;
-    //       tablaData2 += '<td>Hombres: '+jsonData.hombres+' Mujeres: '+mujeres+'</td>';
-    //       tablaData2 += '<br>';
-    //       //i = 0;      
-    //       if(str){
-    //             $("#myModal").modal();
-    //             $("#body").html('<br>'+tablaData2+'<br>');
-    //             $("#myModal").modal();          
-    //         }
-    //       });
-    //   }
-    // }
     function selectHandler() {
       var selection = chart3.getSelection();
       for (var i =0; i<selection.length;i++){
@@ -565,13 +541,7 @@ function drawSubsis(chart_data)
         var str = data3.getValue(item.row, 0);
         var res = str.slice(0, 1);
         var stn = data3.getRowProperties(item.row);
-        // var num = data.getDistinctValues(item.column);
-        // if (num.indexOf(173) >=0 ) // check if the item exists on the array
-        //     {
-        //         alert('Match');
-        //     } else {
-        //         alert('No match found.');
-        //     }
+
       $.each(jsonData, function(i, jsonData){
            var hombres = jsonData.hombres;
            var mujeres = jsonData.mujeres;
@@ -774,15 +744,15 @@ function drawregtot(chart_data)
       
     }
     tablaData+='<td>'+'Total:'+'</td>';
-    tablaData+='<td>'+'$'+total+'</td>';
-    tablaData+='<td>'+'$'+total2+'</td>';
-    tablaData+='<td>'+'$'+total3+'</td>';
-    tablaData+='<td>'+'$'+total4+'</td>';
-    tablaData+='<td>'+'$'+total5+'</td>';
-    tablaData+='<td>'+'$'+total6+'</td>';
-    tablaData+='<td>'+'$'+total7+'</td>';
-    tablaData+='<td>'+'$'+total8+'</td>';
-    tablaData+='<td>'+'$'+total9+'</td>';    
+    tablaData+='<td>'+total+'</td>';
+    tablaData+='<td>'+total2+'</td>';
+    tablaData+='<td>'+total3+'</td>';
+    tablaData+='<td>'+total4+'</td>';
+    tablaData+='<td>'+total5+'</td>';
+    tablaData+='<td>'+total6+'</td>';
+    tablaData+='<td>'+total7+'</td>';
+    tablaData+='<td>'+total8+'</td>';
+    tablaData+='<td>'+total9+'</td>';    
     $("#colbuts1").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis1").append(tablaData);

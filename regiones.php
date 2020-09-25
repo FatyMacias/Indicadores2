@@ -205,10 +205,29 @@ $resultM = $statementM->fetchAll();
             </tr>
           </tfoot>
         </table>
+        <table>
+          <tr id = "colbuts">
+          </tr>
+        </table>
+        <div class="panel-body">
+          <div id="chart_area" style="width: 1200px; height: 500px; visibility: hidden; "></div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+<script>
+  function show2(){
+      //document.getElementById('chart_area').visibility = "visible";
+      var x = document.getElementById('chart_area');
+      if (x.style.visibility === 'hidden') {
+          x.style.visibility = 'visible';
+      } else {
+          x.style.visibility = 'hidden';
+      }
+      
+    }
+</script>
 
                 
 
@@ -263,7 +282,13 @@ function drawSubsis(chart_data,success)
     var jsonData = chart_data;
     //alert(jsonData.length);
     var temp = 1;
-    //
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Quincenas');
+    data.addColumn('number', 'Importe $');
+    data.addColumn({
+               type: 'string',
+               role: 'style'
+           });
     var tablaData ='';
     var tablaData2 ='';
     var tablaData3 ='';
@@ -281,6 +306,8 @@ function drawSubsis(chart_data,success)
         var total = jsonData.total;
         var docente = jsonData.docente;
         var admvos = jsonData.admvos;
+        var style = jsonData.style;
+        data.addRows([[region, parseInt(total), style]]);
         //var importe = parseFloat($.trim(jsonData.importe));
         /////////
         tablaData += '<tr>';
@@ -300,22 +327,41 @@ function drawSubsis(chart_data,success)
 
     });
     
-    tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Mostrar/Ocultar Graficas" onclick="show2()"> </td>';
     var total = 0, total2 = 0, total3 = 0;
     for (var i in jsonData){
       total += parseInt(jsonData[i].total, 10);
       total2 += parseInt(jsonData[i].docente, 10);
       total3 += parseInt(jsonData[i].admvos, 10);
-      
     }
+
     tablaData+='<td>'+'Total:'+'</td>';
-    tablaData+='<td>'+'$'+total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
-    tablaData+='<td>'+'$'+total2.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
-    tablaData+='<td>'+'$'+total3.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
-    
+    tablaData+='<td>'+total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
+    tablaData+='<td>'+total2.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
+    tablaData+='<td>'+total3.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
     
     $("#colbuts").append(tablaData6);
     $("#colsubsis").append(tablaData);
+    var axis = data.getNumberOfRows();
+   //alert('max data table value: ' + axis);
+   for(var x=0;x<axis;x++){
+    data.setValue(x, 2, '#'+Math.floor(Math.random()*16777215).toString(16));
+   }
+
+    var options = {
+        title:'Regiones',
+        legend: 'none',
+        hAxis: {
+            title: "Regiones"
+        },
+        vAxis: {
+            title: 'Importe',
+            format: 'currency'
+        }
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart_area'));
+    chart.draw(data, options);
 
 }
 
