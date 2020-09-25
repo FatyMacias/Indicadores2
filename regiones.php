@@ -86,7 +86,7 @@ $resultM = $statementM->fetchAll();
               <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">INFORMACIÓN DE PERSONAL</a>
               <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    <a href="grafica_region.php" onclick="openMenu('subsis')">Gráfica Por Género</a>
+                    <a href="grafica_genero.php" onclick="openMenu('subsis')">Gráfica Por Género</a>
                 </li>
                 <!-- <li>
                     <a href="#">Page 2</a>
@@ -295,19 +295,30 @@ function drawSubsis(chart_data,success)
         //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
         //tablaData += '</tr>';
         /////////
+        
+
 
     });
     
     tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
+    var total = 0, total2 = 0, total3 = 0;
+    for (var i in jsonData){
+      total += parseInt(jsonData[i].total, 10);
+      total2 += parseInt(jsonData[i].docente, 10);
+      total3 += parseInt(jsonData[i].admvos, 10);
+      
+    }
+    tablaData+='<td>'+'Total:'+'</td>';
+    tablaData+='<td>'+'$'+total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
+    tablaData+='<td>'+'$'+total2.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
+    tablaData+='<td>'+'$'+total3.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
+    
+    
     $("#colbuts").append(tablaData6);
     $("#colsubsis").append(tablaData);
-    
-    
-    
-    
-    
-   
+
 }
+
 </script>
 
 
