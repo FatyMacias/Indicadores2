@@ -214,7 +214,7 @@ $resultM = $statementM->fetchAll();
         </tr>
       </thead>
       <tbody id="colsubsis"></tbody>
-      <tfoot class="table-dark text-light" id="colsubsis2">
+      <tfoot class="table-dark text-light">
         <tr>
           <th scope="col">Region</th>
           <th scope="col">Total</th>
@@ -560,7 +560,7 @@ function drawSubsis(chart_data)
       /////datatabla
 
    
-} 
+  } 
 }
   function test3() {
   document.getElementById("chart_area3").style.display = "block";
