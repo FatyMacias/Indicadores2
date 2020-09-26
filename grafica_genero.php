@@ -402,166 +402,11 @@ function load_regtot(id, idd)
         }
     });
 }
-function load_total(id, idd)
-{
-    //var temp_title = title + ' '+id+'';
-    $.ajax({
-        url:"bd/fetch_total.php",
-        method:"POST",
-        data:{id:id, idd:idd},
-        dataType:"JSON",
-        success:function(data)
-        {
-            drawtotal(data);
-        },
-        error: function(data)
-        {
-            //alert("No hay Datos");
-        }
-    });
-}
-function load_total2(id, idd)
-{
-    
-    //var temp_title = title + ' '+id+'';
-    $.ajax({
-        url:"bd/fetch_total2.php",
-        method:"POST",
-        data:{id:id, idd:idd},
-        dataType:"JSON",
-        success:function(data)
-        {
-            drawtotal2(data);  
-        },
-        error: function(data)
-        {
-            //alert("No hay Datos");
-        }
-    });
-}
 
-function drawtotal(chart_data)
-{
-    var jsonData = chart_data;
-    var temp = 1;
-    //
-    var tablaData ='';
-    var tablaData2 ='';
-    var tablaData3 ='';
-    var tablaData4 ='';
-    var tablaData5 ='';
-    var tablaData6 ='';
-    //
-    
-   $('#colsubsis2').empty();
-   $('#colbuts').empty();
-   $('#colreg').empty();
-   //tablaData +='<td class="table-dark text-light"><strong>Titulo</strong></td>';
-   //tablaData2 +='<td class="table-dark text-light"><strong>Cantidades</strong></td>';
-    $.each(jsonData, function(i, jsonData){
-        //var mes = temp ++;
-        var name = 'Total';
-        var total = jsonData.total;
-        var hombres = jsonData.hombres;
-        var mujeres = jsonData.mujeres;
-        var docentes = jsonData.docentes;
-        var administrativo = jsonData.administrativo;
-        var base = jsonData.base;
-        var interino = jsonData.interino;
-        var contrato = jsonData.contrato;
-        var bachilleres = jsonData.bachilleres;
-        /////////
-        tablaData += '<tr>';
-        tablaData += '<td>'+name+'</td>';
-        tablaData += '<td>'+total+'</td>';
-        tablaData += '<td>'+hombres+'</td>';
-        tablaData += '<td>'+mujeres+'</td>';
-        tablaData += '<td>'+docentes+'</td>';
-        tablaData += '<td>'+administrativo+'</td>';
-        tablaData += '<td>'+base+'</td>';
-        tablaData += '<td>'+interino+'</td>';
-        tablaData += '<td>'+contrato+'</td>';
-        tablaData += '<td>'+bachilleres+'</td>';
-        tablaData += '</tr>';
-        
-        //tablaData += '<tr>';
-        //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
-        //tablaData += '</tr>';
-        /////////
 
-    });
 
-    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Mostrar Graficas" onclick="show()> </td>';
-    $("#colbuts").append(tablaData6);
-    //$("#colreg").append(tablaData2);
-    $("#colsubsis2").append(tablaData);
-    
- 
-}
-function drawtotal2(chart_data)
-{
-    var jsonData = chart_data;
-    var temp = 1;
-    //
-    var tablaData ='';
-    var tablaData2 ='';
-    var tablaData3 ='';
-    var tablaData4 ='';
-    var tablaData5 ='';
-    var tablaData6 ='';
-    //
-    
-   $('#colsubsis3').empty();
-   $('#colbuts').empty();
-   $('#colreg').empty();
-   //tablaData +='<td class="table-dark text-light"><strong>Titulo</strong></td>';
-   //tablaData2 +='<td class="table-dark text-light"><strong>Cantidades</strong></td>';
-    $.each(jsonData, function(i, jsonData){
-        //var mes = temp ++;
-        var name = 'Total';
-        var total = jsonData.total;
-        var hombres = jsonData.hombres;
-        var mujeres = jsonData.mujeres;
-        var docentes = jsonData.docentes;
-        var administrativo = jsonData.administrativo;
-        var base = jsonData.base;
-        var interino = jsonData.interino;
-        var contrato = jsonData.contrato;
-        var bachilleres = jsonData.bachilleres;
-        /////////
-        tablaData += '<tr>';
-        tablaData += '<td>'+name+'</td>';
-        tablaData += '<td>'+total+'</td>';
-        tablaData += '<td>'+hombres+'</td>';
-        tablaData += '<td>'+mujeres+'</td>';
-        tablaData += '<td>'+docentes+'</td>';
-        tablaData += '<td>'+administrativo+'</td>';
-        tablaData += '<td>'+base+'</td>';
-        tablaData += '<td>'+interino+'</td>';
-        tablaData += '<td>'+contrato+'</td>';
-        tablaData += '<td>'+bachilleres+'</td>';
-        tablaData += '</tr>';
-        
-        //tablaData += '<tr>';
-        //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
-        //tablaData += '</tr>';
-        /////////
 
-    });
 
-    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
-    $("#colbuts").append(tablaData6);
-    //$("#colreg").append(tablaData2);
-    $("#colsubsis3").append(tablaData);
-    
-    
-    
- 
-    
-    
-    
-   
-}
 var data3, options3, chart3;
 function drawSubsis(chart_data)
 {
@@ -633,6 +478,30 @@ function drawSubsis(chart_data)
     });
     
     tablaData6 += '<td> <input type="button" class="btn btn-success" value="Mostrar/Ocultar Graficas" onclick="show()"> </td>';
+    var total = 0, total2 = 0, total3 = 0, total4 = 0, total5 = 0, total6 = 0, total7 = 0, total8 = 0, total9 = 0;
+    for (var i in jsonData){
+      total += parseInt(jsonData[i].total, 10);
+      total2 += parseInt(jsonData[i].hombres, 10);
+      total3 += parseInt(jsonData[i].mujeres, 10);
+      total4 += parseInt(jsonData[i].docentes, 10);
+      total5 += parseInt(jsonData[i].administrativo, 10);
+      total6 += parseInt(jsonData[i].base, 10);
+      total7 += parseInt(jsonData[i].interino, 10);
+      total8 += parseInt(jsonData[i].contrato, 10);
+      total9 += parseInt(jsonData[i].bachilleres, 10);
+      
+    }
+    tablaData+='<td>'+'Total:'+'</td>';
+    tablaData+='<td>'+total+'</td>';
+    tablaData+='<td>'+total2+'</td>';
+    tablaData+='<td>'+total3+'</td>';
+    tablaData+='<td>'+total4+'</td>';
+    tablaData+='<td>'+total5+'</td>';
+    tablaData+='<td>'+total6+'</td>';
+    tablaData+='<td>'+total7+'</td>';
+    tablaData+='<td>'+total8+'</td>';
+    tablaData+='<td>'+total9+'</td>';
+    
     $("#colbuts").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis").append(tablaData);
@@ -664,61 +533,7 @@ function drawSubsis(chart_data)
     chart3 = new google.visualization.ColumnChart(document.getElementById('chart_area3'));
     chart3.draw(data3, options3);
     google.visualization.events.addListener(chart3, 'select', selectHandler);
-    $(document).ready(function () {
-          var table = $("#example2").DataTable({
-          lengthMenu: [
-            [10, 25, 50, 100, 200, -1],
-            [10, 25, 50, 100, 200, "All"],
-          ],
-          //para cambiar el lenguaje a español
-          language: {
-            lengthMenu: "Mostrar _MENU_ registros",
-            zeroRecords: "No se encontraron resultados",
-            info:
-              "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-            infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
-            infoFiltered: "(filtrado de un total de _MAX_ registros)",
-            sSearch: "Buscar:",
-            oPaginate: {
-              sFirst: "Primero",
-              sLast: "Último",
-              sNext: "Siguiente",
-              sPrevious: "Anterior",
-            },
-            sProcessing: "Procesando...",
-          },
-        });
 
-        $('#id, #idd').change(function(){
-                table.clear().destroy();
-
-                
-        });
-});
-    // function selectHandler() {
-    //   var selection = chart.getSelection();
-    //   for (var i =0; i<selection.length;i++){
-    //     var item = selection[i];
-    //     var str = data.getValue(item.row, item.column);
-    //     var num = data.getNumberOfRows()
-    //     // for(var x=0;x<num;x++){
-    //     //   alert(x);
-    //     // }
-    //     $("#body").empty();
-    //     $.each(jsonData, function(i, jsonData){
-    //       var hombres = jsonData.hombres;
-    //       var mujeres = jsonData.mujeres;
-    //       tablaData2 += '<td>Hombres: '+jsonData.hombres+' Mujeres: '+mujeres+'</td>';
-    //       tablaData2 += '<br>';
-    //       //i = 0;      
-    //       if(str){
-    //             $("#myModal").modal();
-    //             $("#body").html('<br>'+tablaData2+'<br>');
-    //             $("#myModal").modal();          
-    //         }
-    //       });
-    //   }
-    // }
     function selectHandler() {
       var selection = chart3.getSelection();
       for (var i =0; i<selection.length;i++){
@@ -726,13 +541,7 @@ function drawSubsis(chart_data)
         var str = data3.getValue(item.row, 0);
         var res = str.slice(0, 1);
         var stn = data3.getRowProperties(item.row);
-        // var num = data.getDistinctValues(item.column);
-        // if (num.indexOf(173) >=0 ) // check if the item exists on the array
-        //     {
-        //         alert('Match');
-        //     } else {
-        //         alert('No match found.');
-        //     }
+
       $.each(jsonData, function(i, jsonData){
            var hombres = jsonData.hombres;
            var mujeres = jsonData.mujeres;
@@ -921,6 +730,29 @@ function drawregtot(chart_data)
     });
 
     tablaData6 += '<td> <input type="button" class="btn btn-success" value="Mostrar/Ocultar Graficas" onclick="show2()"> </td>';
+    var total = 0, total2 = 0, total3 = 0, total4 = 0, total5 = 0, total6 = 0, total7 = 0, total8 = 0, total9 = 0;
+    for (var i in jsonData){
+      total += parseInt(jsonData[i].total, 10);
+      total2 += parseInt(jsonData[i].hombres, 10);
+      total3 += parseInt(jsonData[i].mujeres, 10);
+      total4 += parseInt(jsonData[i].docentes, 10);
+      total5 += parseInt(jsonData[i].administrativo, 10);
+      total6 += parseInt(jsonData[i].base, 10);
+      total7 += parseInt(jsonData[i].interino, 10);
+      total8 += parseInt(jsonData[i].contrato, 10);
+      total9 += parseInt(jsonData[i].bachilleres, 10);
+      
+    }
+    tablaData+='<td>'+'Total:'+'</td>';
+    tablaData+='<td>'+total+'</td>';
+    tablaData+='<td>'+total2+'</td>';
+    tablaData+='<td>'+total3+'</td>';
+    tablaData+='<td>'+total4+'</td>';
+    tablaData+='<td>'+total5+'</td>';
+    tablaData+='<td>'+total6+'</td>';
+    tablaData+='<td>'+total7+'</td>';
+    tablaData+='<td>'+total8+'</td>';
+    tablaData+='<td>'+total9+'</td>';    
     $("#colbuts1").append(tablaData6);
     //$("#colreg").append(tablaData2);
     $("#colsubsis1").append(tablaData);
@@ -971,8 +803,6 @@ $(document).ready(function(){
             //alert(idr);
             load_subsis(id, idd);
             load_regtot(id, idd);
-            load_total(id, idd);
-            load_total2(id, idd);
 
         }
     });
