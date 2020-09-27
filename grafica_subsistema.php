@@ -232,13 +232,19 @@ $resultM = $statementM->fetchAll();
             }
           </script>
           
-      
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>  
     <script src="js/popper.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
           <!-- datatables JS -->
-    <script type="text/javascript" src="datatables/datatables.min.js"></script> 
+    <script type="text/javascript" src="datatables/datatables.min.js"></script>
+        <!-- para usar botones en datatables JS -->  
+    <script src="datatables/Buttons-1.5.6/js/dataTables.buttons.min.js"></script>  
+    <script src="datatables/JSZip-2.5.0/jszip.min.js"></script>    
+    <script src="datatables/pdfmake-0.1.36/pdfmake.min.js"></script>    
+    <script src="datatables/pdfmake-0.1.36/vfs_fonts.js"></script>
+    <script src="datatables/Buttons-1.5.6/js/buttons.html5.min.js"></script> 
     <script src="js/toastr.min.js"></script>
 
   </body>
@@ -324,13 +330,57 @@ function drawSubsis(chart_data,success)
     $("#colbuts").append(tablaData6);
     $("#colsubsis").append(tablaData);
     
+<<<<<<< Updated upstream
+//     $(document).ready(function () {
+//       var table = $("#example2").DataTable({
+//         lengthMenu: [
+//           [10, 25, 50, 100, 200, -1],
+//           [10, 25, 50, 100, 200, "All"],
+//         ],
+//         //para cambiar el lenguaje a español
+//         language: {
+//           lengthMenu: "Mostrar _MENU_ registros",
+//           zeroRecords: "No se encontraron resultados",
+//           info:
+//             "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+//           infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+//           infoFiltered: "(filtrado de un total de _MAX_ registros)",
+//           sSearch: "Buscar:",
+//           oPaginate: {
+//             sFirst: "Primero",
+//             sLast: "Último",
+//             sNext: "Siguiente",
+//             sPrevious: "Anterior",
+//           },
+//           sProcessing: "Procesando...",
+//         },
+//         //para usar los botones   
+//         responsive: "true",
+//         dom: 'Bfrtilp',
+        
+//       });
+
+//       $('#id, #idd').change(function(){
+//             table.clear().destroy();       
+//       });
+
+
+// });
+$(document).ready(function () {
+  $("#example2").DataTable({
+=======
     $(document).ready(function () {
     var table = $("#example2").DataTable({
+    dom: 'Bfrtip',
+    buttons: [
+        'excelHtml5'
+    ],
     lengthMenu: [
       [10, 25, 50, 100, 200, -1],
       [10, 25, 50, 100, 200, "All"],
     ],
     //para cambiar el lenguaje a español
+>>>>>>> Stashed changes
     language: {
       lengthMenu: "Mostrar _MENU_ registros",
       zeroRecords: "No se encontraron resultados",
@@ -347,15 +397,16 @@ function drawSubsis(chart_data,success)
       },
       sProcessing: "Procesando...",
     },
-  });
-
-  $('#id, #idd').change(function(){
-          table.clear().destroy();
-
-          
+    //para usar los botones
+    responsive: "true",
+    dom: "Bfrtilp",
+    buttons: [
+      
+      'excelHtml5',
+ 
+    ],
   });
 });
-    
     
     
    
