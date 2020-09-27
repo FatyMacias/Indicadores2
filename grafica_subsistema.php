@@ -232,7 +232,7 @@ $resultM = $statementM->fetchAll();
             }
           </script>
           
-    
+      
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>  
     <script src="js/popper.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -330,7 +330,6 @@ function drawSubsis(chart_data,success)
     $("#colbuts").append(tablaData6);
     $("#colsubsis").append(tablaData);
     
-<<<<<<< Updated upstream
 //     $(document).ready(function () {
 //       var table = $("#example2").DataTable({
 //         lengthMenu: [
@@ -368,19 +367,6 @@ function drawSubsis(chart_data,success)
 // });
 $(document).ready(function () {
   $("#example2").DataTable({
-=======
-    $(document).ready(function () {
-    var table = $("#example2").DataTable({
-    dom: 'Bfrtip',
-    buttons: [
-        'excelHtml5'
-    ],
-    lengthMenu: [
-      [10, 25, 50, 100, 200, -1],
-      [10, 25, 50, 100, 200, "All"],
-    ],
-    //para cambiar el lenguaje a español
->>>>>>> Stashed changes
     language: {
       lengthMenu: "Mostrar _MENU_ registros",
       zeroRecords: "No se encontraron resultados",
