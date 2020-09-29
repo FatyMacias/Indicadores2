@@ -206,6 +206,31 @@ $resultM = $statementM->fetchAll();
           <tr id = "colbuts">
           </tr>
         </table>
+        <div>
+        <input id = "btns" type="button" class="float-md-left btn btn-success" onclick="mostb()" value="Confirmar Seleccion">
+        </div>
+        <table id="example" class="table table-hover table-bordered" style="width:100%; border: 1px solid #ddd !important;">
+          <thead class="thead-dark">
+            <tr>
+              <!-- <th scope="col">id</th> -->
+              <th scope="col">Región</th>
+              <th scope="col">Importe Total</th>
+              <th scope="col">Importe/Docentes</th>
+              <th scope="col">Importe/Administrativos</th>
+            </tr>
+          </thead>
+          <tbody id="tableModify"></tbody>
+          <tfoot class="thead-dark">
+          <tr>
+              <!-- <th scope="col">id</th> -->
+              <th scope="col">Región</th>
+              <th scope="col">Importe Total</th>
+              <th scope="col">Importe/Docentes</th>
+              <th scope="col">Importe/Administrativos</th>
+            </tr>
+          </tfoot>
+          
+        </table>
         <div class="panel-body">
           <div id="chart_area" style="width: 1200px; height: 500px; visibility: hidden; "></div>
         </div>
@@ -303,6 +328,7 @@ function drawSubsis(chart_data,success)
    //$('#col2_1').empty();
     $.each(jsonData, function(i, jsonData){
        // var mes = temp ++;
+        var id = jsonData.id;
         var region = jsonData.region;
         var total = jsonData.total;
         var docente = jsonData.docente;
@@ -311,12 +337,12 @@ function drawSubsis(chart_data,success)
         data.addRows([[region, parseInt(total), style]]);
         //var importe = parseFloat($.trim(jsonData.importe));
         /////////
-        tablaData += '<tr>';
+        tablaData += '<tr id = "'+id+'">';
         //tablaData += '<td>'+mes+'</td>';
-        tablaData += '<td>'+region+'</td>';
+        tablaData += '<td >'+region+'</td>';
         tablaData += '<td>'+'$'+total.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
         tablaData += '<td>'+'$'+docente.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
-        tablaData += '<td>'+'$'+admvos.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
+        tablaData += '<td>'+'$'+admvos.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<input id = "btn'+id+'" name = "btn" type="button" class="float-md-right btn btn-success" onclick="cloneRow('+id+')" value="Seleccionar"></td>';
         //tablaData += '<td> <input type="button" class="btn btn-success" value="Seleccionar"> </td>'
         tablaData += '</tr>';
         
@@ -366,7 +392,13 @@ function drawSubsis(chart_data,success)
     chart.draw(data, options);
 
     $(document).ready(function() {    
-    var table = $('#example2').DataTable({        
+    var table = $('#example2').DataTable({  
+        bSort : false,
+        order: [],
+        lengthMenu: [
+          [10, 25, 50, 100, 200, -1],
+          [10, 25, 50, 100, 200, "All"],
+        ],      
         language: {
                 "lengthMenu": "Mostrar _MENU_ registros",
                 "zeroRecords": "No se encontraron resultados",
@@ -407,8 +439,74 @@ function drawSubsis(chart_data,success)
 });
 
 
+
+
 }
 
+function cloneRow(region) {
+      //alert(region);
+      var row = document.getElementById(region); // find row to copy
+      var table = document.getElementById("tableModify"); // find table to append to
+      var clone = row.cloneNode(true); // copy children too
+      //clone.id = "newID"; // change id or other attributes/contents
+      table.appendChild(clone); // add new row to end of table
+      
+
+     
+    }
+
+function mostb(){
+  $(document).ready(function() {    
+    var table2 = $('#example').DataTable({  
+        bSort : false,
+        order: [],
+        lengthMenu: [
+          [10, 25, 50, 100, 200, -1],
+          [10, 25, 50, 100, 200, "All"],
+        ],      
+        language: {
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast":"Último",
+                    "sNext":"Siguiente",
+                    "sPrevious": "Anterior"
+          },
+          "sProcessing":"Procesando...",
+            },
+        //para usar los botones   
+        responsive: "true",
+        dom: 'Bfrtilp',       
+        buttons:[ 
+      {
+        extend:    'excelHtml5',
+        text:      '<i class="fas fa-file-excel"></i> ',
+        titleAttr: 'Exportar a Excel',
+        className: 'btn btn-success'
+      },
+      {
+        extend:    'pdfHtml5',
+        text:      '<i class="fas fa-file-pdf"></i> ',
+        titleAttr: 'Exportar a PDF',
+        className: 'btn btn-danger'
+      },
+
+    ]	        
+    }); 
+    $('#id, #idd').change(function(){
+          table2.clear().destroy();
+          $("#btns").prop("disabled", false);
+        });
+
+});
+
+
+}
 </script>
 
 
@@ -433,4 +531,25 @@ $(document).ready(function(){
 
 });
 
+$(document).ready(function(){
+
+  $("#btns").on("click", function() {
+      $(this).prop("disabled", true);
+      $("#btn0").prop("disabled", true);
+      $("#btn1").prop("disabled", true);
+      $("#btn2").prop("disabled", true);
+      $("#btn3").prop("disabled", true);
+      $("#btn4").prop("disabled", true);
+      $("#btn5").prop("disabled", true);
+      $("#btn6").prop("disabled", true);
+      $("#btn7").prop("disabled", true);
+      $("#btn8").prop("disabled", true);
+      $("#btn9").prop("disabled", true);
+      $("#btn10").prop("disabled", true);
+      $("#btn11").prop("disabled", true);
+      $("#btn12").prop("disabled", true);
+      $("#btn13").prop("disabled", true);
+  });
+
+});
 </script>
