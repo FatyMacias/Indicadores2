@@ -366,7 +366,7 @@ function drawSubsis(chart_data,success)
     chart.draw(data, options);
 
     $(document).ready(function () {
-    $("#example2").DataTable({
+      var table = $("#example2").DataTable({
       bSort : false,
       order: [],
       lengthMenu: [
@@ -400,6 +400,9 @@ function drawSubsis(chart_data,success)
 				className: 'btn btn-success'
 			}
       ],
+    });
+      $('#id, #idd').change(function(){
+      table.clear().destroy();
     });
 });
 
