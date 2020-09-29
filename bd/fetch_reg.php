@@ -35,12 +35,12 @@ include('database_connection.php');
 if(isset($_POST["id"]) && isset($_POST["idd"]))
 {
  $query = "
-  SELECT CONCAT(regiones.id_region,': ',regiones.region) AS region, 
-  TRUNCATE(SUM(IMPO_DOCENTE+IMPO_ADMVOS),2) AS total, TRUNCATE(SUM(IMPO_DOCENTE),2) AS docente, TRUNCATE(SUM(IMPO_ADMVOS),2) AS admvos
-  FROM `cifras_region` 
-  JOIN regiones ON cifras_region.REGION = regiones.id_region
-  GROUP BY region
-  ORDER BY CAST(regiones.id_region AS UNSIGNED) , regiones.id_region
+ SELECT CONCAT(regiones.id_region,': ',regiones.region) AS region, 
+ TRUNCATE(SUM(IMPO_DOCENTE+IMPO_ADMVOS),2) AS total, TRUNCATE(SUM(IMPO_DOCENTE),2) AS docente, TRUNCATE(SUM(IMPO_ADMVOS),2) AS admvos
+ FROM `cifras_region` 
+ JOIN regiones ON cifras_region.REGION = regiones.id_region
+ GROUP BY region
+ ORDER BY cifras_region.region
  ";
  $statement = $connect->prepare($query);
  $statement->execute();
