@@ -208,7 +208,9 @@ $resultM = $statementM->fetchAll();
         </table>
         <div>
         <input id = "btns" type="button" class="float-md-left btn btn-success" onclick="mostb()" value="Confirmar Seleccion">
+        <input id = "btnd" type="button" class="float-md-left btn btn-success" onclick="disable()" value="Reset">
         </div>
+        <div id = "diva" class="alert alert-success mt-5 col-md-12" role="alert"></div>
         <table id="example" class="table table-hover table-bordered" style="width:100%; border: 1px solid #ddd !important;">
           <thead class="thead-dark">
             <tr>
@@ -219,7 +221,8 @@ $resultM = $statementM->fetchAll();
               <th scope="col">Importe/Administrativos</th>
             </tr>
           </thead>
-          <tbody id="tableModify"></tbody>
+          <tbody id="tableModify">
+          </tbody>
           <tfoot class="thead-dark">
           <tr>
               <!-- <th scope="col">id</th> -->
@@ -342,7 +345,7 @@ function drawSubsis(chart_data,success)
         tablaData += '<td >'+region+'</td>';
         tablaData += '<td>'+'$'+total.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
         tablaData += '<td>'+'$'+docente.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
-        tablaData += '<td>'+'$'+admvos.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<input id = "btn'+id+'" name = "btn" type="button" class="float-md-right btn btn-success" onclick="cloneRow('+id+')" value="Seleccionar"></td>';
+        tablaData += '<td>'+'$'+admvos.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<input type="button" class=" boton float-md-right btn btn-success" onclick="cloneRow('+id+')" value="Seleccionar"></td>';
         //tablaData += '<td> <input type="button" class="btn btn-success" value="Seleccionar"> </td>'
         tablaData += '</tr>';
         
@@ -450,12 +453,15 @@ function cloneRow(region) {
       var clone = row.cloneNode(true); // copy children too
       //clone.id = "newID"; // change id or other attributes/contents
       table.appendChild(clone); // add new row to end of table
-      
-
-     
     }
 
+function disable(){
+
+
+}
+
 function mostb(){
+  $('#diva').html("Seleccionado Satisfactoriamente!");
   $(document).ready(function() {    
     var table2 = $('#example').DataTable({  
         bSort : false,
@@ -498,9 +504,11 @@ function mostb(){
 
     ]	        
     }); 
-    $('#id, #idd').change(function(){
+
+        $("#btnd").click(function(){
           table2.clear().destroy();
-          $("#btns").prop("disabled", false);
+          $('#diva').html("");
+          //$("#btns").prop("disabled", true);
         });
 
 });
@@ -517,7 +525,8 @@ function mostb(){
 <script>
     // Detectar seleccion del select option
 $(document).ready(function(){
-
+    $("#btns").prop("disabled", true);
+    $("#btnd").prop("disabled", true);
     $('#id, #idd').change(function(){
         var id =$('#id').val();
         var idd = $('#idd').val();
@@ -525,6 +534,7 @@ $(document).ready(function(){
         {
             //alert("The text has been changed.");
             load_subsis(id, idd);
+            $("#btns").prop("disabled", false);
 
         }
     });
@@ -535,21 +545,18 @@ $(document).ready(function(){
 
   $("#btns").on("click", function() {
       $(this).prop("disabled", true);
-      $("#btn0").prop("disabled", true);
-      $("#btn1").prop("disabled", true);
-      $("#btn2").prop("disabled", true);
-      $("#btn3").prop("disabled", true);
-      $("#btn4").prop("disabled", true);
-      $("#btn5").prop("disabled", true);
-      $("#btn6").prop("disabled", true);
-      $("#btn7").prop("disabled", true);
-      $("#btn8").prop("disabled", true);
-      $("#btn9").prop("disabled", true);
-      $("#btn10").prop("disabled", true);
-      $("#btn11").prop("disabled", true);
-      $("#btn12").prop("disabled", true);
-      $("#btn13").prop("disabled", true);
+      $("#btnd").prop("disabled", false);
+      //$(".boton").prop("disabled", true);
+      $(".boton").hide();
   });
+  $("#btnd").on("click", function() {
+      $(this).prop("disabled", true);
+      $("#btns").prop("disabled", false);
+      //$(".boton").prop("disabled", true);
+      $(".boton").show();
+
+  });
+
 
 });
 </script>
