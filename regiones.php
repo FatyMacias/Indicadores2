@@ -210,6 +210,7 @@ $resultM = $statementM->fetchAll();
         <input id = "btns" type="button" class="float-md-left btn btn-success" onclick="mostb()" value="Confirmar Seleccion">
         <input id = "btnd" type="button" class="float-md-left btn btn-success" onclick="disable()" value="Reset">
         </div>
+        <div id = "diva" class="alert alert-success mt-5 col-md-12" role="alert"></div>
         <table id="example" class="table table-hover table-bordered" style="width:100%; border: 1px solid #ddd !important;">
           <thead class="thead-dark">
             <tr>
@@ -452,9 +453,6 @@ function cloneRow(region) {
       var clone = row.cloneNode(true); // copy children too
       //clone.id = "newID"; // change id or other attributes/contents
       table.appendChild(clone); // add new row to end of table
-      
-
-     
     }
 
 function disable(){
@@ -463,6 +461,7 @@ function disable(){
 }
 
 function mostb(){
+  $('#diva').html("Seleccionado Satisfactoriamente!");
   $(document).ready(function() {    
     var table2 = $('#example').DataTable({  
         bSort : false,
@@ -508,6 +507,7 @@ function mostb(){
 
         $("#btnd").click(function(){
           table2.clear().destroy();
+          $('#diva').html("");
           //$("#btns").prop("disabled", true);
         });
 
