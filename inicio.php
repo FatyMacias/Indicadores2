@@ -500,7 +500,7 @@ function load_conceptowise3_data(idc, idm, title)
 //modal para traer el grid de coceptos
 function load_modaldata(id)
 {
-    $('#colbut').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Cargando...');
+    $('#colbut').html('<span class="spinner-border spinner-border-sm mr-2   text-success"  role="status" aria-hidden="true"></span>Cargando...');
     $.ajax({
         url:"bd/fetch_modal.php",
         method:"POST",
