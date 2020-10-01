@@ -394,6 +394,36 @@ function drawSubsis(chart_data,success)
     var chart = new google.visualization.ColumnChart(document.getElementById('chart_area'));
     chart.draw(data, options);
 
+    google.visualization.events.addListener(chart, 'select', selectHandler);
+
+
+
+    function selectHandler() {
+      var selection = chart.getSelection();
+      for (var i =0; i<selection.length;i++){
+        var item = selection[i];
+        var str = data.getValue(item.row, 0);
+        var res = str.slice(0, 1);
+        var stn = data.getRowProperties(item.row);
+
+      $.each(jsonData, function(i, jsonData){
+           var docentes = jsonData.docentes;
+           var admin = jsonData.admin;
+           if(str){
+             if(i == res){
+               //alert(i + res);
+                $("#myModal").modal();
+                $("#body").html(
+                  '<br><strong>'+str+'</strong><br>'+
+                  '<br>Importe docentes: '+docentes+' Importe  administrativos: '+admin+'<br>');
+                $("#myModal").modal();
+             }
+           }
+        });
+      }
+    }
+
+
     $(document).ready(function() {    
     var table = $('#example2').DataTable({  
         bSort : false,
