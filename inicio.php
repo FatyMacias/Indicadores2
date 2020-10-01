@@ -37,7 +37,7 @@ $resultS = $statementS->fetchAll();
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <!-- CSS personalizado --> 
-    <link rel="stylesheet" href="main.css">  
+     
       
       
     <!--datables CSS básico-->
