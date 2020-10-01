@@ -210,7 +210,7 @@ $resultM = $statementM->fetchAll();
         <input id = "btns" type="button" class="float-md-left btn btn-success" onclick="mostb()" value="Confirmar Seleccion">
         <input id = "btnd" type="button" class="float-md-left btn btn-success" onclick="disable()" value="Reset">
         </div>
-        <div id = "diva" class="alert alert-success mt-5 col-md-12" role="alert"></div>
+        <div id = "diva" class="alert alert-success mt-5 col-md-12" role="alert" style = "display:none;"></div>
         <table id="example" class="table table-hover table-bordered" style="width:100%; border: 1px solid #ddd !important;">
           <thead class="thead-dark">
             <tr>
@@ -461,7 +461,7 @@ function disable(){
 }
 
 function mostb(){
-  $('#diva').html("Seleccionado Satisfactoriamente!");
+  $('#diva').html("Seleccionado Satisfactoriamente!, proceda a exportar a formato Excel o Pdf");
   $(document).ready(function() {    
     var table2 = $('#example').DataTable({  
         bSort : false,
@@ -542,18 +542,20 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
-
+  var x = document.getElementById('diva');
   $("#btns").on("click", function() {
       $(this).prop("disabled", true);
       $("#btnd").prop("disabled", false);
       //$(".boton").prop("disabled", true);
       $(".boton").hide();
+      x.style.display = "block";
   });
   $("#btnd").on("click", function() {
       $(this).prop("disabled", true);
       $("#btns").prop("disabled", false);
       //$(".boton").prop("disabled", true);
       $(".boton").show();
+      x.style.display = "none";
 
   });
 
