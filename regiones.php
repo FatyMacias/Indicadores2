@@ -497,7 +497,7 @@ function cloneRow(region) {
     }
 
 function disable(tid,rid){
-  alert("jala");
+  
 
 }
 
@@ -622,6 +622,7 @@ $(document).ready(function(){
       $("#btnd").prop("disabled", false);
       //$(".boton").prop("disabled", true);
       $(".boton").hide();
+      $(".botons").hide();
       x.style.display = "block";
   });
   $("#btnd").on("click", function() {
