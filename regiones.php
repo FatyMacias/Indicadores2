@@ -407,15 +407,15 @@ function drawSubsis(chart_data,success)
         var stn = data.getRowProperties(item.row);
 
       $.each(jsonData, function(i, jsonData){
-           var docentes = jsonData.docentes;
-           var admin = jsonData.admin;
+           var docentes = jsonData.docente;
+           var admin = jsonData.admvos;
            if(str){
              if(i == res){
                //alert(i + res);
                 $("#myModal").modal();
                 $("#body").html(
                   '<br><strong>'+str+'</strong><br>'+
-                  '<br>Importe docentes: '+docentes+' Importe  administrativos: '+admin+'<br>');
+                  '<br>Importe docentes: '+docentes.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+' Importe  administrativos: '+admin.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>');
                 $("#myModal").modal();
              }
            }
