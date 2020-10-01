@@ -475,20 +475,29 @@ function drawSubsis(chart_data,success)
 
 
 }
-
+//var x = 0;
 function cloneRow(region) {
-      //alert(region);
+      //alert(region.id);
       
       var row = document.getElementById(region); // find row to copy
       var table = document.getElementById("tableModify"); // find table to append to
       var clone = row.cloneNode(true); // copy children too
-      //clone.id = "newID"; // change id or other attributes/contents
+      //x++;
+      clone.id = "alvsijalonasion"; // change id or other attributes/contents
+      //clone.getElementsByTagName('input')[0].id = "btn"+x;
+      clone.getElementsByTagName('input')[0].className = "botons float-md-right btn btn-danger";
+      clone.getElementsByTagName('input')[0].value = "Eliminar";
+      // clone.getElementsByTagName('input')[0].removeEventListener("click",cloneRow,false);
+      clone.getElementsByTagName('input')[0].onclick = "";
+      clone.getElementsByTagName('input')[0].addEventListener('click', function(){
+          table.removeChild(clone);
+        });
       table.appendChild(clone); // add new row to end of table
       
     }
 
-function disable(){
-
+function disable(tid,rid){
+  alert("jala");
 
 }
 
@@ -579,10 +588,31 @@ $(document).ready(function(){
         for(var x = 0;x<14;x++){
           var id = $(this).attr('id');
           var res = id.slice(3);
-          //alert(id);
+          //alert(res);
           if(id){
             if(x == res){
+              //alert(id);
               $(this).prop("disabled",true);
+            }
+          }
+        }
+  });
+  $(document).on('click','.botons', function(i){
+        for(var x = 0;x<14;x++){
+          var id = $(this).attr('id');
+          var res = id.slice(3);
+          //alert(res);
+          if(id){
+            if(x == res){
+              //alert(ids+id);
+              $('.boton').each(function () {
+                var ids = $(this).attr('id');
+                if(id == ids){
+                  $(this).prop("disabled",false);
+                }
+
+              });
+              
             }
           }
         }
