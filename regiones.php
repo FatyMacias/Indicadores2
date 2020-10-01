@@ -345,7 +345,7 @@ function drawSubsis(chart_data,success)
         tablaData += '<td >'+region+'</td>';
         tablaData += '<td>'+'$'+total.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
         tablaData += '<td>'+'$'+docente.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
-        tablaData += '<td>'+'$'+admvos.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<input type="button" class=" boton float-md-right btn btn-success" onclick="cloneRow('+id+')" value="Seleccionar"></td>';
+        tablaData += '<td>'+'$'+admvos.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<input id = "btn'+id+'" type="button" class="boton float-md-right btn btn-success" onclick="cloneRow('+id+')" value="Seleccionar"></td>';
         //tablaData += '<td> <input type="button" class="btn btn-success" value="Seleccionar"> </td>'
         tablaData += '</tr>';
         
@@ -406,7 +406,7 @@ function drawSubsis(chart_data,success)
         var res = str.slice(0, 1);
         var stn = data.getRowProperties(item.row);
 
-      $.each(jsonData, function(i, jsonData){
+        $.each(jsonData, function(i, jsonData){
            var docentes = jsonData.docente;
            var admin = jsonData.admvos;
            if(str){
@@ -415,7 +415,7 @@ function drawSubsis(chart_data,success)
                 $("#myModal").modal();
                 $("#body").html(
                   '<br><strong>'+str+'</strong><br>'+
-                  '<br>Importe docentes: '+docentes.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+' Importe  administrativos: '+admin.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>');
+                  '<br>Importe docentes: '+docentes.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br> Importe  administrativos: '+admin.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>');
                 $("#myModal").modal();
              }
            }
@@ -478,11 +478,13 @@ function drawSubsis(chart_data,success)
 
 function cloneRow(region) {
       //alert(region);
+      
       var row = document.getElementById(region); // find row to copy
       var table = document.getElementById("tableModify"); // find table to append to
       var clone = row.cloneNode(true); // copy children too
       //clone.id = "newID"; // change id or other attributes/contents
       table.appendChild(clone); // add new row to end of table
+      
     }
 
 function disable(){
@@ -573,6 +575,18 @@ $(document).ready(function(){
 
 $(document).ready(function(){
   var x = document.getElementById('diva');
+  $(document).on('click','.boton', function(i){
+        for(var x = 0;x<14;x++){
+          var id = $(this).attr('id');
+          var res = id.slice(3);
+          //alert(id);
+          if(id){
+            if(x == res){
+              $(this).prop("disabled",true);
+            }
+          }
+        }
+  });
   $("#btns").on("click", function() {
       $(this).prop("disabled", true);
       $("#btnd").prop("disabled", false);
@@ -585,6 +599,7 @@ $(document).ready(function(){
       $("#btns").prop("disabled", false);
       //$(".boton").prop("disabled", true);
       $(".boton").show();
+      $(".boton").prop("disabled",false);
       x.style.display = "none";
 
   });
