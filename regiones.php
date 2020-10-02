@@ -415,7 +415,7 @@ function drawSubsis(chart_data,success)
                 $("#myModal").modal();
                 $("#body").html(
                   '<br><strong>'+str+'</strong><br>'+
-                  '<br>Importe docentes: '+docentes.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br> Importe  administrativos: '+admin.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>');
+                  '<br>Importe docentes $: '+docentes.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br> Importe  administrativos $: '+admin.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>');
                 $("#myModal").modal();
              }
            }
