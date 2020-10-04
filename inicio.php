@@ -791,6 +791,7 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
     //evento de google para el modal
     google.visualization.events.addListener(chart, 'select', selectHandler);
     function selectHandler() {
+      tablaData6 = "";
       var selection = chart.getSelection();
       for (var i =0; i<selection.length;i++){
         var item = selection[i];
@@ -800,22 +801,20 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
         //alert(str);
         $.each(tokenData, function(i, tokenData){
            var fuente = tokenData.fuente;
-           var quin = tokenData.quin;
-          //  tablaData6 += "<tr>";
-          //  tablaData6 += "<td>"+fuente+"<br></td>";
-          //  tablaData6 += "</tr>";
+           var quin = tokenData.concepto;
+           var importe = tokenData.importe;
            //alert(tablaData6);
            //var admin = jsonData.admvos;
            if(str){
-             if(i == str){
+             if(quin == str){
+                tablaData6 += "<strong>Fuente:</strong> "+fuente+' <strong>Importe:</strong> '+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+"<br>";
                 //  tablaData6 += "<tr>";
                 //  tablaData6 += "<td>"+fuente+"<br></td>";
                 //  tablaData6 += "</tr>";
                 //alert(docentes);
                 $("#myModal").modal();
                 $("#body").html(
-                  '<br><strong>'+str+'</strong><br>'+
-                  '<br>Fuente: '+tablaData6+'<br>');
+                  tablaData6);
                 $("#myModal").modal();
              }
            }
