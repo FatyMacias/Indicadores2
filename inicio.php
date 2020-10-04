@@ -462,14 +462,34 @@ function load_conceptowise_data(id, title)
 function load_conceptowise2_data(id, title)
 {
     var temp_title = title + ' '+id+'';
+      $.ajax({
+          url:'bd/nuevo_fetch.php',
+          method:"POST",
+          data:{id:id},
+          dataType:"JSON",
+          success:function(data)
+          {
+              drawMonthwiseChart2(data, temp_title);
+          },
+          error: function(data)
+          {
+              alert("No hay Datos");
+          }
+      });
+}
+var tokenData;
+function load_fuentes(id, title)
+{
+    var temp_title = title + ' '+id+'';
     $.ajax({
-        url:"bd/nuevo_fetch.php",
+        url:"bd/fetch_fuentes.php",
         method:"POST",
         data:{id:id},
         dataType:"JSON",
         success:function(data)
         {
-            drawMonthwiseChart2(data, temp_title);
+            tokenData = data;
+            //drawFuentes(data, temp_title);
         },
         error: function(data)
         {
@@ -705,6 +725,7 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
     var tablaData2 ='';
     var tablaData3 ='';
     var tablaData4 ='';
+    var tablaData6 ='';
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Quincenas');
     data.addColumn('number', 'Importe $');
@@ -725,8 +746,8 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
         var style = jsonData.style;
         data.addRows([[concepto, importe, style]]);
 
-        tablaData += '<td>'+jsonData.concepto+'</td>';
-        tablaData2 += '<td>'+'$'+jsonData.importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
+        tablaData += '<td>'+concepto+'</td>';
+        tablaData2 += '<td>'+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
 
 
     });
@@ -763,6 +784,7 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
 
     };
 
+
     var chart = new google.visualization.ColumnChart(document.getElementById('chart_area2'));
     chart.draw(data, options);
 
@@ -772,20 +794,48 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
       var selection = chart.getSelection();
       for (var i =0; i<selection.length;i++){
         var item = selection[i];
-        var str = data.getValue(item.row, item.column);
-        var strf = str/4;
-        $("#myModal").modal();
-        $("#body").html('Fuente: <strong>U080</strong>, importe total:'+ ' ' +'$'+ strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>'+
-          'Fuente: <strong>Estatal</strong>, importe total:'+ ' ' +'$'+ strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>'+
-          'Fuente: <strong>Propios</strong>, importe total:'+ ' ' + '$'+strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>'+
-          'Fuente: <strong>Fone Otros</strong>, importe total:'+ ' ' +'$'+ strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>');
-        $("#myModal").modal();
-            //alert(totale);
+        var str = data.getValue(item.row, 0);
+        //var res = str.slice(1);
+        var stn = data.getRowProperties(item.row);
+        //alert(str);
+        $.each(tokenData, function(i, tokenData){
+           var fuente = tokenData.fuente;
+           var quin = tokenData.quin;
+          //  tablaData6 += "<tr>";
+          //  tablaData6 += "<td>"+fuente+"<br></td>";
+          //  tablaData6 += "</tr>";
+           //alert(tablaData6);
+           //var admin = jsonData.admvos;
+           if(str){
+             if(i == str){
+                //  tablaData6 += "<tr>";
+                //  tablaData6 += "<td>"+fuente+"<br></td>";
+                //  tablaData6 += "</tr>";
+                //alert(docentes);
+                $("#myModal").modal();
+                $("#body").html(
+                  '<br><strong>'+str+'</strong><br>'+
+                  '<br>Fuente: '+tablaData6+'<br>');
+                $("#myModal").modal();
+             }
+           }
+        });
       }
-
     }
     
 }
+// function drawFuentes(chart_data, chart_main_title){
+//       //alert("fuente");
+//       $.each(jsonData, function(i, jsonData){
+//         var concepto = jsonData.concepto;
+//         var importe = parseFloat($.trim(jsonData.importe));
+//         var fuente = jsonData.fuente;
+//         //var style = jsonData.style;
+//         data.addRows([[concepto, importe]]);
+
+//         //alert(fuente);
+//       });
+//   }
 //dibujar graafica por conceptos
 function drawMonthwiseChart3(chart_data, chart_main_title)
 {
@@ -842,6 +892,7 @@ $(document).ready(function(){
             //alert("The text has been changed.");
             load_conceptowise_data(id, 'Importe por cada mes, quincenas correspondientes al año:');
             load_conceptowise2_data(id, 'Importe por cada quincena, quincenas correspondientes al año:');
+            load_fuentes(id);
             load_modaldata(id);
         }
     });

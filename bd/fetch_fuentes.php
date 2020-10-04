@@ -7,20 +7,22 @@ include('database_connection.php');
 if(isset($_POST["id"]))
 {
  $query = "
- SELECT SUBSTRING(qna_pago,5,6),SUM(importe) AS 'total', fuente FROM indicador
+ SELECT SUBSTRING(qna_pago,5,6) AS quin,fuente,SUM(importe) AS 'total' FROM indicador
  WHERE SUBSTRING(qna_pago,1,4) = '".$_POST["id"]."' 
- GROUP BY qna_pago ASC;
+ GROUP BY qna_pago, fuente ASC
  ";
  $statement = $connect->prepare($query);
  $statement->execute();
  $result = $statement->fetchAll();
 
+
  foreach($result as $row)
  {
   $output[] = array(
-   'fuente'  => $row["fuente"],
-   'concepto'   => $row["SUBSTRING(qna_pago,5,6)"],
-   'importe'  => floatval($row["total"])
+   'concepto'   => $row["quin"],
+   'fuente'   => $row["fuente"],
+   'importe'  => floatval($row["total"]),
+   
   );
  }
  echo json_encode($output);
