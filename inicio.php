@@ -477,6 +477,26 @@ function load_conceptowise2_data(id, title)
           }
       });
 }
+var pokeData;
+function load_fumes(id, title)
+{
+    var temp_title = title + ' '+id+'';
+    $.ajax({
+        url:"bd/fetch_fumes.php",
+        method:"POST",
+        data:{id:id},
+        dataType:"JSON",
+        success:function(data)
+        {
+            pokeData = data;
+            //drawFuentes(data, temp_title);
+        },
+        error: function(data)
+        {
+            alert("No hay Datos");
+        }
+    });
+}
 var tokenData;
 function load_fuentes(id, title)
 {
@@ -700,21 +720,32 @@ function drawMonthwiseChart(chart_data, chart_main_title)
     google.visualization.events.addListener(chart, 'select', selectHandler);
 
     function selectHandler() {
+      tablaData6 = "";
       var selection = chart.getSelection();
       for (var i =0; i<selection.length;i++){
         var item = selection[i];
-        var str = data.getValue(item.row, item.column);
-        var strf = str/4;
-        $("#myModal").modal();
-        $("#body").html(
-          '<h5>Fuente: <strong>U080</strong>, importe total:'+ ' ' +'$'+ strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<h5><br>'+
-          'Fuente: <strong>Estatal</strong>, importe total:'+ ' ' +'$'+ strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>'+
-          'Fuente: <strong>Propios</strong>, importe total:'+ ' ' + '$'+strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>'+
-          'Fuente: <strong>Fone Otros</strong>, importe total:'+ ' ' +'$'+ strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>');
-        $("#myModal").modal();
-            //alert(totale);
+        var str = data.getValue(item.row, 0);
+        //var res = str.slice(1);
+        var stn = data.getRowProperties(item.row);
+        //alert(str);
+        $.each(pokeData, function(i, pokeData){
+           var fuente = pokeData.fuente;
+           var quin = pokeData.concepto;
+           var importe = pokeData.importe;
+           var nombre = pokeData.nombre;
+           //alert(tablaData6);
+           //var admin = jsonData.admvos;
+           if(str){
+             if(quin == str){
+                tablaData6 += "<strong>Fuente:</strong> "+nombre+' '+fuente+' <strong>Importe:</strong> '+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+"<br>";
+                $("#myModal").modal();
+                $("#body").html(
+                  tablaData6);
+                $("#myModal").modal();
+             }
+           }
+        });
       }
-
     }
 }
 // dibujar grafica 2 por mes
@@ -809,10 +840,6 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
            if(str){
              if(quin == str){
                 tablaData6 += "<strong>Fuente:</strong> "+nombre+' '+fuente+' <strong>Importe:</strong> '+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+"<br>";
-                //  tablaData6 += "<tr>";
-                //  tablaData6 += "<td>"+fuente+"<br></td>";
-                //  tablaData6 += "</tr>";
-                //alert(docentes);
                 $("#myModal").modal();
                 $("#body").html(
                   tablaData6);
@@ -894,6 +921,7 @@ $(document).ready(function(){
             load_conceptowise2_data(id, 'Importe por cada quincena, quincenas correspondientes al año:');
             load_fuentes(id);
             load_modaldata(id);
+            load_fumes(id)
         }
     });
 

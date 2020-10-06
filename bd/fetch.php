@@ -47,7 +47,7 @@ if(isset($_POST["id"]))
  foreach($result as $row)
  {
   $output[] = array(
-   'fuente'  =>["fuente"],
+   'fuente'  =>$row["fuente"],
    'concepto'   => $row["mes"],
    'importe'  => floatval($row["total"])
   );
