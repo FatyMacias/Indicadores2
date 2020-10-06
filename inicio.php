@@ -803,11 +803,12 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
            var fuente = tokenData.fuente;
            var quin = tokenData.concepto;
            var importe = tokenData.importe;
+           var nombre = tokenData.nombre;
            //alert(tablaData6);
            //var admin = jsonData.admvos;
            if(str){
              if(quin == str){
-                tablaData6 += "<strong>Fuente:</strong> "+fuente+' <strong>Importe:</strong> '+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+"<br>";
+                tablaData6 += "<strong>Fuente:</strong> "+nombre+' '+fuente+' <strong>Importe:</strong> '+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+"<br>";
                 //  tablaData6 += "<tr>";
                 //  tablaData6 += "<td>"+fuente+"<br></td>";
                 //  tablaData6 += "</tr>";
