@@ -20,8 +20,10 @@ $resultM = $statementM->fetchAll();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- Rgoogle -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    
     <!--datables CSS básico-->
     <link rel="stylesheet" type="text/css" href="datatables/datatables.min.css"/>
     <!--datables estilo bootstrap 4 CSS-->  
@@ -34,6 +36,7 @@ $resultM = $statementM->fetchAll();
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
      <!-- importacion css para el toast-->
      <link href="css/toastr.min.css" rel="stylesheet"/>
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"> 
 
     
   </head>
@@ -366,7 +369,7 @@ function drawSubsis(chart_data,success)
 
 // });
 $(document).ready(function () {
-  $("#example2").DataTable({
+  var table = $("#example2").DataTable({
     lengthMenu: [
       [10, 25, 50, 100, 200, -1],
       [10, 25, 50, 100, 200, "All"],
@@ -387,15 +390,28 @@ $(document).ready(function () {
       },
       sProcessing: "Procesando...",
     },
-    //para usar los botones
-    responsive: "true",
-    dom: "Bfrtilp",
-    buttons: [
-      
-      'excelHtml5',
- 
-    ],
+            //para usar los botones   
+        responsive: "true",
+        dom: 'Bfrtilp',       
+        buttons:[ 
+			{
+				extend:    'excelHtml5',
+				text:      '<i class="fas fa-file-excel"></i> ',
+				titleAttr: 'Exportar a Excel',
+				className: 'btn btn-success'
+			},
+			{
+				extend:    'pdfHtml5',
+				text:      '<i class="fas fa-file-pdf"></i> ',
+				titleAttr: 'Exportar a PDF',
+				className: 'btn btn-danger'
+			},
+
+		]	
   });
+  $('#id, #idd').change(function(){
+          table.clear().destroy();
+    });
 });
     
     
