@@ -151,6 +151,17 @@ $resultM = $statementM->fetchAll();
                             ?>
                 </select>
 
+
+
+
+                <div class="input-group mb-6" >
+  <input type="text" class="form-control" placeholder="Ingrese nombre o clave" aria-label="Recipient's username" aria-describedby="button-addon2">
+  <div class="input-group-append" style="width: 300px; height: 38px;">
+    <button class="btn btn-outline-success" type="button" id="button-addon2">Buscar</button>
+  </div>
+</div>
+
+
                 <select name="idm" class="form-control" id="idm" style="width: 300px; height: 35px;">
                             <option value="">Seleccionar Mes</option>
                             <?php
