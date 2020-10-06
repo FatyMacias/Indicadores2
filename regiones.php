@@ -206,11 +206,8 @@ $resultM = $statementM->fetchAll();
           <tr id = "colbuts">
           </tr>
         </table>
-        <div>
-        <input id = "btns" type="button" class="float-md-left btn btn-success" onclick="mostb()" value="Confirmar Seleccion">
-        <input id = "btnd" type="button" class="float-md-left btn btn-success" onclick="disable()" value="Reset">
-        </div>
-        <div id = "diva" class="alert alert-success mt-5 col-md-12" role="alert" style = "display:none;"></div>
+        
+        <!-- <div id = "diva" class="alert alert-success mt-5 col-md-12" role="alert" style = "display:none;"></div> -->
         <table id="example" class="table table-hover table-bordered" style="width:100%; border: 1px solid #ddd !important;">
           <thead class="thead-dark">
             <tr>
@@ -234,6 +231,21 @@ $resultM = $statementM->fetchAll();
           </tfoot>
           
         </table>
+
+        <div>
+        <div id = "diva" class="alert alert-success mt-5 col-md-12" role="alert" style = "display:none;"></div>
+
+
+
+                
+        <input id = "btns" type="button" class="float-md-left btn btn-success" onclick="mostb()" value="Confirmar Seleccion">
+        
+
+        <input id = "btnd" type="button" class="float-md-left btn btn-success" onclick="disable()" value="Seleccionar nuevamente">
+      
+        </div>
+
+
         <div class="panel-body">
           <div id="chart_area" style="width: 1200px; height: 500px; visibility: hidden; "></div>
         </div>
@@ -425,7 +437,7 @@ function drawSubsis(chart_data,success)
 
 
     $(document).ready(function() {    
-    var table = $('#example2').DataTable({  
+    var table = $('#example2').DataTable({
         bSort : false,
         order: [],
         lengthMenu: [
@@ -502,7 +514,7 @@ function disable(tid,rid){
 }
 
 function mostb(){
-  $('#diva').html("Seleccionado Satisfactoriamente!, proceda a exportar a formato Excel o Pdf");
+  $('#diva').html("Seleccionado Satisfactoriamente, proceda a exportar a formato Excel o Pdf");
   $(document).ready(function() {    
     var table2 = $('#example').DataTable({  
         bSort : false,
