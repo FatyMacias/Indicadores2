@@ -235,14 +235,21 @@ $resultM = $statementM->fetchAll();
         <div>
         <div id = "diva" class="alert alert-success mt-5 col-md-12" role="alert" style = "display:none;"></div>
 
+ <style>
+  .center {
+  margin: auto;
+  width: 44%; 
 
+  }
+</style>
 
-                
-        <input id = "btns" type="button" class="float-md-left btn btn-success" onclick="mostb()" value="Confirmar Seleccion">
+<div class="center">      
+        <input id = "btns" style="margin: 10px" type="button" class="float-md-left btn btn-success" onclick="mostb()" value="Confirmar Seleccion">
         
 
-        <input id = "btnd" type="button" class="float-md-left btn btn-success" onclick="disable()" value="Seleccionar nuevamente">
-      
+        <input id = "btnd" style="margin: 10px" type="button" class="float-md-left btn btn-success" onclick="disable()" value="Seleccionar nuevamente">
+        </div>
+
         </div>
 
 
