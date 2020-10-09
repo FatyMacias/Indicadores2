@@ -253,7 +253,12 @@ $resultM = $statementM->fetchAll();
         </div>
 
 
+<br>
+<br>
+<br>
         <div class="panel-body">
+
+        
           <div id="chart_area" style="width: 1200px; height: 500px; visibility: hidden; "></div>
         </div>
       </div>
@@ -433,6 +438,8 @@ function drawSubsis(chart_data,success)
                //alert(i + res);
                 $("#myModal").modal();
                 $("#body").html(
+                 
+                  '<br>REGION <strong>'+''+'</strong><br>'+
                   '<br><strong>'+str+'</strong><br>'+
                   '<br>Importe docentes $: '+docentes.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br> Importe  administrativos $: '+admin.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>');
                 $("#myModal").modal();
