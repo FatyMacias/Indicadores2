@@ -454,10 +454,7 @@ function drawSubsis(chart_data,success)
     var table = $('#example2').DataTable({
         bSort : false,
         order: [],
-        lengthMenu: [
-          [10, 25, 50, 100, 200, -1],
-          [10, 25, 50, 100, 200, "All"],
-        ],      
+        paging: false,     
         language: {
                 "lengthMenu": "Mostrar _MENU_ registros",
                 "zeroRecords": "No se encontraron resultados",
@@ -534,10 +531,7 @@ function mostb(){
     var table2 = $('#example').DataTable({  
         bSort : false,
         order: [],
-        lengthMenu: [
-          [10, 25, 50, 100, 200, -1],
-          [10, 25, 50, 100, 200, "All"],
-        ],      
+        paging: false,     
         language: {
                 "lengthMenu": "Mostrar _MENU_ registros",
                 "zeroRecords": "No se encontraron resultados",
