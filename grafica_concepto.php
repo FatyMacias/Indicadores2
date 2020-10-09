@@ -140,7 +140,9 @@ $resultM = $statementM->fetchAll();
           <center><h1>INDICADORES POR CONCEPTO</h1></center>
 
           <div>
-
+          <div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
           <select name="idc" class="form-control" id="idc"style="width: 300px; height: 35px;">
                             <option value="">Seleccionar Concepto</option>
                             <?php
@@ -151,17 +153,6 @@ $resultM = $statementM->fetchAll();
                             ?>
                 </select>
 
-
-
-
-                <div class="input-group mb-6" >
-  <input type="text" class="form-control" placeholder="Ingrese nombre o clave" aria-label="Recipient's username" aria-describedby="button-addon2">
-  <div class="input-group-append" style="width: 300px; height: 38px;">
-    <button class="btn btn-outline-success" type="button" id="button-addon2">Buscar</button>
-  </div>
-</div>
-
-
                 <select name="idm" class="form-control" id="idm" style="width: 300px; height: 35px;">
                             <option value="">Seleccionar Mes</option>
                             <?php
@@ -171,6 +162,20 @@ $resultM = $statementM->fetchAll();
                             }
                             ?>
                 </select>
+                </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+        <div class="input-group mb-6"style="width: 300px; height: 35px;" >
+                <input type="text" class="form-control" placeholder="Ingrese nombre o clave" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-success" type="button" id="button-addon2">Buscar</button>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+
           </div>
           <br>
           <br>

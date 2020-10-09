@@ -164,7 +164,13 @@ $resultM = $statementM->fetchAll();
     </div>
     <div class="col-sm-6">
         <div class="form-group">
-
+        <h3>Seleccionar Vistas</h3>
+        <select name="idr" class="form-control" id="idr" style="width: 300px; height: 35px;">
+                            <option value="">Por Nivel / Region</option>
+                            <option>Region</option>
+                            <option>Nivel</option>
+                </select>
+        </div>
     </div>
 </div>
                

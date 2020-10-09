@@ -461,7 +461,7 @@ function drawSubsis(chart_data,success)
             },
         //para usar los botones   
         responsive: "true",
-        dom: 'Bfrtilp',       
+        dom: 'lfBrtip',       
         buttons:[ 
 			{
 				extend:    'excelHtml5',
@@ -477,7 +477,8 @@ function drawSubsis(chart_data,success)
 			},
 
 		]	        
-    });  
+    });
+      
     $('#id, #idd').change(function(){
           table.clear().destroy();
         });   
@@ -540,7 +541,7 @@ function mostb(){
             },
         //para usar los botones   
         responsive: "true",
-        dom: 'Bfrtilp',       
+        dom: 'frtBip',       
         buttons:[ 
       {
         extend:    'excelHtml5',
