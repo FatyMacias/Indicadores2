@@ -324,53 +324,19 @@ function drawSubsis(chart_data,success)
         //tablaData += '</tr>';
         /////////
 
-    });
+      });
     
     tablaData6 += '<td> <input type="button" class="btn btn-info" value="Por Subsistema" data-toggle="modal" data-target="#myModaldos"> </td>';
     $("#colbuts").append(tablaData6);
     $("#colsubsis").append(tablaData);
     
-//     $(document).ready(function () {
-//       var table = $("#example2").DataTable({
-//         lengthMenu: [
-//           [10, 25, 50, 100, 200, -1],
-//           [10, 25, 50, 100, 200, "All"],
-//         ],
-//         //para cambiar el lenguaje a español
-//         language: {
-//           lengthMenu: "Mostrar _MENU_ registros",
-//           zeroRecords: "No se encontraron resultados",
-//           info:
-//             "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-//           infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
-//           infoFiltered: "(filtrado de un total de _MAX_ registros)",
-//           sSearch: "Buscar:",
-//           oPaginate: {
-//             sFirst: "Primero",
-//             sLast: "Último",
-//             sNext: "Siguiente",
-//             sPrevious: "Anterior",
-//           },
-//           sProcessing: "Procesando...",
-//         },
-//         //para usar los botones   
-//         responsive: "true",
-//         dom: 'Bfrtilp',
-        
-//       });
-
-//       $('#id, #idd').change(function(){
-//             table.clear().destroy();       
-//       });
-
-
-// });
-$(document).ready(function () {
-  $("#example2").DataTable({
+    $(document).ready(function () {
+    var table = $("#example2").DataTable({
     lengthMenu: [
       [10, 25, 50, 100, 200, -1],
       [10, 25, 50, 100, 200, "All"],
     ],
+    //para cambiar el lenguaje a español
     language: {
       lengthMenu: "Mostrar _MENU_ registros",
       zeroRecords: "No se encontraron resultados",
@@ -387,21 +353,20 @@ $(document).ready(function () {
       },
       sProcessing: "Procesando...",
     },
-    //para usar los botones
-    responsive: "true",
-    dom: "Bfrtilp",
-    buttons: [
-      
-      'excelHtml5',
- 
-    ],
+  });
+  $('#id, #idd').change(function(){
+          table.clear().destroy();
   });
 });
+    
     
     
    
 }
 </script>
+
+
+
 
 
 
