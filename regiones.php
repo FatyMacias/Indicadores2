@@ -189,6 +189,7 @@ $resultM = $statementM->fetchAll();
               <th scope="col">Importe Total</th>
               <th scope="col">Importe/Docentes</th>
               <th scope="col">Importe/Administrativos</th>
+              <th scope="col">Selector</th>
             </tr>
           </thead>
           <tbody id="colsubsis"></tbody>
@@ -199,6 +200,7 @@ $resultM = $statementM->fetchAll();
               <th scope="col">Importe Total</th>
               <th scope="col">Importe/Docentes</th>
               <th scope="col">Importe/Administrativos</th>
+              <th scope="col">Selector</th>
             </tr>
           </tfoot>
         </table>
@@ -216,6 +218,7 @@ $resultM = $statementM->fetchAll();
               <th scope="col">Importe Total</th>
               <th scope="col">Importe/Docentes</th>
               <th scope="col">Importe/Administrativos</th>
+              <th scope="col">Selector</th>
             </tr>
           </thead>
           <tbody id="tableModify">
@@ -227,6 +230,7 @@ $resultM = $statementM->fetchAll();
               <th scope="col">Importe Total</th>
               <th scope="col">Importe/Docentes</th>
               <th scope="col">Importe/Administrativos</th>
+              <th scope="col">Selector</th>
             </tr>
           </tfoot>
           
@@ -245,7 +249,7 @@ $resultM = $statementM->fetchAll();
 
 <div class="center">      
         <input id = "btns" style="margin: 10px" type="button" class="float-md-left btn btn-success" onclick="mostb()" value="Confirmar Seleccion">
-        
+        <input id = "btnn" style="margin: 10px" type="button" class="float-md-left btn btn-success" value="Seleccionar">
 
         <input id = "btnd" style="margin: 10px" type="button" class="float-md-left btn btn-success" onclick="disable()" value="Seleccionar nuevamente">
         </div>
@@ -291,6 +295,7 @@ $resultM = $statementM->fetchAll();
     <script src="datatables/JSZip-2.5.0/jszip.min.js"></script>    
     <script src="datatables/pdfmake-0.1.36/pdfmake.min.js"></script>    
     <script src="datatables/pdfmake-0.1.36/vfs_fonts.js"></script>
+    <script src="datatables/plug-ins/sum().js"></script>
     <script src="datatables/Buttons-1.5.6/js/buttons.html5.min.js"></script> 
     <script src="js/toastr.min.js"></script>
     
@@ -369,7 +374,8 @@ function drawSubsis(chart_data,success)
         tablaData += '<td >'+region+'</td>';
         tablaData += '<td>'+'$'+total.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
         tablaData += '<td>'+'$'+docente.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
-        tablaData += '<td>'+'$'+admvos.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<input id = "btn'+id+'" type="button" class="boton float-md-right btn btn-success" onclick="cloneRow('+id+')" value="Seleccionar"></td>';
+        tablaData += '<td>'+'$'+admvos.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
+        tablaData += '<td>'+'<input id = "btn'+id+'" type="button" class="boton float-md-right btn btn-success" onclick="cloneRow('+id+')" value="Seleccionar">'+'</td>';
         //tablaData += '<td> <input type="button" class="btn btn-success" value="Seleccionar"> </td>'
         tablaData += '</tr>';
         
@@ -394,6 +400,7 @@ function drawSubsis(chart_data,success)
     tablaData+='<td>'+total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
     tablaData+='<td>'+total2.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
     tablaData+='<td>'+total3.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
+    tablaData+='<td> </td>';
     
     $("#colbuts").append(tablaData6);
     $("#colsubsis").append(tablaData);
@@ -516,7 +523,20 @@ function cloneRow(region) {
       clone.getElementsByTagName('input')[0].addEventListener('click', function(){
           table.removeChild(clone);
         });
+      // var sum = 0, sum2 =0, sum3 =0;
+      // var idd = 0;
+      // var tcount = table.rows.length;
+      // for(var i=0;i<=tcount;i++){
+      //   idd = clone.getElementsByTagName('td')[1].id = i;
+      //   sum += parseInt(clone.getElementsByTagName('td')[1].innerHTML.slice(1).replace(/,/g, ''));
+      //   // sum2 += parseInt(clone.getElementsByTagName('td')[2].innerHTML.slice(1).replace(/,/g, ''));
+      //   // sum3 += parseInt(clone.getElementsByTagName('td')[3].innerHTML.slice(1).replace(/,/g, ''));
+      // }
+      // //alert(sum);
+      // var newRow=table.insertRow();
+      // newRow.innerHTML= '<td>Total: </td>'+'<td>'+sum.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
       table.appendChild(clone); // add new row to end of table
+      
       
     }
 
@@ -566,12 +586,25 @@ function mostb(){
 
     ]	        
     }); 
-
+        var counter = 0;
         $("#btnd").click(function(){
           table2.clear().destroy();
           $('#diva').html("");
           //$("#btns").prop("disabled", true);
         });
+        // $("#btns").click(function(){
+        //   alert('ahi va');
+        // });
+        // $('#example tbody').on( 'click', 'td', function () {
+        //   alert( table2.cell( this ).data() );
+        // });
+          table2.row.add( [
+              counter ='Total:',
+              counter ='$'+table2.column( 1 ).data().sum().toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"),
+              counter ='$'+table2.column( 2 ).data().sum().toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"),
+              counter ='$'+table2.column( 3 ).data().sum().toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"),
+              counter =''
+          ] ).draw( false );
 
 });
 
