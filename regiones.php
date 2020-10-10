@@ -485,13 +485,19 @@ function drawSubsis(chart_data,success)
 				extend:    'excelHtml5',
 				text:      '<i class="fas fa-file-excel"></i> ',
 				titleAttr: 'Exportar a Excel',
-				className: 'btn btn-success'
+        className: 'btn btn-success',
+        exportOptions: {
+                    columns: [ 0, 1, 2, 3 ]
+                }
 			},
 			{
 				extend:    'pdfHtml5',
 				text:      '<i class="fas fa-file-pdf"></i> ',
 				titleAttr: 'Exportar a PDF',
-				className: 'btn btn-danger'
+        className: 'btn btn-danger',
+        exportOptions: {
+                    columns: [ 0, 1, 2, 3 ]
+                }
 			},
 
 		]	        
@@ -575,13 +581,19 @@ function mostb(){
         extend:    'excelHtml5',
         text:      '<i class="fas fa-file-excel"></i> ',
         titleAttr: 'Exportar a Excel',
-        className: 'btn btn-success'
+        className: 'btn btn-success',
+        exportOptions: {
+                    columns: [ 0, 1, 2, 3 ]
+                }
       },
       {
         extend:    'pdfHtml5',
         text:      '<i class="fas fa-file-pdf"></i> ',
         titleAttr: 'Exportar a PDF',
-        className: 'btn btn-danger'
+        className: 'btn btn-danger',
+        exportOptions: {
+                    columns: [ 0, 1, 2, 3 ]
+                }
       },
 
     ]	        
