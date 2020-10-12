@@ -167,10 +167,15 @@ $resultM = $statementM->fetchAll();
     <div class="col-sm-6">
         <div class="form-group">
         <div class="input-group mb-6"style="width: 300px; height: 35px;" >
-                <input type="text" class="form-control" placeholder="Ingrese nombre o clave" aria-label="Recipient's username" aria-describedby="button-addon2">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-success" type="button" id="button-addon2">Buscar</button>
-                </div>
+                <input type="text" class="form-control" placeholder="Ingrese nombre o clave" aria-label="Recipient's username" aria-describedby="button-addon2" id="something" list="somethingelse">
+                <datalist id="somethingelse">
+                  <?php
+                    foreach($resultC as $row)
+                    {
+                        echo '<option value="'.$row["cve_cpto"].'">'.''.$row["cve_cpto"] . ' ' .''.$row["concepto"].'</option>';
+                    }
+                  ?>
+                </datalist>
               </div>
         </div>
     </div>
@@ -349,6 +354,19 @@ $(document).ready(function(){
     $('#idc, #idm').change(function(){
         var idc = $('#idc').val();
         var idm = $('#idm').val();
+        $('#something').prop('disabled', true);
+        if(idc != '' && idm != '')
+        {
+           // alert("The text has been changed.");
+           
+            load_conceptowise3_data(idc, idm, 'Importe por cada año, concepto: ');
+        }
+    });
+
+    $('#something, #idm').change(function(){
+        var idc = $('#something').val();
+        var idm = $('#idm').val();
+        $('#idc').prop('disabled', true);
         if(idc != '' && idm != '')
         {
            // alert("The text has been changed.");
