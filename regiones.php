@@ -249,7 +249,6 @@ $resultM = $statementM->fetchAll();
 
 <div class="center">      
         <input id = "btns" style="margin: 10px" type="button" class="float-md-left btn btn-success" onclick="mostb()" value="Confirmar Seleccion">
-        <input id = "btnn" style="margin: 10px" type="button" class="float-md-left btn btn-success" value="Seleccionar">
 
         <input id = "btnd" style="margin: 10px" type="button" class="float-md-left btn btn-success" onclick="disable()" value="Seleccionar nuevamente">
         </div>
@@ -397,9 +396,9 @@ function drawSubsis(chart_data,success)
     }
 
     tablaData+='<td>'+'Total:'+'</td>';
-    tablaData+='<td>'+total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
-    tablaData+='<td>'+total2.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
-    tablaData+='<td>'+total3.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
+    tablaData+='<td>$'+total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
+    tablaData+='<td>$'+total2.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
+    tablaData+='<td>$'+total3.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
     tablaData+='<td> </td>';
     
     $("#colbuts").append(tablaData6);
