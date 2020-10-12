@@ -354,7 +354,10 @@ $(document).ready(function(){
     $('#idc, #idm').change(function(){
         var idc = $('#idc').val();
         var idm = $('#idm').val();
-        $('#something').prop('disabled', true);
+        if(idc != '')
+        {
+          $('#something').prop('disabled', true);
+        }
         if(idc != '' && idm != '')
         {
            // alert("The text has been changed.");
@@ -366,7 +369,10 @@ $(document).ready(function(){
     $('#something, #idm').change(function(){
         var idc = $('#something').val();
         var idm = $('#idm').val();
-        $('#idc').prop('disabled', true);
+        if(idc != '')
+        {
+          $('#idc').prop('disabled', true);
+        }
         if(idc != '' && idm != '')
         {
            // alert("The text has been changed.");
