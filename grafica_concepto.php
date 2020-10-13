@@ -145,8 +145,11 @@ $resultM = $statementM->fetchAll();
           <div class="row">
     <div class="col-sm-6">
         <div class="form-group">
-        <div class="input-group mb-6"style="width: 300px; height: 35px;" >
+              <div class="input-group mb-6"style="width: 300px; height: 35px;" >
                 <input type="text" class="form-control" placeholder="Ingrese nombre o clave" aria-label="Recipient's username" aria-describedby="button-addon2" id="something" list="somethingList">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-success" id="limpiar" type="button">Limpiar</button>
+                </div>
                 <datalist id="somethingList">
                   <?php
                     foreach($resultC as $row)
@@ -377,6 +380,9 @@ function drawMonthwiseChart3(chart_data, chart_main_title)
 $(document).ready(function(){
 
 
+    $('#limpiar').on("click", function() {
+        $('#something').val('');
+    });
 
     $('#something, #idm').change(function(){
         var idc = $("#something").val().slice(0,2);
