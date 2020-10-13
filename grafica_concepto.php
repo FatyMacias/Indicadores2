@@ -32,7 +32,30 @@ $resultM = $statementM->fetchAll();
      <!-- importacion css para el toast-->
        <link href="css/toastr.min.css" rel="stylesheet"/>
   </head>
-  <body>
+  <style>
+
+    #backgroundImage:before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      /* background-image: url('logoz.jpg');
+      background-repeat: no-repeat;
+      background-size: 100%; */
+      background-image: url('logoz.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+      opacity: 0.4;
+      filter:alpha(opacity=40);
+      height:100%;
+      width:100%;
+    }
+  </style>
+  <body id="backgroundImage">
     
     <div class="wrapper d-flex align-items-stretch">
       <nav id="sidebar">
@@ -42,8 +65,8 @@ $resultM = $statementM->fetchAll();
           <br>
           <br>
           <ul class="list-unstyled components mb-5">
-          <li class="active">
-          <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">INFORMACIÓN FINANCIERA</a>
+          <li>
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">INFORMACIÓN FINANCIERA</a>
               <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
                     <a href="inicio.php" onclick="openMenu('general')">Gráfica Global</a>
@@ -64,7 +87,7 @@ $resultM = $statementM->fetchAll();
                     <a href="grafica_porgenero.php" onclick="openMenu('genero')">Por género</a>
                 </li> -->
               </ul>
-            </li>
+          </li>
 
 
            
