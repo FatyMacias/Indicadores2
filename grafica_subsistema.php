@@ -30,6 +30,7 @@ $resultM = $statementM->fetchAll();
      <!-- de aqui para abajo no se que pdo --> 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="background.css">
 
      
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -38,7 +39,7 @@ $resultM = $statementM->fetchAll();
      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"> 
     
   </head>
-  <body>
+  <body id="backgroundImage">
     
     <div class="wrapper d-flex align-items-stretch">
       <nav id="sidebar">

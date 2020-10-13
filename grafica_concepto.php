@@ -27,34 +27,13 @@ $resultM = $statementM->fetchAll();
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="background.css">
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
      <!-- importacion css para el toast-->
        <link href="css/toastr.min.css" rel="stylesheet"/>
   </head>
-  <style>
 
-    #backgroundImage:before {
-      content: "";
-      position: absolute;
-      z-index: -1;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      /* background-image: url('logoz.jpg');
-      background-repeat: no-repeat;
-      background-size: 100%; */
-      background-image: url('logoz.jpg');
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-size: 100% 100%;
-      opacity: 0.4;
-      filter:alpha(opacity=40);
-      height:100%;
-      width:100%;
-    }
-  </style>
   <body id="backgroundImage">
     
     <div class="wrapper d-flex align-items-stretch">
@@ -166,15 +145,17 @@ $resultM = $statementM->fetchAll();
           <div class="row">
     <div class="col-sm-6">
         <div class="form-group">
-          <select name="idc" class="form-control" id="idc"style="width: 300px; height: 35px;">
-                            <option value="">Seleccionar Concepto</option>
-                            <?php
-                            foreach($resultC as $row)
-                            {
-                                echo '<option value="'.$row["cve_cpto"].'">'.''.$row["cve_cpto"] . ' ' .''.$row["concepto"].'</option>';
-                            }
-                            ?>
-                </select>
+        <div class="input-group mb-6"style="width: 300px; height: 35px;" >
+                <input type="text" class="form-control" placeholder="Ingrese nombre o clave" aria-label="Recipient's username" aria-describedby="button-addon2" id="something" list="somethingList">
+                <datalist id="somethingList">
+                  <?php
+                    foreach($resultC as $row)
+                    {
+                        echo '<option value="'.$row["cve_cpto"].' '.$row["concepto"].'" ></option>';
+                    }
+                  ?>
+                </datalist>
+              </div>
 
                 <select name="idm" class="form-control" id="idm" style="width: 300px; height: 35px;">
                             <option value="">Seleccionar Mes</option>
@@ -189,17 +170,7 @@ $resultM = $statementM->fetchAll();
     </div>
     <div class="col-sm-6">
         <div class="form-group">
-        <div class="input-group mb-6"style="width: 300px; height: 35px;" >
-                <input type="text" class="form-control" placeholder="Ingrese nombre o clave" aria-label="Recipient's username" aria-describedby="button-addon2" id="something" list="somethingelse">
-                <datalist id="somethingelse">
-                  <?php
-                    foreach($resultC as $row)
-                    {
-                        echo '<option value="'.$row["cve_cpto"].'">'.''.$row["cve_cpto"] . ' ' .''.$row["concepto"].'</option>';
-                    }
-                  ?>
-                </datalist>
-              </div>
+
         </div>
     </div>
 </div>
@@ -284,11 +255,30 @@ function load_conceptowise3_data(idc, idm, title)
             }
         });
 }
+var tokenData;
+function load_funcon(idc, idm)
+{
+    //var temp_title = title + ' '+idc+''+''+idm+'';
+    $.ajax({
+        url:"bd/fetch_funcon.php",
+        method:"POST",
+        data:{idc:idc, idm:idm},
+        dataType:"JSON",
+        success: function (data) {
+                tokenData = data;
+                
+            },
+        error: function (data) {
+                toastr.error('No se encontraron datos', 'Error', {timeOut: 2000});
+            }
+        });
+}
 //dibujar grafica por conceptos
 function drawMonthwiseChart3(chart_data, chart_main_title)
 {
     var jsonData = chart_data;
     var tablaData ='';
+    var tablaData6 ='';
 
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Quincenas');
@@ -347,20 +337,32 @@ function drawMonthwiseChart3(chart_data, chart_main_title)
     chart.draw(data, options);
     google.visualization.events.addListener(chart, 'select', selectHandler);
     function selectHandler() {
+      tablaData6 = "";
       var selection = chart.getSelection();
       for (var i =0; i<selection.length;i++){
         var item = selection[i];
-        var str = data.getValue(item.row, item.column);
-        var strf = str/4;
-        $("#myModal").modal();
-        $("#body").html('Fuente: <strong>U080</strong>, importe total:'+ ' ' +'$'+ strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>'+
-          'Fuente: <strong>Estatal</strong>, importe total:'+ ' ' +'$'+ strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>'+
-          'Fuente: <strong>Propios</strong>, importe total:'+ ' ' + '$'+strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>'+
-          'Fuente: <strong>Fone Otros</strong>, importe total:'+ ' ' +'$'+ strf.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'<br>');
-        $("#myModal").modal();
-            //alert(totale);
+        var str = data.getValue(item.row, 0);
+        //var res = str.slice(1);
+        var stn = data.getRowProperties(item.row);
+        //alert(str);
+        $.each(tokenData, function(i, tokenData){
+           var fuente = tokenData.fuente;
+           var quin = tokenData.concepto;
+           var importe = tokenData.importe;
+           var nombre = tokenData.nombre;
+           //alert(tablaData6);
+           //var admin = jsonData.admvos;
+           if(str){
+             if(quin == str){
+                tablaData6 += "<strong>Fuente:</strong> "+nombre+' '+fuente+' <strong>Importe:</strong> '+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+"<br>";
+                $("#myModal").modal();
+                $("#body").html(
+                  tablaData6);
+                $("#myModal").modal();
+             }
+           }
+        });
       }
-
     }
 }
 </script>
@@ -374,37 +376,23 @@ function drawMonthwiseChart3(chart_data, chart_main_title)
     // Detectar seleccion del select option
 $(document).ready(function(){
 
-    $('#idc, #idm').change(function(){
-        var idc = $('#idc').val();
-        var idm = $('#idm').val();
-        if(idc != '')
-        {
-          $('#something').prop('disabled', true);
-        }
-        if(idc != '' && idm != '')
-        {
-           // alert("The text has been changed.");
-           
-            load_conceptowise3_data(idc, idm, 'Importe por cada año, concepto: ');
-        }
-    });
+
 
     $('#something, #idm').change(function(){
-        var idc = $('#something').val();
+        var idc = $("#something").val().slice(0,2);
         var idm = $('#idm').val();
-        if(idc != '')
-        {
-          $('#idc').prop('disabled', true);
-        }
+        //alert(idc);
         if(idc != '' && idm != '')
         {
            // alert("The text has been changed.");
-            
+           load_funcon(idc, idm);
             load_conceptowise3_data(idc, idm, 'Importe por cada año, concepto: ');
         }
     });
 
+
 });
+
 
 </script>
 
