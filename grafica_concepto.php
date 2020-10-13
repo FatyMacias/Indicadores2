@@ -379,7 +379,7 @@ function drawMonthwiseChart3(chart_data, chart_main_title)
     // Detectar seleccion del select option
 $(document).ready(function(){
 
-
+    //el input se limpiara al hacer click en boton de limpiar
     $('#limpiar').on("click", function() {
         $('#something').val('');
     });
@@ -393,6 +393,8 @@ $(document).ready(function(){
            // alert("The text has been changed.");
            load_funcon(idc, idm);
             load_conceptowise3_data(idc, idm, 'Importe por cada año, concepto: ');
+            //el input se limpiara cuando llegue a este punto
+            //$('#something').val('');
         }
     });
 
