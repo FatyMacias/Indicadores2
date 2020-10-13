@@ -382,6 +382,7 @@ $(document).ready(function(){
     //el input se limpiara al hacer click en boton de limpiar
     $('#limpiar').on("click", function() {
         $('#something').val('');
+        $('#idm').prop('selectedIndex',0);
     });
 
     $('#something, #idm').change(function(){
@@ -391,7 +392,7 @@ $(document).ready(function(){
         if(idc != '' && idm != '')
         {
            // alert("The text has been changed.");
-           load_funcon(idc, idm);
+            load_funcon(idc, idm);
             load_conceptowise3_data(idc, idm, 'Importe por cada año, concepto: ');
             //el input se limpiara cuando llegue a este punto
             //$('#something').val('');
