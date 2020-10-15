@@ -139,7 +139,8 @@ $resultM = $statementM->fetchAll();
           </div>
         </nav>
         <div id="conceptos" class="w3-container menu" style="display">
-          <center><h1>INDICADORES POR CONCEPTO</h1></center>
+          
+              <center><h1 >INDICADORES POR CONCEPTO</h1></center>     
 
           <div>
           <div class="row">
