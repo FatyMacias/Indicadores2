@@ -5,7 +5,24 @@ $hijole='';
 // array de errores
 $errores = array('clave_user'=>'','clave_pwd'=>'');
 $conexion = mysqli_connect('localhost', 'root', '', 'indicadores');
-
+session_start();
+if(isset($_SESSION['rol'])){
+	switch ($_SESSION['rol']) {
+		case 1:
+			header("location: inicio.php"); 
+			break;
+		case 2:
+			$hijole = 'no hay est';
+			break;
+		case 3:
+			$hijole = 'no hay est';
+			break;
+		
+		default:
+			# code...
+			break;
+	}
+}
 if(isset($_POST['submit'])){
 
 	//checar usuario
@@ -36,12 +53,13 @@ if(isset($_POST['submit'])){
 			$clav = mysqli_real_escape_string($conexion,$_POST['clave_user']);
 			$cla = mysqli_real_escape_string($conexion,$_POST['clave_pwd']);
 
+			$db = new Database();
 			$consulta = "SELECT * FROM usuarios WHERE clave_user = '$clav' AND clave_pwd = '$cla'";
 			$resultado = mysqli_query ($conexion, $consulta);
 			$filas = mysqli_num_rows ($resultado); 
 
 			if ($filas>0){
-       			header("location: inicio.php"); 
+				header("location: inicio.php"); 
 
 			}
 			else{
