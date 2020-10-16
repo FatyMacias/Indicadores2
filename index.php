@@ -15,12 +15,11 @@ if(isset($_SESSION['rol'])){
 			$hijole = 'no hay est';
 			break;
 		case 3:
-			$hijole = 'no hay est';
+			$hijole = 'no hay fed';
 			break;
 		
 		default:
-			# code...
-			break;
+
 	}
 }
 if(isset($_POST['submit'])){
@@ -50,20 +49,52 @@ if(isset($_POST['submit'])){
 			//echo "hay errores";
 		}else{
 
-			$clav = mysqli_real_escape_string($conexion,$_POST['clave_user']);
-			$cla = mysqli_real_escape_string($conexion,$_POST['clave_pwd']);
+			// $clav = mysqli_real_escape_string($conexion,$_POST['clave_user']);
+			// $cla = mysqli_real_escape_string($conexion,$_POST['clave_pwd']);
 
+			// $db = new Database();
+			// $consulta = "SELECT * FROM usuarios WHERE clave_user = '$clav' AND clave_pwd = '$cla'";
+			// $resultado = mysqli_query ($conexion, $consulta);
+			// $filas = mysqli_num_rows ($resultado); 
+
+			// if ($filas>0){
+			// 	header("location: inicio.php"); 
+
+			// }
+			// else{
+       		// 	$hijole='Usuario no autorizado';
+			// }
+			$username = $_POST['clave_user'];
+			$password = $_POST['clave_pwd'];
+	
 			$db = new Database();
-			$consulta = "SELECT * FROM usuarios WHERE clave_user = '$clav' AND clave_pwd = '$cla'";
-			$resultado = mysqli_query ($conexion, $consulta);
-			$filas = mysqli_num_rows ($resultado); 
-
-			if ($filas>0){
-				header("location: inicio.php"); 
-
-			}
-			else{
-       			$hijole='Usuario no autorizado';
+			$query = $db->connect()->prepare('SELECT *FROM usuarios WHERE clave_user = :username AND clave_pwd = :password');
+			$query->execute(['username' => $username, 'password' => $password]);
+	
+			$row = $query->fetch(PDO::FETCH_NUM);
+			
+			if($row == true){
+				$rol = $row[3];
+				echo 'hola';
+				$_SESSION['rol'] = $rol;
+				switch($rol){
+					case 1:
+						header('location: inicio.php');
+					break;
+	
+					case 2:
+						$hijole = 'no hay est';
+						break;
+					case 3:
+						$hijole = 'no hay fed';
+						break;
+					
+	
+					default:
+				}
+			}else{
+				// no existe el usuario
+				$hijole='Usuario no autorizado';
 			}
 
 			mysqli_free_result($resultado);
