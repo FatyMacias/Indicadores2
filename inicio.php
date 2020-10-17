@@ -1,7 +1,15 @@
 <?php  
 
 include("bd/database_connection.php");
+session_start();
 
+if(!isset($_SESSION['rol'])){
+    header('location: index.php');
+}else{
+    if($_SESSION['rol'] != 1){
+        header('location: index.php');
+    }
+}
 $query = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year ASC";
 $queryC = "SELECT cve_cpto, concepto FROM `cat_conceptos`";
 //$query = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year DESC";
@@ -56,7 +64,7 @@ $resultS = $statementS->fetchAll();
     
     <div class="wrapper d-flex align-items-stretch">
       <nav id="sidebar">
-      <center><a class="navbar-brand">INICIO</a></center>  
+      <center><a class="navbar-brand">INICIO <?php echo $_SESSION['rol']; ?></a></center>  
         <div class="p-4 pt-5">
           <a href="inicio.php" class="img logo thumbnailmb-5" style="background-image: url(images/zac.png);"></a>
           <br>

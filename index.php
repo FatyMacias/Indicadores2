@@ -1,10 +1,11 @@
  <?php
+include_once 'database.php';
 //magia negra para la persisitencia de datos almacenados en los inputs
 $clav = $cla = '';
 $hijole='';
 // array de errores
 $errores = array('clave_user'=>'','clave_pwd'=>'');
-$conexion = mysqli_connect('localhost', 'root', '', 'indicadores');
+
 session_start();
 if(isset($_SESSION['rol'])){
 	switch ($_SESSION['rol']) {
@@ -68,14 +69,14 @@ if(isset($_POST['submit'])){
 			$password = $_POST['clave_pwd'];
 	
 			$db = new Database();
-			$query = $db->connect()->prepare('SELECT *FROM usuarios WHERE clave_user = :username AND clave_pwd = :password');
+			$query = $db->connect()->prepare('SELECT * FROM usuarios WHERE clave_user = :username AND clave_pwd = :password');
 			$query->execute(['username' => $username, 'password' => $password]);
 	
 			$row = $query->fetch(PDO::FETCH_NUM);
 			
 			if($row == true){
-				$rol = $row[3];
-				echo 'hola';
+				$rol = $row[4];
+				$name = $row[2];
 				$_SESSION['rol'] = $rol;
 				switch($rol){
 					case 1:
