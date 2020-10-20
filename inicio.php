@@ -929,12 +929,12 @@ function drawMonthwiseChart3(chart_data, chart_main_title)
 <script>
     // Detectar seleccion del select option
 $(document).ready(function(){
-    var obj = document.createElement("audio");
-    obj.src = "holi2.mp3";
-    obj.volume = 0.5;
-    obj.autoPlay = false;
-    obj.preLoad = true;
-    obj.controls = true;
+    // var obj = document.createElement("audio");
+    // obj.src = "holi2.mp3";
+    // obj.volume = 0.5;
+    // obj.autoPlay = false;
+    // obj.preLoad = true;
+    // obj.controls = true;
     $('#id').change(function(){
         var id = $(this).val();
         if(id != '')
@@ -945,7 +945,7 @@ $(document).ready(function(){
             load_fuentes(id);
             load_modaldata(id);
             load_fumes(id)
-            obj.play();
+            // obj.play();
         }
     });
 
