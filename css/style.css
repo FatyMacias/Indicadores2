@@ -276,9 +276,17 @@ select {
 }
 
 select {
-  word-wrap: normal;
+  background: lightcoral !important;
+  color: #000;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
 }
 
+option:not(:checked) {
+  background-color: #fff;
+}
+option:not(:checked) {
+  background-color: lightgreen;
+}
 button,
 [type="button"],
 [type="reset"],
