@@ -7,7 +7,7 @@ $hijole='';
 $errores = array('clave_user'=>'','clave_pwd'=>'');
 
 session_start();
-if(isset($_SESSION['rol']) && isset($_SESSION['name'])){
+if(isset($_SESSION['rol'])){
 	switch ($_SESSION['rol']) {
 		case 1:
 			header("location: inicio.php"); 
@@ -78,7 +78,6 @@ if(isset($_POST['submit'])){
 				$rol = $row[4];
 				$name = $row[2];
 				$_SESSION['rol'] = $rol;
-				$_SESSION['name'] = $name;
 				switch($rol){
 					case 1:
 						header('location: inicio.php');

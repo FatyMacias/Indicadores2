@@ -3,7 +3,7 @@
 include("bd/database_connection.php");
 session_start();
 
-if(!isset($_SESSION['rol']) && isset($_SESSION['name'])){
+if(!isset($_SESSION['rol'])){
     header('location: index.php');
 }else{
     if($_SESSION['rol'] != 1){
@@ -59,14 +59,12 @@ $resultS = $statementS->fetchAll();
      <link href="css/toastr.min.css" rel="stylesheet"/>
      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"> 
   </head>
-  <style>
-
-  </style>
-  <body id="backgroundImage" class="bg">
+  
+  <body id="backgroundImage">
     
     <div class="wrapper d-flex align-items-stretch">
-      <nav id="sidebar" >
-      <center><a class="navbar-brand">INICIO </a></center>  
+      <nav id="sidebar">
+      <center><a class="navbar-brand">INICIO <?php echo $_SESSION['rol']; ?></a></center>  
         <div class="p-4 pt-5">
           <a href="inicio.php" class="img logo thumbnailmb-5" style="background-image: url(images/zac.png);"></a>
           <br>
@@ -118,7 +116,7 @@ $resultS = $statementS->fetchAll();
       
 
         <!-- Page Content  -->
-        <div id="content" class="p-4 p-md-5 ">
+        <div id="content" class="p-4 p-md-5">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
             <!-- Modal -->
@@ -153,9 +151,6 @@ $resultS = $statementS->fetchAll();
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto">
-                <li>
-                    <a class="nav-link" href="#"> <?php echo $_SESSION['name']; ?> </a>
-                </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Inicio</a>
                 </li>
@@ -166,13 +161,7 @@ $resultS = $statementS->fetchAll();
             </div>
           </div>
         </nav>
-        <table class="table table-hover table-bordered" style="border: 1px solid #ddd !important;">
-            <tbody>
-              <tr  class="">
-                <td class="table-active"><center><h1>INDICADORES</h1></center></td>
-              </tr>
-            </tbody>
-        </table>
+
         
   <div class="modal fade" id="myModaluno" role="dialog">
     <div class="modal-dialog" style="max-width: 100%;" role="document">
@@ -237,10 +226,7 @@ $resultS = $statementS->fetchAll();
 
            
         <div id="general" class="w3-container menu">
-          <div >
-            
-          </div>
-          
+          <center><h1>INDICADORES</h1></center>
           <div>
       
               
@@ -603,10 +589,10 @@ function drawModaldata(chart_data)
         /////////
         tablaData += '<tr>';
         //tablaData += '<td>'+mes+'</td>';
-        tablaData += '<td><strong>'+clave+'</strong></td>';
-        tablaData += '<td><strong>'+nombre+'</strong></td>';
-        tablaData += '<td><strong>'+deduc+'</strong></td>';
-        tablaData += '<td><strong>'+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</strong></td>';
+        tablaData += '<td>'+clave+'</td>';
+        tablaData += '<td>'+nombre+'</td>';
+        tablaData += '<td>'+deduc+'</td>';
+        tablaData += '<td>'+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
         tablaData += '</tr>';
         
         //tablaData += '<tr>';
@@ -616,7 +602,7 @@ function drawModaldata(chart_data)
 
     });
     
-    tablaData6 += '<td class="table-active"> <input type="button" class="btn btn-success" value="Por Conceptos" data-toggle="modal" data-target="#myModaluno"> </td>';
+    tablaData6 += '<td> <input type="button" class="btn btn-success" value="Por Conceptos" data-toggle="modal" data-target="#myModaluno"> </td>';
     $("#colbut").append(tablaData6);
     $("#coluno").append(tablaData);
 
@@ -691,8 +677,8 @@ function drawMonthwiseChart(chart_data, chart_main_title)
         var style = jsonData.style;
         data.addRows([[concepto, importe, style]]);
         //tablaData += '<tr>';
-        tablaData += '<td class="bg-success"><strong>'+jsonData.concepto+'</strong></td>';
-        tablaData2 += '<td class="bg-success"><strong>'+'$'+jsonData.importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</strong></td>';
+        tablaData += '<td>'+jsonData.concepto+'</td>';
+        tablaData2 += '<td>'+'$'+jsonData.importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
         //tablaData += '</tr>';
         //tablaData += '<tr>';
         //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
@@ -705,7 +691,7 @@ function drawMonthwiseChart(chart_data, chart_main_title)
       total += parseFloat(jsonData[i].importe,10);
       //alert(total);
     }
-   tablaData4 +='<td class="bg-danger"><strong>'+'$'+total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</strong></td>';
+   tablaData4 +='<td><strong>'+'$'+total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</strong></td>';
    tablaData3 += '<td> <input type="button" class="btn btn-success" value="Ocultar/Mostrar Grafica" onclick="show()"> </td>';
    var axis = data.getNumberOfRows();
    //alert('max data table value: ' + data.getValue(0, 0));
@@ -795,8 +781,8 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
         var style = jsonData.style;
         data.addRows([[concepto, importe, style]]);
 
-        tablaData += '<td class="bg-success"><strong>'+concepto+'</strong></td>';
-        tablaData2 += '<td class="bg-success"><strong>'+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</strong></td>';
+        tablaData += '<td>'+concepto+'</td>';
+        tablaData2 += '<td>'+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
 
 
     });
@@ -805,7 +791,7 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
       total += parseFloat(jsonData[i].importe,10);
       //alert(total);
     }
-     tablaData4 +='<td class="bg-danger"><strong>'+'$'+total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</strong></td>';
+     tablaData4 +='<td><strong>'+'$'+total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</strong></td>';
      tablaData3 += '<td> <input type="button" class="btn btn-success" value="Ocultar/Mostrar Grafica" onclick="show2()"> </td>';
     
     //funcion para los colores aleatorios de la gráfica
@@ -929,12 +915,7 @@ function drawMonthwiseChart3(chart_data, chart_main_title)
 <script>
     // Detectar seleccion del select option
 $(document).ready(function(){
-    var obj = document.createElement("audio");
-    obj.src = "holi2.mp3";
-    obj.volume = 0.5;
-    obj.autoPlay = false;
-    obj.preLoad = true;
-    obj.controls = true;
+
     $('#id').change(function(){
         var id = $(this).val();
         if(id != '')
@@ -945,7 +926,6 @@ $(document).ready(function(){
             load_fuentes(id);
             load_modaldata(id);
             load_fumes(id)
-            obj.play();
         }
     });
 
@@ -957,6 +937,7 @@ $(document).ready(function(){
 <script>
     // Detectar seleccion del select option
 $(document).ready(function(){
+
     $('#idc, #idm').change(function(){
         var idc = $('#idc').val();
         var idm = $('#idm').val();
@@ -965,8 +946,6 @@ $(document).ready(function(){
             //alert("The text has been changed.");
             
             load_conceptowise3_data(idc, idm, 'Importe anual, concepto:  ');
-            var audio = document.getElementById("audio");
-
         }
     });
 
