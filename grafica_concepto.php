@@ -1,7 +1,6 @@
 <?php
 Include("bd/database_connection.php");
 $queryC = "SELECT cve_cpto, concepto AS 'concepto' FROM `cat_conceptos`";
-//$query = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year DESC";
 $queryM = "SELECT mes,id_mes,nombre FROM `cat_mes` JOIN meses ON cat_mes.mes = meses.id_mes GROUP BY mes ORDER BY id_quin";
 
 
@@ -53,18 +52,12 @@ $resultM = $statementM->fetchAll();
                 <li>
                     <a href="grafica_concepto.php" onclick="openMenu('conceptos')">Gráfica Por Concepto</a>
                 </li>
-                <!-- <li>
-                    <a href="#">Por banco</a>
-                </li> -->
                 <li>
                     <a href="grafica_subsistema.php" onclick="openMenu('genero')">Subsistemas</a>
                 </li>
                 <li>
                     <a href="regiones.php" onclick="">Regiones</a>
                 </li>
-                <!-- <li>
-                    <a href="grafica_porgenero.php" onclick="openMenu('genero')">Por género</a>
-                </li> -->
               </ul>
           </li>
 
@@ -76,12 +69,6 @@ $resultM = $statementM->fetchAll();
                 <li>
                     <a href="grafica_genero.php" onclick="openMenu('subsis')">Gráfica Por Género</a>
                 </li>
-                <!-- <li>
-                    <a href="#">Page 2</a>
-                </li>
-                <li>
-                    <a href="#">Page 3</a>
-                </li> -->
               </ul>
             </li>
           </ul>
@@ -262,7 +249,6 @@ function load_conceptowise3_data(idc, idm, title)
 var tokenData;
 function load_funcon(idc, idm)
 {
-    //var temp_title = title + ' '+idc+''+''+idm+'';
     $.ajax({
         url:"bd/fetch_funcon.php",
         method:"POST",
@@ -301,7 +287,6 @@ function drawMonthwiseChart3(chart_data, chart_main_title)
         data.addRows([[concepto, importe, style]]);
         tablaData += '<tr>';
         tablaData += '<td>'+jsonData.concepto+'</td>';
-       // tablaData += '<td>'+jsonData.importe+'</td>';
         tablaData += '<td>'+'$'+jsonData.importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
         tablaData += '</tr>';
 
@@ -310,7 +295,6 @@ function drawMonthwiseChart3(chart_data, chart_main_title)
     var total = 0;
     for(var i in jsonData){
       total += parseFloat(jsonData[i].importe,10);
-      //alert(total);
     }
     tablaData += '<td class="table-dark text-light"><strong>Total:</strong></td>';
     tablaData += '<td><strong>'+'$'+total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</strong></td>';
@@ -320,7 +304,6 @@ function drawMonthwiseChart3(chart_data, chart_main_title)
     $("#col1").append(tablaData);
 
     var axis = data.getNumberOfRows();
-   //alert('max data table value: ' + axis);
    for(var x=0;x<axis;x++){
     data.setValue(x, 2, '#'+Math.floor(Math.random()*16777215).toString(16));
    }
@@ -346,16 +329,12 @@ function drawMonthwiseChart3(chart_data, chart_main_title)
       for (var i =0; i<selection.length;i++){
         var item = selection[i];
         var str = data.getValue(item.row, 0);
-        //var res = str.slice(1);
         var stn = data.getRowProperties(item.row);
-        //alert(str);
         $.each(tokenData, function(i, tokenData){
            var fuente = tokenData.fuente;
            var quin = tokenData.concepto;
            var importe = tokenData.importe;
            var nombre = tokenData.nombre;
-           //alert(tablaData6);
-           //var admin = jsonData.admvos;
            if(str){
              if(quin == str){
                 tablaData6 += "<strong>Fuente:</strong> "+nombre+' '+fuente+' <strong>Importe:</strong> '+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+"<br>";
@@ -389,14 +368,11 @@ $(document).ready(function(){
     $('#something, #idm').change(function(){
         var idc = $("#something").val().slice(0,2);
         var idm = $('#idm').val();
-        //alert(idc);
         if(idc != '' && idm != '')
         {
-           // alert("The text has been changed.");
             load_funcon(idc, idm);
             load_conceptowise3_data(idc, idm, 'Importe por cada año, concepto: ');
             //el input se limpiara cuando llegue a este punto
-            //$('#something').val('');
         }
     });
 

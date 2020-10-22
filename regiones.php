@@ -1,7 +1,6 @@
 <?php
 Include("bd/database_connection.php");
 $queryC = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year ASC";
-//$query = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year DESC";
 $queryM = "SELECT SUBSTRING(qna_ini,5,6) AS quincena FROM `cat_quincenas` LIMIT 24";
 $statementC = $connect->prepare($queryC);
 $statementM = $connect->prepare($queryM);
@@ -60,20 +59,12 @@ $resultM = $statementM->fetchAll();
                 <li>
                     <a href="grafica_concepto.php" onclick="openMenu('conceptos')">Gráfica Por Concepto</a>
                 </li>
-                <!-- <li>
-                    <a href="#">Por banco</a>
-                </li> -->
                 <li>
                     <a href="grafica_subsistema.php" onclick="openMenu('genero')">Subsistemas</a>
                 </li>
-                <!-- <li>
-                    <a href="grafica_porgenero.php" onclick="openMenu('genero')">Por género</a>
-                </li> -->
-
                 <li>
                     <a href="regiones.php">Regiones</a>
                 </li> 
-
               </ul>
             </li>
 
@@ -85,12 +76,6 @@ $resultM = $statementM->fetchAll();
                 <li>
                     <a href="grafica_genero.php" onclick="openMenu('subsis')">Gráfica Por Género</a>
                 </li>
-                <!-- <li>
-                    <a href="#">Page 2</a>
-                </li>
-                <li>
-                    <a href="#">Page 3</a>
-                </li> -->
               </ul>
             </li>
           </ul>
@@ -111,18 +96,15 @@ $resultM = $statementM->fetchAll();
         <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-        <!-- <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Modal title</h5> -->
           <h4 class="modal-title w-100 text-center" class="modal-title">INFORMACIÓN</h4>
         </div>
         <div class="modal-body" id="body">
         </div>
          <div class="modal-footer">
-          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
         </div> 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary">Cerrar</button>
-        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
       </div>
     </div>
   </div>
@@ -184,7 +166,6 @@ $resultM = $statementM->fetchAll();
         <table id="example2" class="table table-hover table-bordered" style="width:100%; border: 1px solid #ddd !important;">
           <thead class="thead-dark">
             <tr>
-              <!-- <th scope="col">id</th> -->
               <th scope="col">Región</th>
               <th scope="col">Importe Total</th>
               <th scope="col">Importe/Docentes</th>
@@ -195,7 +176,6 @@ $resultM = $statementM->fetchAll();
           <tbody id="colsubsis"></tbody>
           <tfoot class="thead-dark">
           <tr>
-              <!-- <th scope="col">id</th> -->
               <th scope="col">Región</th>
               <th scope="col">Importe Total</th>
               <th scope="col">Importe/Docentes</th>
@@ -208,12 +188,9 @@ $resultM = $statementM->fetchAll();
           <tr id = "colbuts">
           </tr>
         </table>
-        
-        <!-- <div id = "diva" class="alert alert-success mt-5 col-md-12" role="alert" style = "display:none;"></div> -->
         <table id="example" class="table table-hover table-bordered" style="width:100%; border: 1px solid #ddd !important;">
           <thead class="thead-dark">
             <tr>
-              <!-- <th scope="col">id</th> -->
               <th scope="col">Región</th>
               <th scope="col">Importe Total</th>
               <th scope="col">Importe/Docentes</th>
@@ -225,7 +202,6 @@ $resultM = $statementM->fetchAll();
           </tbody>
           <tfoot class="thead-dark">
           <tr>
-              <!-- <th scope="col">id</th> -->
               <th scope="col">Región</th>
               <th scope="col">Importe Total</th>
               <th scope="col">Importe/Docentes</th>
@@ -270,7 +246,6 @@ $resultM = $statementM->fetchAll();
 </div>
 <script>
   function show2(){
-      //document.getElementById('chart_area').visibility = "visible";
       var x = document.getElementById('chart_area');
       if (x.style.visibility === 'hidden') {
           x.style.visibility = 'visible';
@@ -306,17 +281,12 @@ $resultM = $statementM->fetchAll();
 <script type="text/javascript" src="./charts/loader.js"></script>
 <script type="text/javascript">
 google.charts.load('current', {packages: ['corechart', 'bar']});
-// google.charts.load('current', {'packages':['table']});
-
 google.charts.setOnLoadCallback();
 
 
 //peticion para la grafica por conceptos
 function load_subsis(id, idd)
 {
- 
-
-    //var temp_title = title + ' '+id+'';
     $.ajax({
         url:"bd/fetch_reg.php",
         method:"POST",
@@ -337,7 +307,6 @@ function load_subsis(id, idd)
 function drawSubsis(chart_data,success)
 {
     var jsonData = chart_data;
-    //alert(jsonData.length);
     var temp = 1;
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Quincenas');
@@ -356,9 +325,7 @@ function drawSubsis(chart_data,success)
     
    $('#colsubsis').empty();
    $('#colbuts').empty();
-   //$('#col2_1').empty();
     $.each(jsonData, function(i, jsonData){
-       // var mes = temp ++;
         var id = jsonData.id;
         var region = jsonData.region;
         var total = jsonData.total;
@@ -366,25 +333,15 @@ function drawSubsis(chart_data,success)
         var admvos = jsonData.admvos;
         var style = jsonData.style;
         data.addRows([[region, parseInt(total), style]]);
-        //var importe = parseFloat($.trim(jsonData.importe));
         /////////
         tablaData += '<tr id = "'+id+'">';
-        //tablaData += '<td>'+mes+'</td>';
         tablaData += '<td >'+region+'</td>';
         tablaData += '<td>'+'$'+total.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
         tablaData += '<td>'+'$'+docente.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
         tablaData += '<td>'+'$'+admvos.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
         tablaData += '<td>'+'<input id = "btn'+id+'" type="button" class="boton float-md-right btn btn-success" onclick="cloneRow('+id+')" value="Seleccionar">'+'</td>';
-        //tablaData += '<td> <input type="button" class="btn btn-success" value="Seleccionar"> </td>'
         tablaData += '</tr>';
-        
-        //tablaData += '<tr>';
-        //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
-        //tablaData += '</tr>';
         /////////
-        
-
-
     });
     
     tablaData6 += '<td> <input type="button" class="btn btn-success" value="Mostrar/Ocultar Graficas" onclick="show2()"> </td>';
@@ -404,7 +361,6 @@ function drawSubsis(chart_data,success)
     $("#colbuts").append(tablaData6);
     $("#colsubsis").append(tablaData);
     var axis = data.getNumberOfRows();
-   //alert('max data table value: ' + axis);
    for(var x=0;x<axis;x++){
     data.setValue(x, 2, '#'+Math.floor(Math.random()*16777215).toString(16));
    }
@@ -441,7 +397,6 @@ function drawSubsis(chart_data,success)
            var admin = jsonData.admvos;
            if(str){
              if(i == res){
-               //alert(i + res);
                 $("#myModal").modal();
                 $("#body").html(
                  
@@ -511,38 +466,18 @@ function drawSubsis(chart_data,success)
 
 
 }
-//var x = 0;
 function cloneRow(region) {
-      //alert(region.id);
-      
       var row = document.getElementById(region); // find row to copy
       var table = document.getElementById("tableModify"); // find table to append to
       var clone = row.cloneNode(true); // copy children too
-      //x++;
       clone.id = "alvsijalonasion"; // change id or other attributes/contents
-      //clone.getElementsByTagName('input')[0].id = "btn"+x;
       clone.getElementsByTagName('input')[0].className = "botons float-md-right btn btn-danger";
       clone.getElementsByTagName('input')[0].value = "Eliminar";
-      // clone.getElementsByTagName('input')[0].removeEventListener("click",cloneRow,false);
       clone.getElementsByTagName('input')[0].onclick = "";
       clone.getElementsByTagName('input')[0].addEventListener('click', function(){
           table.removeChild(clone);
         });
-      // var sum = 0, sum2 =0, sum3 =0;
-      // var idd = 0;
-      // var tcount = table.rows.length;
-      // for(var i=0;i<=tcount;i++){
-      //   idd = clone.getElementsByTagName('td')[1].id = i;
-      //   sum += parseInt(clone.getElementsByTagName('td')[1].innerHTML.slice(1).replace(/,/g, ''));
-      //   // sum2 += parseInt(clone.getElementsByTagName('td')[2].innerHTML.slice(1).replace(/,/g, ''));
-      //   // sum3 += parseInt(clone.getElementsByTagName('td')[3].innerHTML.slice(1).replace(/,/g, ''));
-      // }
-      // //alert(sum);
-      // var newRow=table.insertRow();
-      // newRow.innerHTML= '<td>Total: </td>'+'<td>'+sum.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
       table.appendChild(clone); // add new row to end of table
-      
-      
     }
 
 function disable(tid,rid){
@@ -601,14 +536,7 @@ function mostb(){
         $("#btnd").click(function(){
           table2.clear().destroy();
           $('#diva').html("");
-          //$("#btns").prop("disabled", true);
         });
-        // $("#btns").click(function(){
-        //   alert('ahi va');
-        // });
-        // $('#example tbody').on( 'click', 'td', function () {
-        //   alert( table2.cell( this ).data() );
-        // });
           table2.row.add( [
               counter ='Total:',
               counter ='$'+table2.column( 1 ).data().sum().toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"),
@@ -638,7 +566,6 @@ $(document).ready(function(){
         var idd = $('#idd').val();
         if(id != '' && idd != '')
         {
-            //alert("The text has been changed.");
             load_subsis(id, idd);
             $("#btns").prop("disabled", false);
 
@@ -653,10 +580,8 @@ $(document).ready(function(){
         for(var x = 0;x<14;x++){
           var id = $(this).attr('id');
           var res = id.slice(3);
-          //alert(res);
           if(id){
             if(x == res){
-              //alert(id);
               $(this).prop("disabled",true);
             }
           }
@@ -666,10 +591,8 @@ $(document).ready(function(){
         for(var x = 0;x<14;x++){
           var id = $(this).attr('id');
           var res = id.slice(3);
-          //alert(res);
           if(id){
             if(x == res){
-              //alert(ids+id);
               $('.boton').each(function () {
                 var ids = $(this).attr('id');
                 if(id == ids){
@@ -685,7 +608,6 @@ $(document).ready(function(){
   $("#btns").on("click", function() {
       $(this).prop("disabled", true);
       $("#btnd").prop("disabled", false);
-      //$(".boton").prop("disabled", true);
       $(".boton").hide();
       $(".botons").hide();
       x.style.display = "block";
@@ -693,13 +615,9 @@ $(document).ready(function(){
   $("#btnd").on("click", function() {
       $(this).prop("disabled", true);
       $("#btns").prop("disabled", false);
-      //$(".boton").prop("disabled", true);
       $(".boton").show();
       $(".boton").prop("disabled",false);
       x.style.display = "none";
-
   });
-
-
 });
 </script>

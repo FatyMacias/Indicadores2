@@ -1,5 +1,4 @@
 <?php  
-
 include("bd/database_connection.php");
 session_start();
 
@@ -12,7 +11,6 @@ if(!isset($_SESSION['rol']) && isset($_SESSION['name'])){
 }
 $query = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year ASC";
 $queryC = "SELECT cve_cpto, concepto FROM `cat_conceptos`";
-//$query = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year DESC";
 $queryM = "SELECT mes,id_mes,nombre FROM `cat_mes` JOIN nom_mes ON cat_mes.mes = nom_mes.id_mes GROUP BY mes ORDER BY id_quin";
 $queryS = "SELECT des_subs FROM `cat_subsitema`";
 
@@ -81,9 +79,6 @@ $resultS = $statementS->fetchAll();
                 <li>
                     <a href="grafica_concepto.php" onclick="openMenu('conceptos')">Gráfica Por Concepto</a>
                 </li>
-                <!-- <li>
-                    <a href="#">Por banco</a>
-                </li> -->
                 <li>
                     <a href="grafica_subsistema.php" onclick="openMenu('genero')">Subsistemas</a>
                 </li> 
@@ -101,12 +96,6 @@ $resultS = $statementS->fetchAll();
                 <li>
                     <a href="grafica_genero.php" onclick="openMenu('subsis')">Gráfica Por Género</a>
                 </li>
-                <!-- <li>
-                    <a href="#">Page 2</a>
-                </li>
-                <li>
-                    <a href="#">Page 3</a>
-                </li> -->
               </ul>
             </li>
           </ul>
@@ -127,18 +116,15 @@ $resultS = $statementS->fetchAll();
         <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-        <!-- <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Modal title</h5> -->
           <h4 class="modal-title w-100 text-center" class="modal-title">INFORMACIÓN</h4>
         </div>
         <div class="modal-body" id="body">
         </div>
          <div class="modal-footer">
-          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
         </div> 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary">Cerrar</button>
-        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
       </div>
     </div>
   </div>
@@ -184,9 +170,6 @@ $resultS = $statementS->fetchAll();
                             data-dismiss="modal" aria-label="Close"> 
                             <span class="row align-items-center" style="position: absolute;" aria-hidden="true">×</span>
                         </button> 
-        <!-- <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button> -->
         <h4 class="modal-title w-100 text-center" class="modal-title">CONCEPTOS POR AÑO</h4>
 
         </div>
@@ -196,7 +179,6 @@ $resultS = $statementS->fetchAll();
                         
                               <thead class="thead-dark">
                                     <tr>
-                                      <!-- <th scope="col">Mes</th> -->
                                       <th scope="col">Clave</th>
                                       <th scope="col">Nombre del Concepto</th>
                                       <th style="width:15px" scope="col">Deducción o Percepción</th>
@@ -208,7 +190,6 @@ $resultS = $statementS->fetchAll();
                             </tbody>
                             <tfoot class="thead-dark">
                                      <tr>
-                                      <!-- <th scope="col">Mes</th> -->
                                       <th scope="col">Clave</th>
                                       <th scope="col">Nombre del Concepto</th>
                                       <th style="width:15px" scope="col">Deducción o Percepción</th>
@@ -222,7 +203,6 @@ $resultS = $statementS->fetchAll();
         <div class="modal-body" id="body">
         </div>
         <div class="modal-footer">
-          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
         </div> 
 </div>
         <div class="modal-footer">
@@ -454,7 +434,6 @@ $resultS = $statementS->fetchAll();
 
 google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.load('current', {'packages':['table']});
-//google.charts.load('current', {packages: ['table']});
 google.charts.setOnLoadCallback();
 
 
@@ -507,7 +486,6 @@ function load_fumes(id, title)
         success:function(data)
         {
             pokeData = data;
-            //drawFuentes(data, temp_title);
         },
         error: function(data)
         {
@@ -527,7 +505,6 @@ function load_fuentes(id, title)
         success:function(data)
         {
             tokenData = data;
-            //drawFuentes(data, temp_title);
         },
         error: function(data)
         {
@@ -592,26 +569,19 @@ function drawModaldata(chart_data)
     
    $('#coluno').empty();
    $('#colbut').empty();
-   //$('#col2_1').empty();
     $.each(jsonData, function(i, jsonData){
         var mes = temp ++;
         var importe = jsonData.importe;
         var clave = jsonData.clave;
         var nombre = jsonData.nombre;
         var deduc = jsonData.deduc;
-        //var importe = parseFloat($.trim(jsonData.importe));
         /////////
         tablaData += '<tr>';
-        //tablaData += '<td>'+mes+'</td>';
         tablaData += '<td><strong>'+clave+'</strong></td>';
         tablaData += '<td><strong>'+nombre+'</strong></td>';
         tablaData += '<td><strong>'+deduc+'</strong></td>';
         tablaData += '<td><strong>'+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</strong></td>';
         tablaData += '</tr>';
-        
-        //tablaData += '<tr>';
-        //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
-        //tablaData += '</tr>';
         /////////
 
     });
@@ -647,16 +617,7 @@ function drawModaldata(chart_data)
         $('#id').change(function(){
           table.clear().destroy();
         });
-
-        
-
-      });
-
-   
-    
-    
-    
-   
+      }); 
 }
 
 // dibujar grafica 1 global
@@ -690,28 +651,20 @@ function drawMonthwiseChart(chart_data, chart_main_title)
         var importe = parseFloat($.trim(jsonData.importe));
         var style = jsonData.style;
         data.addRows([[concepto, importe, style]]);
-        //tablaData += '<tr>';
         tablaData += '<td class="bg-success"><strong>'+jsonData.concepto+'</strong></td>';
         tablaData2 += '<td class="bg-success"><strong>'+'$'+jsonData.importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</strong></td>';
-        //tablaData += '</tr>';
-        //tablaData += '<tr>';
-        //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
-        //tablaData += '</tr>';
         /////////
 
     });
     var total = 0;
     for(var i in jsonData){
       total += parseFloat(jsonData[i].importe,10);
-      //alert(total);
     }
    tablaData4 +='<td class="bg-danger"><strong>'+'$'+total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</strong></td>';
    tablaData3 += '<td> <input type="button" class="btn btn-success" value="Ocultar/Mostrar Grafica" onclick="show()"> </td>';
    var axis = data.getNumberOfRows();
-   //alert('max data table value: ' + data.getValue(0, 0));
    for(var x=0;x<axis;x++){
     data.setValue(x, 2, '#'+Math.floor(Math.random()*16777215).toString(16));
-    //data.getValue(0,0)
    }
 
  $("#col1").append(tablaData);
@@ -743,16 +696,12 @@ function drawMonthwiseChart(chart_data, chart_main_title)
       for (var i =0; i<selection.length;i++){
         var item = selection[i];
         var str = data.getValue(item.row, 0);
-        //var res = str.slice(1);
         var stn = data.getRowProperties(item.row);
-        //alert(str);
         $.each(pokeData, function(i, pokeData){
            var fuente = pokeData.fuente;
            var quin = pokeData.concepto;
            var importe = pokeData.importe;
            var nombre = pokeData.nombre;
-           //alert(tablaData6);
-           //var admin = jsonData.admvos;
            if(str){
              if(quin == str){
                 tablaData6 += "<strong>Fuente:</strong> "+nombre+' '+fuente+' <strong>Importe:</strong> '+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+"<br>";
@@ -803,14 +752,12 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
     var total = 0;
     for(var i in jsonData){
       total += parseFloat(jsonData[i].importe,10);
-      //alert(total);
     }
      tablaData4 +='<td class="bg-danger"><strong>'+'$'+total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</strong></td>';
      tablaData3 += '<td> <input type="button" class="btn btn-success" value="Ocultar/Mostrar Grafica" onclick="show2()"> </td>';
     
     //funcion para los colores aleatorios de la gráfica
     var axis = data.getNumberOfRows();
-    //alert('max data table value: ' + axis.max);
     for(var x=0;x<axis;x++){
     data.setValue(x, 2, '#'+Math.floor(Math.random()*16777215).toString(16));
    }
@@ -845,16 +792,12 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
       for (var i =0; i<selection.length;i++){
         var item = selection[i];
         var str = data.getValue(item.row, 0);
-        //var res = str.slice(1);
         var stn = data.getRowProperties(item.row);
-        //alert(str);
         $.each(tokenData, function(i, tokenData){
            var fuente = tokenData.fuente;
            var quin = tokenData.concepto;
            var importe = tokenData.importe;
            var nombre = tokenData.nombre;
-           //alert(tablaData6);
-           //var admin = jsonData.admvos;
            if(str){
              if(quin == str){
                 tablaData6 += "<strong>Fuente:</strong> "+nombre+' '+fuente+' <strong>Importe:</strong> '+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+"<br>";
@@ -869,19 +812,6 @@ function drawMonthwiseChart2(chart_data, chart_main_title)
     }
     
 }
-// function drawFuentes(chart_data, chart_main_title){
-//       //alert("fuente");
-//       $.each(jsonData, function(i, jsonData){
-//         var concepto = jsonData.concepto;
-//         var importe = parseFloat($.trim(jsonData.importe));
-//         var fuente = jsonData.fuente;
-//         //var style = jsonData.style;
-//         data.addRows([[concepto, importe]]);
-
-//         //alert(fuente);
-//       });
-//   }
-//dibujar graafica por conceptos
 function drawMonthwiseChart3(chart_data, chart_main_title)
 {
     var jsonData = chart_data;
@@ -901,7 +831,6 @@ function drawMonthwiseChart3(chart_data, chart_main_title)
 
     });
     var axis = data.getNumberOfRows();
-    //alert('max data table value: ' + axis);
     for(var x=0;x<axis;x++){
     data.setValue(x, 2, '#'+Math.floor(Math.random()*16777215).toString(16));
    }
@@ -929,23 +858,15 @@ function drawMonthwiseChart3(chart_data, chart_main_title)
 <script>
     // Detectar seleccion del select option
 $(document).ready(function(){
-    // var obj = document.createElement("audio");
-    // obj.src = "holi2.mp3";
-    // obj.volume = 0.5;
-    // obj.autoPlay = false;
-    // obj.preLoad = true;
-    // obj.controls = true;
     $('#id').change(function(){
         var id = $(this).val();
         if(id != '')
         {
-            //alert("The text has been changed.");
             load_conceptowise_data(id, 'Importe por cada mes, quincenas correspondientes al año:');
             load_conceptowise2_data(id, 'Importe por cada quincena, quincenas correspondientes al año:');
             load_fuentes(id);
             load_modaldata(id);
             load_fumes(id)
-            // obj.play();
         }
     });
 
@@ -962,15 +883,11 @@ $(document).ready(function(){
         var idm = $('#idm').val();
         if(idc != '' && idm != '')
         {
-            //alert("The text has been changed.");
-            
             load_conceptowise3_data(idc, idm, 'Importe anual, concepto:  ');
             var audio = document.getElementById("audio");
-
         }
     });
 
 });
-
 </script>
 

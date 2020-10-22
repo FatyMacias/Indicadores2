@@ -1,7 +1,6 @@
 <?php
 Include("bd/database_connection.php");
 $queryC = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year ASC";
-//$query = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year DESC";
 $queryM = "SELECT SUBSTRING(qna_pago,5,6) AS 'year' FROM indicador GROUP BY year ASC";
 
 
@@ -59,9 +58,6 @@ $resultM = $statementM->fetchAll();
                 <li>
                     <a href="grafica_concepto.php" onclick="openMenu('conceptos')">Gráfica Por Concepto</a>
                 </li>
-                <!-- <li>
-                    <a href="#">Por banco</a>
-                </li> -->
                 <li>
                     <a href="grafica_subsistema.php" onclick="openMenu('genero')">Subsistemas</a>
                 </li>
@@ -77,12 +73,6 @@ $resultM = $statementM->fetchAll();
                 <li>
                     <a href="grafica_genero.php" onclick="openMenu('subsis')">Gráfica Por Género</a>
                 </li>
-                <!-- <li>
-                    <a href="#">Page 2</a>
-                </li>
-                <li>
-                    <a href="#">Page 3</a>
-                </li> -->
               </ul>
             </li> 
           </ul>
@@ -311,7 +301,6 @@ $resultM = $statementM->fetchAll();
               document.getElementById(menuName).style.display = "block";  
             }
             function show(){
-              //document.getElementById('chart_area').visibility = "visible";
               var x = document.getElementById('chart_area3');
               var y = document.getElementById('chart_area2');
               if (x.style.visibility === 'hidden' && y.style.visibility === 'hidden') {
@@ -324,7 +313,6 @@ $resultM = $statementM->fetchAll();
                
             }
             function show2(){
-              //document.getElementById('chart_area').visibility = "visible";
               var x = document.getElementById('chart_area');
               if (x.style.visibility === 'hidden') {
                   x.style.visibility = 'visible';
@@ -362,8 +350,6 @@ google.charts.setOnLoadCallback();
 //peticion para la grafica por conceptos
 function load_subsis(id, idd)
 {
-    
-    //var temp_title = title + ' '+id+'';
     $.ajax({
         url:"bd/fetch_region.php",
         method:"POST",
@@ -386,8 +372,6 @@ function load_subsis(id, idd)
 
 function load_regtot(id, idd)
 {
-    
-    //var temp_title = title + ' '+id+'';
     $.ajax({
         url:"bd/hola.php",
         method:"POST",
@@ -399,7 +383,6 @@ function load_regtot(id, idd)
         },
         error: function(data)
         {
-            //alert("No hay Datos");
         }
     });
 }
@@ -434,10 +417,7 @@ function drawSubsis(chart_data)
    $('#colsubsis').empty();
    $('#colbuts').empty();
    $('#colreg').empty();
-   //tablaData +='<td class="table-dark text-light"><strong>Titulo</strong></td>';
-   //tablaData2 +='<td class="table-dark text-light"><strong>Cantidades</strong></td>';
     $.each(jsonData, function(i, jsonData){
-        //var mes = temp ++;
         var region = jsonData.region;
         var total = jsonData.total;
         var hombres = jsonData.hombres;
@@ -463,19 +443,6 @@ function drawSubsis(chart_data)
         tablaData += '<td>'+contrato+'</td>';
         tablaData += '<td>'+bachilleres+'</td>';
         tablaData += '</tr>';
-        //tablaData += '<tr>';
-
-        // if(i == 0){
-        // tablaData2 += '<td>Hombres: '+jsonData.hombres+' Mujeres: '+mujeres+'</td>';
-        // tablaData2 += '<br>';
-        // }
-        //selectHandler(i);
-        
-
-         
-        //tablaData += '</tr>';
-        /////////
-
     });
     
     tablaData6 += '<td> <input type="button" class="btn btn-success" value="Mostrar/Ocultar Graficas" onclick="show()"> </td>';
@@ -504,17 +471,11 @@ function drawSubsis(chart_data)
     tablaData+='<td>'+total9+'</td>';
     
     $("#colbuts").append(tablaData6);
-    //$("#colreg").append(tablaData2);
     $("#colsubsis").append(tablaData);
     var axis = data3.getNumberOfRows();
-   //alert('max data table value: ' + axis);
    for(var x=0;x<axis;x++){
     data3.setValue(x, 2, '#'+Math.floor(Math.random()*16777215).toString(16));
    }
-
-
-
-  
     options3 = {
         title:"Mujeres y Hombres por Region",
         legend: 'none',
@@ -523,14 +484,9 @@ function drawSubsis(chart_data)
         },
         vAxis: {
             title: 'Cantidades',
-            //format: 'currency'
-      
         }
 
     };
-
-
-    
     chart3 = new google.visualization.ColumnChart(document.getElementById('chart_area3'));
     chart3.draw(data3, options3);
     google.visualization.events.addListener(chart3, 'select', selectHandler);
@@ -548,7 +504,6 @@ function drawSubsis(chart_data)
            var mujeres = jsonData.mujeres;
            if(str){
              if(i == res){
-               //alert(i + res);
                 $("#myModal").modal();
                 $("#body").html(
                   '<br><strong>'+str+'</strong><br>'+
@@ -558,9 +513,6 @@ function drawSubsis(chart_data)
            }
         });
       }
-      /////datatabla
-
-   
   } 
 }
   function test3() {
@@ -600,16 +552,12 @@ function drawSubsis2(chart_data)
         tableData2 += '<td><strong>'+region+',  </strong></td>';
         tableData2 += '<td>Cantidad: <strong>'+mujeres+'</strong></td>';
         tableData2 += '<br>';
-
-        //data.addRows([[region, hombres, mujeres]]);
-
     });
     var total= 0;
     var total2 = 0;
     for(var i in jsonData){
       total += parseFloat(jsonData[i].hombres,10);
       total2 += parseFloat(jsonData[i].mujeres,10);
-      //alert(totale);
     }
     data2.addRows([
       ['Genero', total, total2]
@@ -617,7 +565,6 @@ function drawSubsis2(chart_data)
     options2 = {
         title:"Mujeres y Hombres por Region",
         width: '100%',
-        //legend: 'none',
         hAxis: {
             title: "Regiones"
         },
@@ -627,7 +574,6 @@ function drawSubsis2(chart_data)
             max: 5000
           },
             title: 'Cantidades',
-            //format: 'currency'
         }
     };
     chart2 = new google.visualization.ColumnChart(document.getElementById('chart_area2'));
@@ -651,16 +597,7 @@ function drawSubsis2(chart_data)
                 '<br>'+tableData2+'<br>');
               $("#myModal").modal();
             }
-            //alert(totale);
-          
-
       }
-      
-      // var selectedValue = data.getValue(selection.row, 0);
-      // var selectedImporte = data.getValue(selection.row, 1);
-  //  alert('Seleccionaste el Mes:' + ' ' + selectedValue + ' ' +'con un importe de:'+ ' ' + selectedImporte);
-   // $("#body").html('Seleccionaste el Mes:' + ' ' + selectedValue + ' ' +'con un importe de $:'+ ' ' + selectedImporte);
-
 }
 }
 function test2() {
@@ -693,10 +630,8 @@ function drawregtot(chart_data)
    $('#colsubsis').empty();
    $('#colbuts').empty();
    $('#colreg').empty();
-   //tablaData +='<td class="table-dark text-light"><strong>Titulo</strong></td>';
-   //tablaData2 +='<td class="table-dark text-light"><strong>Cantidades</strong></td>';
+
     $.each(jsonData, function(i, jsonData){
-        //var mes = temp ++;
         var region = jsonData.name;
         var total = jsonData.total;
         var hombres = jsonData.hombres;
@@ -722,12 +657,6 @@ function drawregtot(chart_data)
         tablaData += '<td>'+contrato+'</td>';
         tablaData += '<td>'+bachilleres+'</td>';
         tablaData += '</tr>';
-        
-        //tablaData += '<tr>';
-        //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
-        //tablaData += '</tr>';
-        /////////
-
     });
 
     tablaData6 += '<td> <input type="button" class="btn btn-success" value="Mostrar/Ocultar Graficas" onclick="show2()"> </td>';
@@ -755,53 +684,38 @@ function drawregtot(chart_data)
     tablaData+='<td>'+total8+'</td>';
     tablaData+='<td>'+total9+'</td>';    
     $("#colbuts1").append(tablaData6);
-    //$("#colreg").append(tablaData2);
     $("#colsubsis1").append(tablaData);
    
      options = {
         title:"Mujeres y Hombres por Nivel",
         width: '100%',
-        //legend: 'none',
         hAxis: {
             title: "Niveles"
         },
         vAxis: {
             title: 'Cantidades',
-            //format: 'currency'
-      
         }
 
     };
     chart = new google.visualization.ColumnChart(document.getElementById('chart_area'));
     chart.draw(data, options);
-
 }
 
 function test() {
   document.getElementById("chart_area").style.display = "block";
   chart.draw(data, options);
   }
-
-  
 </script>
-
-
-
-
-
-
 
 <script>
 // Detectar seleccion del select option
 $(document).ready(function(){
-
     $('#id, #idd').change(function(){
         var id =$('#id').val();
         var idd = $('#idd').val();
         
         if(id != '' && idd != '')
         {
-            //alert(idr);
             load_subsis(id, idd);
             load_regtot(id, idd);
 
@@ -811,29 +725,20 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
+  $('#idr').change(function(){
+      var idr =$('#idr').val();
+      if(idr != '' && idr == "Nivel")
+      {
+        toggle("Region", idr);
+        test();
+      }
+      if(idr != '' && idr == "Region")
+      {
+        toggle("Nivel", idr);
+        test2();
+        test3();
 
-$('#idr').change(function(){
-    var idr =$('#idr').val();
-    if(idr != '' && idr == "Nivel")
-    {
-      //myfunction(idr)
-      //window.location.replace("grafica_region_niveles.php");
-      //alert(idr);
-      toggle("Region", idr);
-      test();
-    }
-    if(idr != '' && idr == "Region")
-    {
-      //myfunction(idr)
-      //window.location.replace("grafica_region_niveles.php");
-      //alert(idr);
-      toggle("Nivel", idr);
-      test2();
-      test3();
-
-    }
+      }
+  });
 });
-
-});
-
 </script>

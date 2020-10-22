@@ -1,7 +1,6 @@
 <?php
 Include("bd/database_connection.php");
 $queryC = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year ASC";
-//$query = "SELECT SUBSTRING(qna_pago,1,4) AS 'year' FROM indicador GROUP BY year DESC";
 $queryM = "SELECT des_subs FROM `cat_subsitema`";
 $statementC = $connect->prepare($queryC);
 $statementM = $connect->prepare($queryM);
@@ -22,7 +21,6 @@ $resultM = $statementM->fetchAll();
     <!-- Rgoogle -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    
     <!--datables CSS básico-->
     <link rel="stylesheet" type="text/css" href="datatables/datatables.min.css"/>
     <!--datables estilo bootstrap 4 CSS-->  
@@ -31,16 +29,12 @@ $resultM = $statementM->fetchAll();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="background.css">
-
-     
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
      <!-- importacion css para el toast-->
      <link href="css/toastr.min.css" rel="stylesheet"/>
      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"> 
-    
   </head>
   <body id="backgroundImage">
-    
     <div class="wrapper d-flex align-items-stretch">
       <nav id="sidebar">
       <center><a class="navbar-brand" href="inicio.php">INICIO</a></center>  
@@ -58,18 +52,12 @@ $resultM = $statementM->fetchAll();
                 <li>
                     <a href="grafica_concepto.php" onclick="openMenu('conceptos')">Gráfica Por Concepto</a>
                 </li>
-                <!-- <li>
-                    <a href="#">Por banco</a>
-                </li> -->
                 <li>
                     <a href="grafica_subsistema.php" onclick="openMenu('genero')">Subsistemas</a>
                 </li>
                 <li>
                     <a href="regiones.php" onclick="">Regiones</a>
                 </li>
-                <!-- <li>
-                    <a href="grafica_porgenero.php" onclick="openMenu('genero')">Por género</a>
-                </li> -->
               </ul>
             </li>
 
@@ -81,12 +69,6 @@ $resultM = $statementM->fetchAll();
                 <li>
                     <a href="grafica_genero.php" onclick="openMenu('subsis')">Gráfica Por Género</a>
                 </li>
-                <!-- <li>
-                    <a href="#">Page 2</a>
-                </li>
-                <li>
-                    <a href="#">Page 3</a>
-                </li> -->
               </ul>
             </li>
           </ul>
@@ -184,7 +166,6 @@ $resultM = $statementM->fetchAll();
                           
                                 <thead class="thead-dark">
                                       <tr>
-                                        <!-- <th scope="col">id</th> -->
                                         <th scope="col">Clave</th>
                                         <th scope="col">Nombre del Concepto</th>
                                         <th scope="col">Clave Subsistema</th>
@@ -198,7 +179,6 @@ $resultM = $statementM->fetchAll();
                               </tbody>
                               <tfoot class="thead-dark">
                                       <tr>
-                                        <!-- <th scope="col">id</th> -->
                                         <th scope="col">Clave</th>
                                         <th scope="col">Nombre del Concepto</th>
                                         <th scope="col">Clave Subsistema</th>
@@ -223,7 +203,6 @@ $resultM = $statementM->fetchAll();
               document.getElementById(menuName).style.display = "block";  
             }
             function show(){
-              //document.getElementById('chart_area').visibility = "visible";
               var x = document.getElementById('example2');
               if (x.style.visivility === 'hidden') {
                   x.style.visivility = 'visible';
@@ -264,9 +243,6 @@ google.charts.setOnLoadCallback();
 //peticion para la grafica por conceptos
 function load_subsis(id, idd)
 {
- 
-
-    //var temp_title = title + ' '+id+'';
     $.ajax({
         url:"bd/fetch_subsis.php",
         method:"POST",
@@ -287,7 +263,6 @@ function load_subsis(id, idd)
 function drawSubsis(chart_data,success)
 {
     var jsonData = chart_data;
-    //alert(jsonData.length);
     var temp = 1;
     //
     var tablaData ='';
@@ -300,19 +275,15 @@ function drawSubsis(chart_data,success)
     
    $('#colsubsis').empty();
    $('#colbuts').empty();
-   //$('#col2_1').empty();
     $.each(jsonData, function(i, jsonData){
-       // var mes = temp ++;
         var importe = jsonData.importe;
         var clave = jsonData.clave;
         var nombre = jsonData.nombre;
         var deduc = jsonData.subsis;
         var nomsis = jsonData.nomsis;
         var perded = jsonData.perded;
-        //var importe = parseFloat($.trim(jsonData.importe));
         /////////
         tablaData += '<tr>';
-        //tablaData += '<td>'+mes+'</td>';
         tablaData += '<td>'+clave+'</td>';
         tablaData += '<td>'+nombre+'</td>';
         tablaData += '<td>'+deduc+'</td>';
@@ -320,10 +291,6 @@ function drawSubsis(chart_data,success)
         tablaData += '<td>'+perded+'</td>';
         tablaData += '<td>'+'$'+importe.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")+'</td>';
         tablaData += '</tr>';
-        
-        //tablaData += '<tr>';
-        //tablaData += '<td>'+'$'+jsonData.importe+'</td>';
-        //tablaData += '</tr>';
         /////////
       });
     
@@ -375,19 +342,9 @@ function drawSubsis(chart_data,success)
   $('#id, #idd').change(function(){
           table.clear().destroy();
   });
-});
-    
-    
-    
-   
+}); 
 }
 </script>
-
-
-
-
-
-
 
 
 <script>
@@ -399,7 +356,6 @@ $(document).ready(function(){
         var idd = $('#idd').val();
         if(id != '' && idd != '')
         {
-            //alert("The text has been changed.");
             load_subsis(id, idd);
 
         }

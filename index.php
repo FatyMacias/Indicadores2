@@ -29,7 +29,6 @@ if(isset($_POST['submit'])){
 	if(empty($_POST['clave_user'])){
 		$errores['clave_user'] ='Tu Clave de Usuario es Requerida';
 	} else{
-		//echo htmlspecialchars($_POST['clave_user']);
 		$clav = $_POST["clave_user"];
 		if (!preg_match('/^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/', $clav)) {
 			$errores['clave_user'] ='Nombre de usuario solo debe tener letras y números.';
@@ -39,7 +38,6 @@ if(isset($_POST['submit'])){
 	if(empty($_POST['clave_pwd'])){
 		$errores['clave_pwd'] ='Tu Clave de Usuario es Requerida';
 	} else{
-		//echo htmlspecialchars($_POST['clave_pwd']);
 		$cla = $_POST["clave_pwd"];
 		if (!preg_match('/^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/', $cla)) {
 			$errores['clave_pwd'] ='La contraseña es incorrecta, inténtelo de  nuevo.';
@@ -49,22 +47,6 @@ if(isset($_POST['submit'])){
 		if(array_filter($errores)){
 			//echo "hay errores";
 		}else{
-
-			// $clav = mysqli_real_escape_string($conexion,$_POST['clave_user']);
-			// $cla = mysqli_real_escape_string($conexion,$_POST['clave_pwd']);
-
-			// $db = new Database();
-			// $consulta = "SELECT * FROM usuarios WHERE clave_user = '$clav' AND clave_pwd = '$cla'";
-			// $resultado = mysqli_query ($conexion, $consulta);
-			// $filas = mysqli_num_rows ($resultado); 
-
-			// if ($filas>0){
-			// 	header("location: inicio.php"); 
-
-			// }
-			// else{
-       		// 	$hijole='Usuario no autorizado';
-			// }
 			$username = $_POST['clave_user'];
 			$password = $_POST['clave_pwd'];
 	
@@ -101,7 +83,6 @@ if(isset($_POST['submit'])){
 
 			mysqli_free_result($resultado);
 			mysqli_close($conexion);
-			//$clav = mysqli_real_escape_string($)
 		}
 
 }
@@ -166,22 +147,6 @@ if(isset($_POST['submit'])){
 						<span class="focus-input100"></span>
 					</div>
 					<div class="red-text" style="color:red"> <?php echo $errores['clave_pwd']; ?></div>
-
-				<!-- 	<div class="flex-sb-m w-full p-b-30">
-						<div class="contact100-form-checkbox">
-							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-							<label class="label-checkbox100" for="ckb1">
-								Remember me
-							</label>
-						</div>
-
-						<div>
-							<a href="#" class="txt1">
-								Forgot Password?
-							</a>
-						</div>
-					</div> -->
-
 					<div class="container-login100-form-btn justify-content-center">
 						<Input class="login100-form-btn"  type="submit" name="submit" value="Ingresar">
 							
